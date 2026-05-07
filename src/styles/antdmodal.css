@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+.mod-content {
+  @apply w-full h-full flex-col gap-2 flex justify-center items-center;
+}
+
+.custom-modal .ant-modal-content {
+  @apply flex justify-center items-center dark:bg-[#292a2d];
+}
+
+.custom-modal .ant-modal-body {
+}
+
+.update-modal .ant-modal-content {
+  @apply dark:bg-[#292a2d] shadow-md;
+}
+
+.update-modal {
+  @apply justify-center items-center m-auto;
+}
+
+.errorView {
+  @apply flex flex-col justify-center items-center;
+}

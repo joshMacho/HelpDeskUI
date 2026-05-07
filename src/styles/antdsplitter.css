@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.my-splitter {
+  @apply shadow-lg bg-white my-2;
+}

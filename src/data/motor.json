@@ -1,0 +1,547 @@
+{
+  "type": "object",
+  "sections": [
+    {
+      "name": "policyInfo",
+      "label": "Policy Information",
+      "fields": [
+        {
+          "type": "group",
+          "name": "policyInfo",
+          "label": "Policy Info",
+          "fields": [
+            {
+              "type": "date",
+              "name": "effectiveDate",
+              "label": "Effective Date"
+            },
+            {
+              "type": "date",
+              "name": "endDate",
+              "label": "End Date"
+            },
+            {
+              "type": "select",
+              "name": "currency",
+              "label": "Currency",
+              "required": true,
+              "options": [
+                { "label": "GHC", "value": "GHC" },
+                { "label": "EURO", "value": "EUR" },
+                { "label": "POUNDS", "value": "GBP" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "personalDetails",
+      "label": "Personal Details",
+      "fields": [
+        {
+          "type": "group",
+          "name": "insuredName",
+          "label": "Insured Name",
+          "fields": [
+            {
+              "type": "text",
+              "name": "firstName",
+              "label": "First Name",
+              "required": true
+            },
+            {
+              "type": "text",
+              "name": "middleName",
+              "label": "Middle Name"
+            },
+            {
+              "type": "text",
+              "name": "surname",
+              "label": "Surname",
+              "required": true
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "name": "details",
+          "label": "",
+          "fields": [
+            {
+              "type": "text",
+              "name": "address",
+              "label": "Address",
+              "required": true
+            },
+            {
+              "type": "text",
+              "name": "occupation",
+              "label": "Occupation",
+              "required": true
+            },
+            {
+              "type": "select",
+              "name": "typeOfId",
+              "label": "Type of ID",
+              "required": true,
+              "options": [
+                {
+                  "label": "National ID",
+                  "value": "GHANA_CARD"
+                },
+                {
+                  "label": "Passport",
+                  "value": "PASSPORT"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "name": "idNumber",
+              "label": "Valid National ID No",
+              "required": true
+            },
+            {
+              "type": "date",
+              "name": "dateOfBirth",
+              "label": "Date of Birth",
+              "required": true
+            },
+            {
+              "type": "text",
+              "name": "contactNo",
+              "label": "Contact No. of Insured",
+              "required": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "name": "vehicles",
+      "label": "VEHICLES",
+      "minItems": 1,
+      "itemSchema": {
+        "type": "object",
+        "fields": [
+          {
+            "type": "group",
+            "name": "vehdet",
+            "label": "",
+            "fields": [
+              {
+                "type": "text",
+                "name": "make",
+                "label": "Make",
+                "required": true
+              },
+              {
+                "type": "text",
+                "name": "model",
+                "label": "Model",
+                "required": true
+              },
+              {
+                "type": "text",
+                "name": "typeOfBody",
+                "label": "Type of Body",
+                "required": true
+              },
+              {
+                "type": "text",
+                "name": "regNumber",
+                "label": "Vehicle Registration Number",
+                "required": true
+              },
+              {
+                "type": "text",
+                "name": "manufactureYear",
+                "label": "Year of Manufacture",
+                "required": true
+              },
+              {
+                "type": "text",
+                "name": "cubicCapacity",
+                "label": "Cubic Capacity",
+                "required": true
+              },
+              {
+                "type": "text",
+                "name": "seatingCapacity",
+                "label": "Seating Capacity",
+                "required": true
+              },
+              {
+                "type": "text",
+                "name": "color",
+                "label": "Color of Vehicle",
+                "required": true
+              },
+              {
+                "type": "text",
+                "name": "engineNo",
+                "label": "Engine Number"
+              },
+              {
+                "type": "text",
+                "name": "chassisNo",
+                "label": "Chassis Number",
+                "required": true
+              },
+              {
+                "type": "text",
+                "name": "otherAssessories",
+                "label": "Other accessories (please list)"
+              },
+              {
+                "type": "text",
+                "name": "valueOfAssess",
+                "label": "Value of Accessories"
+              },
+              {
+                "type": "text",
+                "name": "valueOfVehicle",
+                "label": "Value of Vehicle Incl. Accessories"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "name": "isUsed",
+            "label": "Is the vehicle new or old (used)",
+            "required": true
+          },
+          {
+            "type": "radio",
+            "name": "vehicleAltered",
+            "label": "Has the vehicle been altered, adapted or modified from the original manufacturer's design in any way:",
+            "required": true,
+            "options": [
+              {
+                "label": "YES",
+                "value": true
+              },
+              {
+                "label": "NO",
+                "value": false
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "name": "ifYesAltered",
+            "label": "If Yes, provide details"
+          },
+          {
+            "type": "radio",
+            "name": "vehCondition",
+            "label": "Is the vehicle in good condition?",
+            "required": true,
+            "options": [
+              {
+                "label": "YES",
+                "value": true
+              },
+              {
+                "label": "NO",
+                "value": false
+              }
+            ]
+          },
+          {
+            "type": "radio",
+            "name": "isOwner",
+            "label": "Are you the owner of the vehicle",
+            "required": true,
+            "options": [
+              {
+                "label": "YES",
+                "value": true
+              },
+              {
+                "label": "NO",
+                "value": false
+              }
+            ]
+          },
+          {
+            "type": "radio",
+            "name": "isRegisterdInYourName",
+            "label": "Is it registered in your Name",
+            "required": true,
+            "options": [
+              {
+                "label": "YES",
+                "value": true
+              },
+              {
+                "label": "NO",
+                "value": false
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "name": "notInName",
+            "label": "If NO state in whose name it is registered and the address"
+          },
+          {
+            "type": "radio",
+            "name": "subjectToHirePurchase",
+            "label": "Is the vehicle subject to any Hire Purchase Agreement?",
+            "required": true,
+            "options": [
+              {
+                "label": "YES",
+                "value": true
+              },
+              {
+                "label": "NO",
+                "value": false
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "name": "ifYesNameCompany",
+            "label": "if Yes, name the Company?"
+          },
+          {
+            "type": "select",
+            "name": "product",
+            "label": "What is the vehicle (s) used or licensed for:",
+            "required": true,
+            "options": [
+              {
+                "label": "PRIVATE INDIVIDUAL USE",
+                "value": "PRIVATE INDIVIDUAL USE"
+              },
+              {
+                "label": "PRIVATE COPORATE USE",
+                "value": "PRIVATE COPORATE USE"
+              },
+              {
+                "label": "FARE PAYING USE (TAXI)",
+                "value": "FARE PAYING USE (TAXI)"
+              },
+              {
+                "label": "FARE PAYING (HIRING)",
+                "value": "FARE PAYING (HIRING)"
+              },
+              {
+                "label": "CARRIAGE OF OWN GOODS",
+                "value": "CARRIAGE OF OWN GOODS"
+              },
+              {
+                "label": "CARRIAGE OF OTHER PERSON's GOODS",
+                "value": "CARRIAGE OF OTHER PERSON's GOODS"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "name": "otherProduct",
+            "label": "Any other use not stated above"
+          },
+          {
+            "type": "text",
+            "name": "garageAddress",
+            "label": "Please state the address at which the vehicle is usually garaged",
+            "required": true
+          },
+          {
+            "type": "info",
+            "content": "NOTE: COMMERCIAL DRIVERS MUST HAVE AT LEAST TWO (2) YEARS OF EXPERIENCE AND MUST BE AT LEAST TWENTY-FIVE (25) YEARS OLD",
+            "variant": "heading"
+          },
+          {
+            "type": "radio",
+            "name": "otherInsurables",
+            "label": "Do you have other insurable properties such as Buildings, Shop, Warehouses, Other Vehicles etc?",
+            "required": true,
+            "options": [
+              { "label": "YES", "value": true },
+              { "label": "NO", "value": false }
+            ]
+          },
+          {
+            "type": "text",
+            "name": "otherInsurablesYes",
+            "label": "If Yes, give details"
+          },
+          {
+            "type": "info",
+            "content": "INSURANCE HISTORY",
+            "variant": "heading"
+          },
+          {
+            "type": "info",
+            "content": "Has any Insurance company, ever, in connection with any motor vehicle:",
+            "variant": "descT"
+          },
+          {
+            "type": "group",
+            "name": "insHistory",
+            "label": "",
+            "fields": [
+              {
+                "type": "radio",
+                "name": "declineProposal",
+                "label": "Declined your proposal",
+                "required": true,
+                "options": [
+                  { "label": "YES", "value": true },
+                  { "label": "NO", "value": false }
+                ]
+              },
+              {
+                "type": "radio",
+                "name": "chargedExtra",
+                "label": "Charged extra premium?",
+                "required": true,
+                "options": [
+                  { "label": "YES", "value": true },
+                  { "label": "NO", "value": false }
+                ]
+              },
+              {
+                "type": "radio",
+                "name": "refusedRenew",
+                "label": "Refused to renew your policy?",
+                "required": true,
+                "options": [
+                  { "label": "YES", "value": true },
+                  { "label": "NO", "value": false }
+                ]
+              },
+              {
+                "type": "radio",
+                "name": "canceledPolicy",
+                "label": "Cancelled your policy?",
+                "required": true,
+                "options": [
+                  { "label": "YES", "value": true },
+                  { "label": "NO", "value": false }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "info",
+            "content": "If Yes, give reasons for the above",
+            "variant": "descTb"
+          },
+          {
+            "type": "radio",
+            "label": "Have you been insured in respect to any motor vehicle?",
+            "name": "insuredInRespect",
+            "required": true,
+            "options": [
+              { "label": "YES", "value": true },
+              { "label": "NO", "value": false }
+            ]
+          },
+          {
+            "type": "text",
+            "name": "insuredInRespectYes",
+            "label": "If Yes, please state the company"
+          },
+          {
+            "type": "radio",
+            "label": "Are you entitled to a 'no claim discount' from your previous insurance?",
+            "name": "prevInsurance",
+            "required": true,
+            "options": [
+              { "label": "YES", "value": true },
+              { "label": "NO", "value": false }
+            ]
+          },
+          {
+            "type": "text",
+            "name": "prevInsuranceYes",
+            "label": "If Yes, attach a renewal notice"
+          },
+          {
+            "type": "radio",
+            "label": "Have you ever made a motor calim against any Insurance company?",
+            "name": "motorClaim",
+            "required": true,
+            "options": [
+              { "label": "YES", "value": true },
+              { "label": "NO", "value": false }
+            ]
+          },
+          {
+            "type": "text",
+            "name": "motorClaimYes",
+            "label": "If Yes, give details:"
+          },
+          {
+            "type": "info",
+            "content": "COVER PREFERRED (Type of Cover)",
+            "variant": "heading"
+          },
+          {
+            "type": "select",
+            "name": "typeOfCover",
+            "label": "Select Cover Preferred",
+            "options": [
+              { "label": "COMPREHENSIVE", "value": "Comprehensive" },
+              { "label": "THIRD PARTY", "value": "Third Party" },
+              {
+                "label": "THIRD PARTY, FIRE & THEFT",
+                "value": "Third Party, Fire & Theft"
+              }
+            ]
+          },
+          {
+            "type": "radio",
+            "name": "requireTTPD",
+            "label": "Do you require an increase in your Third Party Property Damage Limit?",
+            "required": true,
+            "options": [
+              { "label": "YES", "value": true },
+              { "label": "NO", "value": false }
+            ]
+          },
+          {
+            "type": "text",
+            "name": "requireTTPDyes",
+            "label": "If so state the amount of increase required"
+          },
+          {
+            "type": "radio",
+            "name": "buyExcessBack",
+            "label": "Do you want to buy back the excess on the policy?",
+            "required": true,
+            "options": [
+              { "label": "YES", "value": true },
+              { "label": "NO", "value": false }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "name": "declaration",
+      "label": "DECLARATION",
+      "fields": [
+        {
+          "type": "info",
+          "content": "I declare that the statement and particulars given in this application are to the best of my knowledge and belief, true and complete and I agree that they shall be the basis of my contract with NSIA Insurance Company Ltd.",
+          "variant": "decText"
+        },
+        {
+          "type": "radio",
+          "name": "acceptDeclaration",
+          "label": "",
+          "required": true,
+          "options": [{ "label": "I Accept", "value": true }]
+        }
+      ]
+    }
+  ]
+}

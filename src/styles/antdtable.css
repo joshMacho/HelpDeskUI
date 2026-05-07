@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+.custom-table {
+  @apply dark:bg-[#292a2d]
+  overflow-x-scroll;
+  /* height: auto !important; */
+}
+
+.custom-table .ant-table-body {
+  overflow-y: auto !important;
+}
+
+.custom-table .ant-table-thead > tr > th {
+  @apply dark:bg-[#292a2d] dark:text-[#d7d7d7] dark:border-b-[#3e3e3e];
+}
+
+.custom-table .ant-table-content {
+  scrollbar-width: thin;
+}
+
+.custom-table .ant-table-tbody > tr > td {
+  @apply dark:bg-[#292a2d] dark:text-[#d7d7d7] dark:border-b-[#292a2d];
+}
+
+/* styling on hover */
+.custom-table .ant-table-tbody > tr:hover > td {
+  @apply dark:bg-[#202124]!;
+}
+
+/* styling on table row selected */
+.custom-table .ant-table-row-selected > td {
+  @apply dark:bg-[#202124]!;
+}
+
+/* styling the checkbox selection column */
+.custom-table .ant-table-selection-column {
+}
+
+.custom-table .ant-checkbox:hover .ant-checkbox-inner {
+  @apply dark:border-[#5145bb]! border-2!;
+}
+
+/* styling the checkbox itself, you need to access .inner in the checkbox wrapper */
+.custom-table .ant-checkbox-inner {
+  @apply dark:bg-transparent! dark:border-[#3e3e3e]! dark:hover:border-[#5145bb]!;
+}
+
+/* styling when the checked box is checked */
+.custom-table .ant-checkbox-checked {
+  @apply dark:bg-[#5145bb];
+}
+
+.custom-table .ant-table-summary {
+  @apply bg-red-400;
+}
+
+.tablink-div {
+  @apply flex items-center gap-3;
+}

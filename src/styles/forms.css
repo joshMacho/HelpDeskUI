@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+.group {
+  @apply grid grid-cols-3 gap-2 p-4 border border-[#d7d7d7] grid-flow-dense dark:border-none;
+}
+
+.user-form {
+  @apply grid grid-cols-2 gap-2 p-4 rounded-[var(--radius)]
+  dark:border-none;
+}
+
+.form2 {
+  @apply dark:border-none flex;
+}
+
+.form-input {
+  @apply flex flex-col items-start mb-2 gap-2;
+}
+
+.form button,
+.form2 button {
+  @apply disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.form-input label {
+  @apply text-[14px] dark:text-[#d7d7d7] ml-2;
+}
+
+.danger {
+  @apply text-red-400 text-[13px] ml-4;
+}
+
+.input-div {
+  @apply flex flex-col w-full bg-transparent!
+  dark:border-transparent! dark:bg-[#202124]! border
+  border-[#d7d7d7]!;
+}
+
+.search-input-div {
+  @apply flex  bg-transparent!
+  dark:border-transparent! dark:bg-[#202124]! border
+  border-[#d7d7d7]! h-full;
+}
+
+.select-div {
+  @apply flex flex-col w-full bg-transparent!
+  dark:border-transparent! border-1 border-[#d7d7d7]!
+  dark:bg-[#202124]! mb-2;
+}
+
+.select-div:has(.ant-select-selection-search-input:focus) {
+  @apply border-2 border-[#5145bb]!;
+}
+
+.select-div:has(.ant-picker-focused) {
+  @apply border-2 border-[#5145bb]!;
+}
+
+.input-div:has(input:focus),
+.search-input-div:has(input:focus) {
+  @apply border-2! border-[#5145bb]!;
+}
+
+.input-div input {
+  @apply px-4 text-[16px]! w-full my-2! dark:caret-white! dark:text-[#d7d7d7]!;
+}
+
+.search-input-div input {
+  @apply px-4 text-[14px]! w-full my-1! dark:caret-white! dark:text-[#d7d7d7]!;
+}
+
+.input-div input::placeholder,
+.search-input-div input::placeholder {
+  @apply text-[14px] font-light dark:text-gray-600;
+}
+
+.otp-button-div {
+  @apply mb-2 mx-2 flex justify-center items-center;
+}
+
+.form-button-div {
+  @apply mb-2 mx-2 flex justify-end items-center;
+}
+
+.form-button-div button,
+.otp-button-div button {
+  @apply flex justify-center items-center gap-2 text-[16px] h-[40px] md:w-1/2 
+  hover:shadow-md text-white bg-[#30296f] hover:bg-[#5145bb]
+  transition-colors duration-300 w-full mr-2 disabled:opacity-50 disabled:cursor-not-allowed
+  disabled:bg-[#5145bb];
+}
+
+.custom-select .ant-select-selector {
+  @apply border-none! dark:bg-transparent!;
+}
+
+.custom-select .ant-select-selection-placeholder {
+  @apply dark:text-gray-600!;
+}
+
+.rad-div {
+  @apply flex justify-start items-center gap-2 my-2;
+}
+
+.rad-lab {
+  @apply flex justify-center gap-1;
+}
+
+.rad {
+  @apply appearance-none w-5 h-5 border-2 border-gray-400 rounded-sm
+   checked:bg-blue-600 checked:border-blue-600
+    relative
+    before:content-[''] before:absolute before:inset-0
+    before:flex before:items-center before:justify-center
+    checked:before:content-['✔'] checked:before:text-white checked:before:text-xs;
+}
+
+.add-btn {
+  @apply flex justify-center items-center gap-2 text-[16px] h-[40px] 
+  hover:shadow-md text-white bg-[#30296f] hover:bg-[#5145bb] p-4
+  transition-colors duration-300 mr-2 disabled:opacity-50 disabled:cursor-not-allowed
+  disabled:bg-[#5145bb];
+}
+
+.rem-btn {
+  @apply flex justify-center items-center gap-2 text-[14px] h-[30px]
+  hover:shadow-md text-white bg-[#9c3b4e] hover:bg-[#8c4150] p-2
+  transition-colors duration-300 mr-2 disabled:opacity-50 disabled:cursor-not-allowed
+  disabled:bg-[#5145bb];
+}
+
+.form-cancel-div {
+  @apply mb-2 mx-2 flex justify-start items-center;
+}
+
+.jtext-div {
+  @apply w-full;
+}
+
+.heading {
+  @apply text-[18px] font-bold;
+}
+
+.descT {
+  @apply text-[12px];
+}
+
+.stickb {
+  @apply fixed bottom-0 left-0 shadow-gray-600 shadow-md w-full;
+}

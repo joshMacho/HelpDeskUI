@@ -1,0 +1,385 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Monoton:wght@200;300;400;500;600;700;800&display=swap");
+@import "tailwindcss";
+@import "./styles/forms.css";
+@import "./styles/antdmodal.css";
+@import "./styles/antdall.css";
+@import "./styles/antdtable.css";
+@import "./styles/antdsplitter.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: "Poppins", "sans-serif";
+}
+
+#root {
+  --dark-comp-background: #292a2d;
+  --dark-theme-background: #202124;
+  --light-shadow: #d7d7d7;
+  --dark-shadow: #373737;
+  --dark-text-color: #d7d7d7;
+  --border-color: #d7d7d7;
+  --border-dark-color: #3c3c3c;
+  --primary-blue-200: #5145bb;
+  --radius: 10px;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: 1em;
+}
+
+span {
+  cursor: pointer;
+  @apply dark:text-[#d7d7d7];
+}
+
+p {
+  @apply dark:text-[var(--dark-text-color)];
+  font-size: 1rem;
+}
+
+.layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 10px;
+}
+
+.content-body {
+  display: flex;
+  /* height: calc(100vh - var(--header-height)); */
+  height: 100%;
+  flex-direction: column;
+  /* background-color: var(--bg-body); */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  border-radius: 50%;
+  background: rgba(28, 17, 41, 0.88);
+}
+
+.menu-bar {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 16px;
+  position: relative;
+}
+
+.xmargin {
+  @apply mx-2;
+}
+
+.login-page {
+  @apply w-full h-full flex justify-center items-center;
+}
+
+.login-div {
+  @apply flex flex-col justify-center items-center w-1/2 h-[400px];
+}
+
+.loginform {
+  @apply mt-2 border border-[#d7d7d7] w-full h-full;
+}
+
+.login-button-div {
+  @apply mb-2 flex justify-center items-center mx-2;
+}
+
+.login-label {
+  @apply text-xl font-mono;
+}
+
+.login-button-div button {
+  @apply flex justify-center items-center gap-2 text-[16px] h-[40px] 
+  hover:shadow-md text-white bg-[#30296f] hover:bg-[#5145bb]
+   transition-colors duration-300 w-full
+  disabled:opacity-50 disabled:cursor-not-allowed
+  disabled:bg-[#5145bb];
+}
+
+.main-page {
+  @apply flex flex-col w-full h-full
+  dark:bg-[var(--dark-theme-background)] overflow-x-hidden;
+}
+
+.top-search-div {
+  @apply flex justify-start items-center
+  mt-2 dark:bg-[--dark-comp-background] py-1
+  rounded-md shadow-[--dark-shadow] dark:shadow-[--shadow-dark]
+  bg-white;
+}
+
+.top-action-div {
+  @apply flex justify-end items-center
+  mt-2 dark:bg-[--dark-comp-background] py-1
+  rounded-md shadow-[--dark-shadow] dark:shadow-[--shadow-dark]
+  dark:bg-[var(--dark-comp-background)]
+  bg-white;
+}
+
+.actions-div {
+  @apply flex gap-3 mr-2 items-center;
+}
+
+.all-border {
+  @apply border border-[var(--border-color)] dark:border-[--border-dark-color];
+}
+
+.icnax {
+  @apply text-[--primary-blue-200] dark:text-[#d7d7d7] dark:hover:text-white;
+}
+
+.act-btn {
+  @apply dark:text-[--dark-text-color]
+  flex justify-center items-center dark:bg-[--dark-comp-color] dark:border-none
+  disabled:opacity-70 rounded-md hover:shadow-md hover:bg-[#e3e3e3] hover:border-none
+  dark:hover:bg-transparent;
+}
+
+.btn-p-lg {
+  @apply p-2;
+}
+
+.btn-p-s {
+  @apply p-1;
+}
+
+.in-content {
+  @apply mt-2 dark:bg-[var(--dark-comp-backgrounds)] mb-1
+  grid grid-cols-3 gap-2 bg-inherit h-full overflow-hidden;
+}
+
+.inventory-left,
+.inventory-right {
+  @apply dark:bg-[var(-dark-comp-background)] mb-1;
+}
+
+.inventory-left,
+.inventory-right {
+  @apply flex flex-col gap-3 overflow-y-auto;
+}
+
+.inventory-left {
+  @apply hidden lg:block lg:overflow-y-hidden;
+}
+
+.inventory-right {
+  @apply col-span-3 lg:col-span-2;
+}
+
+.typeTable-div {
+  @apply flex flex-col dark:bg-inherit bg-white
+  overflow-y-auto h-[300px] relative;
+}
+
+.assign-table-div {
+  @apply flex flex-col dark:bg-inherit bg-white
+  overflow-y-auto relative;
+}
+
+.comp-head-div {
+  @apply flex justify-between items-center p-1 sticky top-0 bg-white
+  dark:bg-[var(--dark-comp-background)];
+  z-index: 999;
+}
+
+.comp-head-div p {
+  @apply font-light;
+}
+
+.table-actions {
+  @apply flex justify-center items-center gap-1;
+}
+
+.load-in {
+  @apply bg-inherit flex h-full w-full justify-center items-center;
+}
+
+.pop-render {
+  @apply flex flex-col border border-gray-400 rounded-md py-2 bg-white
+   dark:border-[#3c3c3c] dark:shadow-md dark:text-[var(--dark-text-color)] mt-1 gap-1;
+}
+
+.pop-render button {
+  @apply h-[40px] w-full mr-3 dark:bg-inherit dark:text-gray-300
+  flex justify-start items-center gap-5 dark:hover:bg-[#3c3c3c] disabled:cursor-not-allowed
+  disabled:opacity-60 hover:bg-[#d7d7d7];
+}
+
+.popIcon {
+  @apply dark:text-inherit w-[20px] ml-2;
+}
+
+.split-div {
+  @apply flex flex-col h-full;
+}
+
+.assign-search-div {
+  @apply hover:shadow hover:shadow-gray-600;
+}
+
+.trail-div {
+  @apply flex flex-col mt-2 bg-white dark:bg-[--var(dark-theme-background)]
+  h-full mb-2 overflow-y-auto pt-2 justify-start items-center;
+}
+
+.ant-timeline-item-tail {
+  @apply border-gray-300;
+}
+
+.trail-title {
+  @apply mb-4 w-full;
+}
+
+.trail-title p {
+  @apply pl-5 text-green-500;
+}
+
+.trail-title span {
+  @apply text-black text-[14px];
+}
+
+.margin-top {
+  @apply mt-2;
+}
+
+.header {
+  @apply flex justify-between items-center;
+}
+
+.img-div {
+  @apply flex items-center h-fit rounded-full m-2;
+}
+
+.u-account {
+  @apply flex rounded-full h-[40px] justify-start items-center hover:shadow hover:shadow-gray-300
+  hover:cursor-pointer;
+}
+
+.u-account p {
+  @apply mr-3 hidden sm:block;
+}
+
+.main2 {
+  @apply w-full h-full
+  flex justify-center items-start;
+}
+
+.in-form {
+  @apply w-full p-2 lg:w-1/2
+  shadow-gray-400 shadow-sm;
+}
+
+.mag {
+  @apply m-1;
+}
+
+.pad {
+  @apply p-1;
+}
+
+.forgoten-pw {
+  @apply flex justify-center items-center;
+}
+
+.forgoten-pw p {
+  @apply text-[14px] text-blue-600 cursor-pointer
+  hover:underline;
+}
+
+.li-grid {
+  @apply grid grid-cols-4 grid-rows-4 bg-white
+  grid-flow-dense auto-rows-[200px]
+   mt-2 mx-2 dark:bg-inherit w-full h-full;
+}
+
+.li-div {
+  @apply border border-[#d7d7d7] rounded-md  shadow-md
+  dark:bg-[var(--dark-comp-background)]
+  grid grid-cols-4 dark:border-none;
+}
+
+.li-info {
+  @apply grid grid-rows-3 m-1;
+}
+.li-title {
+  @apply flex justify-center items-center;
+}
+
+.li-action {
+  @apply flex flex-col justify-between py-2 mr-1;
+}
+
+.atdtable {
+  @apply flex flex-col overflow-x-auto;
+}
+
+.otp-main {
+  @apply flex flex-col w-full gap-2;
+}
+
+.otp-title {
+  @apply flex flex-col justify-center items-center my-2;
+}
+
+.otp-title .t-text {
+  @apply text-[24px] font-bold;
+}
+
+.otp-means {
+  @apply mt-2 flex;
+}
+
+.phone-div {
+  @apply flex flex-col gap-2;
+}
+
+.phone-div p {
+  @apply text-[14px];
+}
+
+.phone-number-div {
+  @apply flex justify-center items-center gap-2;
+}
+
+.otp-input-div {
+  @apply flex gap-[10px] justify-center items-center;
+}
+
+.expiry-div {
+  @apply flex justify-center items-center my-2;
+}
+
+.expiry-div p {
+  @apply text-[14px];
+}
+
+.otp-options {
+  @apply flex justify-between items-center;
+}

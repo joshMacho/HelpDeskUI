@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+.custom-textarea {
+  @apply dark:bg-[#202124]! border-none! dark:caret-[#d7d7d7]! dark:text-[#d7d7d7]!
+  text-[16px];
+}
+
+.custom-textarea .ant-input::placeholder {
+  @apply dark:text-gray-600! text-[14px];
+}
+
+.custom-textarea .ant-input-data-count {
+  @apply dark:text-[#d7d7d7]! text-[12px]!;
+}
+.ant-message {
+  z-index: 1050 !important;
+}
+
+.ant-picker-dropdown {
+  @apply dark:text-[#d7d7d7]!;
+}
+
+.ant-picker {
+  @apply dark:bg-transparent! border-none;
+}
+
+.ant-picker input {
+  @apply dark:bg-[#292a2d]!;
+}
+
+.ant-picker-panel {
+  @apply dark:bg-[#202124]! dark:text-[#d7d7d7]!;
+}
+
+.ant-picker-cell {
+  @apply dark:text-[#d7d7d7]!;
+}
+
+.ant-picker-cell:hover {
+  @apply dark:bg-[#292a2d];
+}
+
+.ant-picker-cell-selected .ant-picker-cell-inner {
+  @apply bg-[#5145bb]!;
+}
+
+.ant-picker-header {
+  @apply dark:text-[#d7d7d7]!;
+}

@@ -1,0 +1,168 @@
+{
+  "type": "object",
+  "sections": [
+    {
+      "name": "personalDetails",
+      "label": "Personal Details",
+      "fields": [
+        {
+          "type": "group",
+          "name": "insuredName",
+          "label": "Insured Name",
+          "fields": [
+            {
+              "type": "text",
+              "name": "firstName",
+              "label": "First Name",
+              "required": true
+            },
+            { "type": "text", "name": "middleName", "label": "middleName" },
+            {
+              "type": "text",
+              "name": "surname",
+              "label": "Surname",
+              "required": true
+            }
+          ]
+        },
+        { "type": "text", "name": "address", "label": "Address" },
+        { "type": "text", "name": "occupation", "label": "Occupation" },
+        {"type": "text", "name": "idNumber", "label": "Valid National ID No"},
+        {
+          "type": "select",
+          "name": "typeOfId",
+          "label": "Type of ID",
+          "options": [
+            { "label": "National ID", "value": "GHANA CARD" },
+            { "label": "Passport", "value": "PASSPORT" }
+          ]
+        },
+        {
+          "type": "array",
+          "name": "vehicles",
+          "label": "VEHICLES",
+          "minItems": 1,
+          "itemSchema": {
+            "type": "object",
+            "fields": [
+              {
+                "type": "text",
+                "name": "make",
+                "label": "Make",
+                "required": true
+              },
+              {
+                "type": "text",
+                "name": "model",
+                "label": "Model",
+                "required": true
+              },
+              { "type": "text", "name": "typeOfBody", "label": "Type of Body" },
+              {
+                "type": "text",
+                "name": "regNumber",
+                "label": "Vehicle Registration Number",
+                "required": true
+              },
+              {
+                "type": "text",
+                "name": "manufactureYear",
+                "label": "Year of Manufacture",
+                "required": true
+              },
+              {
+                "type": "text",
+                "name": "cubicCapacity",
+                "label": "Cubic Capacity"
+              },
+              {
+                "type": "text",
+                "name": "seatingCapacity",
+                "label": "Seating Capacity"
+              },
+              {
+                "type": "text",
+                "name": "color",
+                "label": "Color of Vehicle",
+                "required": true
+              },
+              { "type": "text", "name": "engineNo", "label": "Engine Number" },
+              {
+                "type": "text",
+                "name": "chassisNo",
+                "label": "Chassis Number"
+              },
+              {
+                "type": "text",
+                "name": "otherAssessories",
+                "label": "Other accessories (please list)"
+              },
+              {
+                "type": "text",
+                "name": "valueOfAssess",
+                "label": "Value of Accessories"
+              },
+              {
+                "type": "text",
+                "name": "valueOfVehicle",
+                "label": "Value of Vehicle Incl. Accessories"
+              },
+              {
+                "type": "text",
+                "name": "newOrUsed",
+                "label": "Is the vehicle new or old (used)",
+                "required": true
+              },
+              {
+                "type": "radio",
+                "name": "vehicleAltered",
+                "label": "Has the vehicle been altered, adapted or modified from the original manufacturer's design in any way:",
+                "options": [
+                  { "label": "YES", "value": true },
+                  { "label": "NO", "value": false }
+                ]
+              },
+              {
+                "type": "text",
+                "name": "ifYesAltered",
+                "label": "If Yes, provide details"
+              },
+              {
+                "type": "radio",
+                "name": "vehCondition",
+                "label": "Is the vehicle in good condition?",
+                "options": [
+                  { "label": "YES", "value": true },
+                  { "label": "NO", "value": false }
+                ]
+              },
+              {
+                "type": "radio",
+                "name": "isOwner",
+                "label": "Are you the owner of the vehicle",
+                "options": [
+                  { "label": "YES", "value": true },
+                  { "label": "NO", "value": false }
+                ]
+              },
+              {
+                "type": "radio",
+                "name": "isRegisterdInYourName",
+                "label": "Is it registered in your Name",
+                "options": [
+                  { "label": "YES", "value": true },
+                  { "label": "NO", "value": false }
+                ]
+              },
+              {
+                "type": "text",
+                "name": "notInName",
+                "label": "If NO state in whose name it is registered and the address"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
