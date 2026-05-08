@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .group {
-  @apply grid grid-cols-3 gap-2 p-4 border border-[#d7d7d7] grid-flow-dense dark:border-none;
+  @apply grid grid-cols-1 md:grid-cols-3 gap-2 p-4 border border-[#d7d7d7] grid-flow-dense dark:border-none;
 }
 
 .user-form {
@@ -147,4 +147,14 @@
 
 .stickb {
   @apply fixed bottom-0 left-0 shadow-gray-600 shadow-md w-full;
+}
+
+.preview-buttons {
+  @apply w-full  flex justify-evenly h-[40px] gap-2;
+}
+
+.preview-buttons button {
+  @apply w-full hover:border hover:border-gray-400
+  shadow-gray-500 hover:shadow-md font-bold border border-[#30296f] flex 
+  justify-center items-center gap-2;
 }

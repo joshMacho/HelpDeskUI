@@ -81,6 +81,12 @@
               "required": true
             },
             {
+              "type": "text",
+              "name": "email",
+              "label": "Email",
+              "required": true
+            },
+            {
               "type": "select",
               "name": "typeOfId",
               "label": "Type of ID",

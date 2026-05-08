@@ -9,6 +9,7 @@ import { useLocation } from "react-router-dom";
 import LoadingModal from "../LoadingModal";
 import { useState } from "react";
 import OTPModal from "../modal/OTPModal";
+import PreviewModal from "../modal/PreviewModal";
 
 export default function DynamicForm({ schema }) {
   const methods = useForm({
@@ -22,18 +23,25 @@ export default function DynamicForm({ schema }) {
   const [loading, setLoading] = useState(false);
   const [openOtp, setOpenOtp] = useState(false);
   const [otpData, setOtpData] = useState({});
+  const [preview, setPreview] = useState(null);
+  const [openPreview, setOpenPreview] = useState(false);
 
   const query = new URLSearchParams(location.search);
 
-  const onSubmit = async (data) => {
-    console.log(data);
+  const handlePreview = (data) => {
+    setPreview(data);
+    setOpenPreview(true);
+  };
+
+  const onSubmit = async () => {
+    console.log(preview);
     // console.log(`tokenData: `, tokenData);
     console.log("token: ", token);
     try {
       setLoading(true);
       const response = await api.post(`/auth/otpsubmit`, {
         token,
-        form_data: data,
+        form_data: preview,
         proposal_id: tokenData.proposal_id,
         phoneNumber: tokenData.phoneNumber,
       });
@@ -94,10 +102,54 @@ export default function DynamicForm({ schema }) {
     }
   };
 
+  // handle preview
+  const previewDoc = async () => {
+    try {
+      const response = await api.post(
+        `/previewdocument/${tokenData.proposal_id}`,
+        { token, data: preview },
+        {
+          responseType: "blob",
+        },
+      );
+
+      if (!response?.data?.success)
+        toast.error(response?.data?.error || `Unable to preview Document`);
+
+      toast.success(`Success`);
+
+      const pdfBlob = new Blob([response.data], {
+        type: "application/pdf",
+      });
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+
+      window.open(pdfUrl, "_blank");
+    } catch (error) {
+      console.log(error);
+      return toast.error(
+        error?.response?.data?.error ||
+          `Error previewing document. Check connection / Contact Admin`,
+      );
+    }
+  };
+
+  // close preview
+  const closePreview = () => {
+    setOpenPreview(false);
+  };
+
   if (loading) return <LoadingModal message={`Submitting...`} open={loading} />;
 
   return (
     <FormProvider {...methods}>
+      {openPreview && (
+        <PreviewModal
+          open={openPreview}
+          cancel={closePreview}
+          preview={previewDoc}
+          submit={onSubmit}
+        />
+      )}
       {openOtp && (
         <OTPModal
           length={6}
@@ -110,7 +162,7 @@ export default function DynamicForm({ schema }) {
         />
       )}
       {context}
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <form onSubmit={methods.handleSubmit(handlePreview)}>
         {schema.sections.map((section) => (
           <SectionRenderer key={section.name} section={section} />
         ))}
