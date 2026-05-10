@@ -1,14 +1,27 @@
 // forms/ArrayField.jsx
 import { useFieldArray, useFormContext } from "react-hook-form";
 import FieldRenderer from "./FieldRenderer";
+import { useEffect } from "react";
 
 export default function ArrayField({ field, name }) {
-  const { control } = useFormContext();
+  const { control, getValues } = useFormContext();
 
   const { fields, append, remove } = useFieldArray({
     control,
     name,
   });
+
+  useEffect(() => {
+    const currentValues = getValues(name) || [];
+
+    const minItems = field.minItems || 1;
+
+    if (currentValues.length < minItems) {
+      for (let i = currentValues.length; i < minItems; i++) {
+        append({});
+      }
+    }
+  }, []);
 
   return (
     <div>
@@ -35,6 +48,7 @@ export default function ArrayField({ field, name }) {
               className="rem-btn"
               type="button"
               onClick={() => remove(index)}
+              disabled={fields.length === 1}
             >
               Remove Vehicle
             </button>

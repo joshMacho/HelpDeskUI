@@ -3,13 +3,14 @@ import { useForm, FormProvider } from "react-hook-form";
 import SectionRenderer from "./SectionRenderer";
 import api from "../../api";
 import { toast } from "react-toastify";
-import { message } from "antd";
+import { message, Tabs } from "antd";
 import { useToken } from "../../TokenProtectRoute";
 import { useLocation } from "react-router-dom";
 import LoadingModal from "../LoadingModal";
-import { useState } from "react";
+import { Children, useState } from "react";
 import OTPModal from "../modal/OTPModal";
 import PreviewModal from "../modal/PreviewModal";
+import { current } from "@reduxjs/toolkit";
 
 export default function DynamicForm({ schema }) {
   const methods = useForm({
@@ -25,12 +26,17 @@ export default function DynamicForm({ schema }) {
   const [otpData, setOtpData] = useState({});
   const [preview, setPreview] = useState(null);
   const [openPreview, setOpenPreview] = useState(false);
+  const [activeTab, setActiveTab] = useState(schema.sections[0].name);
 
   const query = new URLSearchParams(location.search);
 
   const handlePreview = (data) => {
     setPreview(data);
     setOpenPreview(true);
+  };
+
+  const handleError = (errors) => {
+    messageApi.error("Check tabs for validations and required fields");
   };
 
   const onSubmit = async () => {
@@ -138,6 +144,31 @@ export default function DynamicForm({ schema }) {
     setOpenPreview(false);
   };
 
+  // render sections in tabs
+  const items = schema.sections.map((section) => ({
+    key: section.name,
+    label: section.label,
+    children: <SectionRenderer section={section} />,
+  }));
+
+  const currentIndex = schema.sections.findIndex((s) => s.name === activeTab);
+  const next = async () => {
+    const valid = await methods.trigger();
+    console.log("valid: ", valid);
+    if (!valid) return;
+
+    setActiveTab(schema.sections[currentIndex + 1].name);
+
+    // if (currentIndex < schema.sections.length - 1) {
+    //   setActiveTab(schema.sections[currentIndex + 1].name);
+    // }
+  };
+  const prev = () => {
+    if (currentIndex > 0) {
+      setActiveTab(schema.sections[currentIndex - 1].name);
+    }
+  };
+
   if (loading) return <LoadingModal message={`Submitting...`} open={loading} />;
 
   return (
@@ -162,14 +193,29 @@ export default function DynamicForm({ schema }) {
         />
       )}
       {context}
-      <form onSubmit={methods.handleSubmit(handlePreview)}>
-        {schema.sections.map((section) => (
+      <form onSubmit={methods.handleSubmit(handlePreview, handleError)}>
+        {/* {schema.sections.map((section) => (
           <SectionRenderer key={section.name} section={section} />
-        ))}
-        <div className="form-button-div stickb">
+        ))} */}
+        <Tabs activeKey={activeTab} onChange={setActiveTab} items={items} />
+        {/* <div className="form-button-div stickb">
           <button type="submit" disabled={loading}>
             Submit
           </button>
+        </div> */}
+        <div className="form-button-div stickb">
+          {currentIndex > 0 && (
+            <button type="button" onClick={prev}>
+              Previous
+            </button>
+          )}
+          {currentIndex < schema.sections.length - 1 ? (
+            <button type="button" onClick={next}>
+              Next
+            </button>
+          ) : (
+            <button type="submit">Submit</button>
+          )}
         </div>
       </form>
     </FormProvider>

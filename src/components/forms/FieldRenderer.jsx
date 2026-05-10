@@ -5,11 +5,26 @@ import GroupField from "./GroupField";
 import { Select } from "antd";
 
 export default function FieldRenderer({ field, parentName }) {
-  const { register, control } = useFormContext();
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext();
 
   const name = parentName ? `${parentName}.${field.name}` : field.name;
 
   const value = useWatch({ name, control });
+  const getNestedError = (errors, path) => {
+    return path.split(".").reduce((acc, part) => acc?.[part], errors);
+  };
+
+  const fieldError = getNestedError(errors, name);
+
+  const validation = { ...(field.validation || {}) };
+
+  if (validation.pattern?.value) {
+    validation.pattern.value = new RegExp(validation.pattern.value);
+  }
 
   switch (field.type) {
     case "group":
@@ -23,12 +38,10 @@ export default function FieldRenderer({ field, parentName }) {
     case "date":
       return (
         <div className="form-input">
-          <label>{field.label}</label>
+          <label className="field-label">{field.label}</label>
           <div className="input-div">
-            <input
-              type={field.type}
-              {...register(name, { required: field.required })}
-            />
+            <input type={field.type} {...register(name, validation)} />
+            {fieldError && <span className="danger">{fieldError.message}</span>}
           </div>
         </div>
       );
@@ -36,13 +49,13 @@ export default function FieldRenderer({ field, parentName }) {
     case "select":
       return (
         <div className="form-input col-span-1">
-          <label>{field.label}</label>
+          <label className="field-label">{field.label}</label>
           <div className="select-div">
             <Controller
               key={field.name}
               name={name}
               control={control}
-              rules={{ required: field.required }}
+              rules={field.validation || {}}
               render={({ field: controllerField }) => (
                 <Select
                   {...controllerField}
@@ -57,14 +70,7 @@ export default function FieldRenderer({ field, parentName }) {
                 />
               )}
             />
-            {/* <Select {...register(name)}>
-            <option value="">Select</option>
-            {field.options?.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select> */}
+            {fieldError && <span className="danger">{fieldError.message}</span>}
           </div>
         </div>
       );
@@ -73,7 +79,7 @@ export default function FieldRenderer({ field, parentName }) {
       return (
         <div className="rad-div">
           {" "}
-          <label>{field.label}</label>{" "}
+          <label className="field-label">{field.label}</label>{" "}
           {field.options.map((opt) => (
             <label key={opt.value} className="rad-lab">
               {" "}
@@ -81,13 +87,12 @@ export default function FieldRenderer({ field, parentName }) {
                 type="radio"
                 className="rad"
                 value={opt.value}
-                {...register(name, {
-                  required: field.required,
-                })}
+                {...register(name, validation)}
               />{" "}
               <span>{opt.label}</span>{" "}
             </label>
-          ))}{" "}
+          ))}
+          {fieldError && <span className="danger">{fieldError.message}</span>}
         </div>
       );
     case "info":

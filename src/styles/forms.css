@@ -158,3 +158,11 @@
   shadow-gray-500 hover:shadow-md font-bold border border-[#30296f] flex 
   justify-center items-center gap-2;
 }
+
+.section {
+  @apply mx-4;
+}
+
+.field-label {
+  @apply font-bold text-[#645858];
+}

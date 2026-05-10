@@ -2,42 +2,8 @@
   "type": "object",
   "sections": [
     {
-      "name": "policyInfo",
-      "label": "Policy Information",
-      "fields": [
-        {
-          "type": "group",
-          "name": "policyInfo",
-          "label": "Policy Info",
-          "fields": [
-            {
-              "type": "date",
-              "name": "effectiveDate",
-              "label": "Effective Date"
-            },
-            {
-              "type": "date",
-              "name": "endDate",
-              "label": "End Date"
-            },
-            {
-              "type": "select",
-              "name": "currency",
-              "label": "Currency",
-              "required": true,
-              "options": [
-                { "label": "GHC", "value": "GHC" },
-                { "label": "EURO", "value": "EUR" },
-                { "label": "POUNDS", "value": "GBP" }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "name": "personalDetails",
-      "label": "Personal Details",
+      "label": "PERSONAL DETAILS",
       "fields": [
         {
           "type": "group",
@@ -48,7 +14,9 @@
               "type": "text",
               "name": "firstName",
               "label": "First Name",
-              "required": true
+              "validation": {
+                "required": "First Name is required"
+              }
             },
             {
               "type": "text",
@@ -59,7 +27,9 @@
               "type": "text",
               "name": "surname",
               "label": "Surname",
-              "required": true
+              "validation": {
+                "required": "Surname is required"
+              }
             }
           ]
         },
@@ -72,33 +42,60 @@
               "type": "text",
               "name": "address",
               "label": "Address",
-              "required": true
+              "validation": {
+                "required": "Address is required",
+                "minLength": {
+                  "value": 5,
+                  "message": "Minimum 5 characters"
+                },
+                "maxLength": {
+                  "value": 50,
+                  "message": "Character length > 50"
+                }
+              }
             },
             {
               "type": "text",
               "name": "occupation",
               "label": "Occupation",
-              "required": true
+              "validation": {
+                "required": "Occupation is required",
+                "minLength": {
+                  "value": 5,
+                  "message": "Minimum 5 characters"
+                },
+                "maxLength": {
+                  "value": 30,
+                  "message": "Character length > 30"
+                }
+              }
             },
             {
               "type": "text",
               "name": "email",
               "label": "Email",
-              "required": true
+              "validation": {
+                "pattern": {
+                  "value": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+                  "message": "Invalid email"
+                }
+              }
             },
             {
               "type": "select",
               "name": "typeOfId",
               "label": "Type of ID",
-              "required": true,
+              "validation": {
+                "required": "ID type is required"
+              },
               "options": [
                 {
                   "label": "National ID",
                   "value": "GHANA_CARD"
                 },
                 {
-                  "label": "Passport",
-                  "value": "PASSPORT"
+                  "label": "TIN NUMBER",
+                  "value": "TIN_NUMBER"
                 }
               ]
             },
@@ -106,431 +103,606 @@
               "type": "text",
               "name": "idNumber",
               "label": "Valid National ID No",
-              "required": true
+              "validation": {
+                "required": "National Number is required",
+                "pattern": {
+                  "value": "^GHA-\\d{9}-\\d$",
+                  "message": "Ghana card shold be in the format GHA-XXXXXXXXX-X"
+                }
+              }
             },
             {
               "type": "date",
               "name": "dateOfBirth",
               "label": "Date of Birth",
-              "required": true
+              "validation": {
+                "required": "Date of Birth is required"
+              }
             },
             {
               "type": "text",
               "name": "contactNo",
-              "label": "Contact No. of Insured",
-              "required": true
+              "label": "Mobile No.",
+              "validation": {
+                "required": "Phone number is required",
+                "pattern": {
+                  "value": "^(020|023|024|025|026|027|028|050|053|054|055|056|057|059)\\d{7}$",
+                  "message": "Only Valid Ghanaian Phone Number allowed."
+                },
+                "minLength": {
+                  "value": 10,
+                  "message": "Maximum 10 digits"
+                },
+                "maxLength": {
+                  "value": 10,
+                  "message": "Maximum 10 digits"
+                }
+              }
             }
           ]
         }
       ]
     },
     {
-      "type": "array",
-      "name": "vehicles",
-      "label": "VEHICLES",
-      "minItems": 1,
-      "itemSchema": {
-        "type": "object",
-        "fields": [
-          {
-            "type": "group",
-            "name": "vehdet",
-            "label": "",
+      "name": "vehicleDetails",
+      "label": "VEHICLE DETAILS",
+      "fields": [
+        {
+          "type": "array",
+          "name": "vehicles",
+          "label": "VEHICLES",
+          "minItems": 1,
+          "itemSchema": {
+            "type": "object",
             "fields": [
               {
-                "type": "text",
-                "name": "make",
-                "label": "Make",
-                "required": true
+                "type": "group",
+                "name": "vehdet",
+                "label": "",
+                "fields": [
+                  {
+                    "type": "text",
+                    "name": "make",
+                    "label": "Make",
+                    "validation": {
+                      "required": "Make is required",
+                      "maxLength": {
+                        "value": 20,
+                        "message": "Character > 20"
+                      }
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "model",
+                    "label": "Model",
+                    "validation": {
+                      "required": "Model is required",
+                      "maxLength": {
+                        "value": 20,
+                        "messge": "Characters > 20"
+                      }
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "typeOfBody",
+                    "label": "Type of Body",
+                    "validation": {
+                      "required": "Body type is required",
+                      "maxLength": {
+                        "value": 15,
+                        "message": "Character > 15"
+                      }
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "regNumber",
+                    "label": "Vehicle Registration Number",
+                    "validation": {
+                      "required": "Reg. No. is required",
+                      "maxLength": {
+                        "value": 15,
+                        "message": "Character > 15"
+                      }
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "manufactureYear",
+                    "label": "Year of Manufacture",
+                    "validation": {
+                      "required": "Reg. Year is required",
+                      "pattern": {
+                        "value": "\\d{4}",
+                        "message": "Should be digits"
+                      },
+                      "maxLength": {
+                        "value": 4,
+                        "message": "Characters > 4"
+                      }
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "cubicCapacity",
+                    "label": "Cubic Capacity",
+                    "validation": {
+                      "required": "CC is required",
+                      "pattern": {
+                        "value": "^(?:[5-9]\\d|[1-9]\\d{2,3}|1\\d{4}|20000)$",
+                        "message": "Enter a valid cubic capacity"
+                      }
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "seatingCapacity",
+                    "label": "Seating Capacity",
+                    "validation": {
+                      "required": "Seating capacity is required",
+                      "pattern": {
+                        "value": "^(?:[1-9]|[1-9]\\d|1\\d{2}|200)$",
+                        "message": "Capacity should be a number between 1 and 200"
+                      }
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "color",
+                    "label": "Color of Vehicle",
+                    "validation": {
+                      "required": "Color is required",
+                      "pattern": {
+                        "value": "^[A-Za-z\\s-]{3,30}$",
+                        "message": "Should be text and can contain -"
+                      }
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "engineNo",
+                    "label": "Engine Number"
+                  },
+                  {
+                    "type": "text",
+                    "name": "chassisNo",
+                    "label": "Chassis Number",
+                    "validation": {
+                      "required": "Chassis is required",
+                      "pattern": {
+                        "value": "^[A-HJ-NPR-Z0-9]{11,17}$",
+                        "message": "Enter a valid chassis number 11-17. Chassis numbers exclude I, O, Q because they resemble numbers"
+                      }
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "otherAssessories",
+                    "label": "Other accessories (please list)"
+                  },
+                  {
+                    "type": "text",
+                    "name": "valueOfAssess",
+                    "label": "Value of Accessories"
+                  },
+                  {
+                    "type": "text",
+                    "name": "valueOfVehicle",
+                    "label": "Value of Vehicle Incl. Accessories"
+                  }
+                ]
               },
               {
-                "type": "text",
-                "name": "model",
-                "label": "Model",
-                "required": true
-              },
-              {
-                "type": "text",
-                "name": "typeOfBody",
-                "label": "Type of Body",
-                "required": true
-              },
-              {
-                "type": "text",
-                "name": "regNumber",
-                "label": "Vehicle Registration Number",
-                "required": true
-              },
-              {
-                "type": "text",
-                "name": "manufactureYear",
-                "label": "Year of Manufacture",
-                "required": true
-              },
-              {
-                "type": "text",
-                "name": "cubicCapacity",
-                "label": "Cubic Capacity",
-                "required": true
-              },
-              {
-                "type": "text",
-                "name": "seatingCapacity",
-                "label": "Seating Capacity",
-                "required": true
-              },
-              {
-                "type": "text",
-                "name": "color",
-                "label": "Color of Vehicle",
-                "required": true
-              },
-              {
-                "type": "text",
-                "name": "engineNo",
-                "label": "Engine Number"
-              },
-              {
-                "type": "text",
-                "name": "chassisNo",
-                "label": "Chassis Number",
-                "required": true
-              },
-              {
-                "type": "text",
-                "name": "otherAssessories",
-                "label": "Other accessories (please list)"
-              },
-              {
-                "type": "text",
-                "name": "valueOfAssess",
-                "label": "Value of Accessories"
-              },
-              {
-                "type": "text",
-                "name": "valueOfVehicle",
-                "label": "Value of Vehicle Incl. Accessories"
-              }
-            ]
-          },
-          {
-            "type": "text",
-            "name": "isUsed",
-            "label": "Is the vehicle new or old (used)",
-            "required": true
-          },
-          {
-            "type": "radio",
-            "name": "vehicleAltered",
-            "label": "Has the vehicle been altered, adapted or modified from the original manufacturer's design in any way:",
-            "required": true,
-            "options": [
-              {
-                "label": "YES",
-                "value": true
-              },
-              {
-                "label": "NO",
-                "value": false
-              }
-            ]
-          },
-          {
-            "type": "text",
-            "name": "ifYesAltered",
-            "label": "If Yes, provide details"
-          },
-          {
-            "type": "radio",
-            "name": "vehCondition",
-            "label": "Is the vehicle in good condition?",
-            "required": true,
-            "options": [
-              {
-                "label": "YES",
-                "value": true
-              },
-              {
-                "label": "NO",
-                "value": false
-              }
-            ]
-          },
-          {
-            "type": "radio",
-            "name": "isOwner",
-            "label": "Are you the owner of the vehicle",
-            "required": true,
-            "options": [
-              {
-                "label": "YES",
-                "value": true
-              },
-              {
-                "label": "NO",
-                "value": false
-              }
-            ]
-          },
-          {
-            "type": "radio",
-            "name": "isRegisterdInYourName",
-            "label": "Is it registered in your Name",
-            "required": true,
-            "options": [
-              {
-                "label": "YES",
-                "value": true
-              },
-              {
-                "label": "NO",
-                "value": false
-              }
-            ]
-          },
-          {
-            "type": "text",
-            "name": "notInName",
-            "label": "If NO state in whose name it is registered and the address"
-          },
-          {
-            "type": "radio",
-            "name": "subjectToHirePurchase",
-            "label": "Is the vehicle subject to any Hire Purchase Agreement?",
-            "required": true,
-            "options": [
-              {
-                "label": "YES",
-                "value": true
-              },
-              {
-                "label": "NO",
-                "value": false
-              }
-            ]
-          },
-          {
-            "type": "text",
-            "name": "ifYesNameCompany",
-            "label": "if Yes, name the Company?"
-          },
-          {
-            "type": "select",
-            "name": "product",
-            "label": "What is the vehicle (s) used or licensed for:",
-            "required": true,
-            "options": [
-              {
-                "label": "PRIVATE INDIVIDUAL USE",
-                "value": "PRIVATE INDIVIDUAL USE"
-              },
-              {
-                "label": "PRIVATE COPORATE USE",
-                "value": "PRIVATE COPORATE USE"
-              },
-              {
-                "label": "FARE PAYING USE (TAXI)",
-                "value": "FARE PAYING USE (TAXI)"
-              },
-              {
-                "label": "FARE PAYING (HIRING)",
-                "value": "FARE PAYING (HIRING)"
-              },
-              {
-                "label": "CARRIAGE OF OWN GOODS",
-                "value": "CARRIAGE OF OWN GOODS"
-              },
-              {
-                "label": "CARRIAGE OF OTHER PERSON's GOODS",
-                "value": "CARRIAGE OF OTHER PERSON's GOODS"
-              }
-            ]
-          },
-          {
-            "type": "text",
-            "name": "otherProduct",
-            "label": "Any other use not stated above"
-          },
-          {
-            "type": "text",
-            "name": "garageAddress",
-            "label": "Please state the address at which the vehicle is usually garaged",
-            "required": true
-          },
-          {
-            "type": "info",
-            "content": "NOTE: COMMERCIAL DRIVERS MUST HAVE AT LEAST TWO (2) YEARS OF EXPERIENCE AND MUST BE AT LEAST TWENTY-FIVE (25) YEARS OLD",
-            "variant": "heading"
-          },
-          {
-            "type": "radio",
-            "name": "otherInsurables",
-            "label": "Do you have other insurable properties such as Buildings, Shop, Warehouses, Other Vehicles etc?",
-            "required": true,
-            "options": [
-              { "label": "YES", "value": true },
-              { "label": "NO", "value": false }
-            ]
-          },
-          {
-            "type": "text",
-            "name": "otherInsurablesYes",
-            "label": "If Yes, give details"
-          },
-          {
-            "type": "info",
-            "content": "INSURANCE HISTORY",
-            "variant": "heading"
-          },
-          {
-            "type": "info",
-            "content": "Has any Insurance company, ever, in connection with any motor vehicle:",
-            "variant": "descT"
-          },
-          {
-            "type": "group",
-            "name": "insHistory",
-            "label": "",
-            "fields": [
-              {
-                "type": "radio",
-                "name": "declineProposal",
-                "label": "Declined your proposal",
-                "required": true,
+                "type": "select",
+                "name": "isUsed",
+                "label": "Is the vehicle new or old (used)",
+                "validation": {
+                  "required": "Vehicle status is required"
+                },
                 "options": [
-                  { "label": "YES", "value": true },
-                  { "label": "NO", "value": false }
+                  { "label": "NEW", "value": "NEW" },
+                  { "label": "OLD (USED)", "value": "OLD (USED)" }
                 ]
               },
               {
                 "type": "radio",
-                "name": "chargedExtra",
-                "label": "Charged extra premium?",
-                "required": true,
+                "name": "vehicleAltered",
+                "label": "Has the vehicle been altered, adapted or modified from the original manufacturer's design in any way:",
+                "validation": {
+                  "required": "Required"
+                },
                 "options": [
-                  { "label": "YES", "value": true },
-                  { "label": "NO", "value": false }
+                  {
+                    "label": "YES",
+                    "value": true
+                  },
+                  {
+                    "label": "NO",
+                    "value": false
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "name": "ifYesAltered",
+                "label": "If Yes, provide details",
+                "validation": {
+                  "maxLength": {
+                    "value": 30,
+                    "message": "Characters > 30"
+                  }
+                }
+              },
+              {
+                "type": "radio",
+                "name": "vehCondition",
+                "label": "Is the vehicle in good condition?",
+                "validation": {
+                  "required": "Vehicle condidion is required"
+                },
+                "options": [
+                  {
+                    "label": "YES",
+                    "value": true
+                  },
+                  {
+                    "label": "NO",
+                    "value": false
+                  }
                 ]
               },
               {
                 "type": "radio",
-                "name": "refusedRenew",
-                "label": "Refused to renew your policy?",
-                "required": true,
+                "name": "isOwner",
+                "label": "Are you the owner of the vehicle",
+                "validation": {
+                  "required": "Required"
+                },
                 "options": [
-                  { "label": "YES", "value": true },
-                  { "label": "NO", "value": false }
+                  {
+                    "label": "YES",
+                    "value": true
+                  },
+                  {
+                    "label": "NO",
+                    "value": false
+                  }
                 ]
               },
               {
                 "type": "radio",
-                "name": "canceledPolicy",
-                "label": "Cancelled your policy?",
-                "required": true,
+                "name": "isRegisterdInYourName",
+                "label": "Is it registered in your Name",
+                "validation": {
+                  "required": "Required"
+                },
                 "options": [
-                  { "label": "YES", "value": true },
-                  { "label": "NO", "value": false }
+                  {
+                    "label": "YES",
+                    "value": true
+                  },
+                  {
+                    "label": "NO",
+                    "value": false
+                  }
                 ]
-              }
-            ]
-          },
-          {
-            "type": "info",
-            "content": "If Yes, give reasons for the above",
-            "variant": "descTb"
-          },
-          {
-            "type": "radio",
-            "label": "Have you been insured in respect to any motor vehicle?",
-            "name": "insuredInRespect",
-            "required": true,
-            "options": [
-              { "label": "YES", "value": true },
-              { "label": "NO", "value": false }
-            ]
-          },
-          {
-            "type": "text",
-            "name": "insuredInRespectYes",
-            "label": "If Yes, please state the company"
-          },
-          {
-            "type": "radio",
-            "label": "Are you entitled to a 'no claim discount' from your previous insurance?",
-            "name": "prevInsurance",
-            "required": true,
-            "options": [
-              { "label": "YES", "value": true },
-              { "label": "NO", "value": false }
-            ]
-          },
-          {
-            "type": "text",
-            "name": "prevInsuranceYes",
-            "label": "If Yes, attach a renewal notice"
-          },
-          {
-            "type": "radio",
-            "label": "Have you ever made a motor calim against any Insurance company?",
-            "name": "motorClaim",
-            "required": true,
-            "options": [
-              { "label": "YES", "value": true },
-              { "label": "NO", "value": false }
-            ]
-          },
-          {
-            "type": "text",
-            "name": "motorClaimYes",
-            "label": "If Yes, give details:"
-          },
-          {
-            "type": "info",
-            "content": "COVER PREFERRED (Type of Cover)",
-            "variant": "heading"
-          },
-          {
-            "type": "select",
-            "name": "typeOfCover",
-            "label": "Select Cover Preferred",
-            "options": [
-              { "label": "COMPREHENSIVE", "value": "Comprehensive" },
-              { "label": "THIRD PARTY", "value": "Third Party" },
+              },
               {
-                "label": "THIRD PARTY, FIRE & THEFT",
-                "value": "Third Party, Fire & Theft"
+                "type": "text",
+                "name": "notInName",
+                "label": "If NO state in whose name it is registered and the address",
+                "validation": {
+                  "maxLength": {
+                    "value": 30,
+                    "message": "Characters > 30"
+                  }
+                }
+              },
+              {
+                "type": "radio",
+                "name": "subjectToHirePurchase",
+                "label": "Is the vehicle subject to any Hire Purchase Agreement?",
+                "validation": {
+                  "required": "Required"
+                },
+                "options": [
+                  {
+                    "label": "YES",
+                    "value": true
+                  },
+                  {
+                    "label": "NO",
+                    "value": false
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "name": "ifYesNameCompany",
+                "label": "if Yes, name the Company?",
+                "validation": {
+                  "maxLength": {
+                    "value": 50,
+                    "message": "Character > 50"
+                  }
+                }
+              },
+              {
+                "type": "text",
+                "name": "garageAddress",
+                "label": "Where do you usually park the vehicle",
+                "validation": {
+                  "required": "Park details is required",
+                  "maxLength": {
+                    "value": 50,
+                    "message": "Character > 50"
+                  }
+                }
               }
-            ]
-          },
-          {
-            "type": "radio",
-            "name": "requireTTPD",
-            "label": "Do you require an increase in your Third Party Property Damage Limit?",
-            "required": true,
-            "options": [
-              { "label": "YES", "value": true },
-              { "label": "NO", "value": false }
-            ]
-          },
-          {
-            "type": "text",
-            "name": "requireTTPDyes",
-            "label": "If so state the amount of increase required"
-          },
-          {
-            "type": "radio",
-            "name": "buyExcessBack",
-            "label": "Do you want to buy back the excess on the policy?",
-            "required": true,
-            "options": [
-              { "label": "YES", "value": true },
-              { "label": "NO", "value": false }
             ]
           }
-        ]
-      }
+        }
+      ]
     },
-
+    {
+      "name": "vehicleUse",
+      "label": "VEHICLE(S) USE",
+      "fields": [
+        {
+          "type": "select",
+          "name": "product",
+          "label": "What is the vehicle (s) used or licensed for:",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            {
+              "label": "PRIVATE INDIVIDUAL USE",
+              "value": "PRIVATE INDIVIDUAL USE"
+            },
+            {
+              "label": "PRIVATE COPORATE USE",
+              "value": "PRIVATE COPORATE USE"
+            },
+            {
+              "label": "FARE PAYING USE (TAXI)",
+              "value": "FARE PAYING USE (TAXI)"
+            },
+            {
+              "label": "FARE PAYING (HIRING)",
+              "value": "FARE PAYING (HIRING)"
+            },
+            {
+              "label": "CARRIAGE OF OWN GOODS",
+              "value": "CARRIAGE OF OWN GOODS"
+            },
+            {
+              "label": "CARRIAGE OF OTHER PERSON's GOODS",
+              "value": "CARRIAGE OF OTHER PERSON's GOODS"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "otherProduct",
+          "label": "Any other use not stated above",
+          "validation": {
+            "maxLength": {
+              "value": 50,
+              "message": "Characters > 50"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "preferredCover",
+      "label": "COVER PREFERRED",
+      "fields": [
+        {
+          "type": "info",
+          "content": "COVER PREFERRED (Type of Cover)",
+          "variant": "heading"
+        },
+        {
+          "type": "select",
+          "name": "typeOfCover",
+          "label": "Select Cover Preferred",
+          "validation": {
+            "required": "Cover is required"
+          },
+          "options": [
+            { "label": "COMPREHENSIVE", "value": "Comprehensive" },
+            { "label": "THIRD PARTY", "value": "Third Party" },
+            {
+              "label": "THIRD PARTY, FIRE & THEFT",
+              "value": "Third Party, Fire & Theft"
+            }
+          ]
+        },
+        {
+          "type": "radio",
+          "name": "requireTTPD",
+          "label": "Do you require an increase in your Third Party Property Damage Limit?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": true },
+            { "label": "NO", "value": false }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "requireTTPDyes",
+          "label": "Increase Amount",
+          "validation": {
+            "pattern": {
+              "value": "^[1-9]\\d*$",
+              "message": "Should be whole numbers, no decimals"
+            }
+          }
+        },
+        {
+          "type": "radio",
+          "name": "buyExcessBack",
+          "label": "Excess ?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "Applicable", "value": true },
+            { "label": "Bought", "value": false }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "insuranceHistory",
+      "label": "INSURANCE HISTORY",
+      "fields": [
+        {
+          "type": "info",
+          "content": "NOTE: COMMERCIAL DRIVERS MUST HAVE AT LEAST TWO (2) YEARS OF EXPERIENCE AND MUST BE AT LEAST TWENTY-FIVE (25) YEARS OLD",
+          "variant": "heading"
+        },
+        {
+          "type": "radio",
+          "name": "otherInsurables",
+          "label": "Do you have other insurable properties such as Buildings, Shop, Warehouses, Other Vehicles etc?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": true },
+            { "label": "NO", "value": false }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "otherInsurablesYes",
+          "label": "If Yes, give details"
+        },
+        {
+          "type": "info",
+          "content": "INSURANCE HISTORY",
+          "variant": "heading"
+        },
+        {
+          "type": "info",
+          "content": "Has any Insurance company, ever, in connection with any motor vehicle:",
+          "variant": "descT"
+        },
+        {
+          "type": "group",
+          "name": "insHistory",
+          "label": "",
+          "fields": [
+            {
+              "type": "radio",
+              "name": "declineProposal",
+              "label": "Declined your proposal",
+              "validation": {
+                "required": "Required"
+              },
+              "options": [
+                { "label": "YES", "value": true },
+                { "label": "NO", "value": false }
+              ]
+            },
+            {
+              "type": "radio",
+              "name": "chargedExtra",
+              "label": "Charged extra premium?",
+              "validation": {
+                "required": "Required"
+              },
+              "options": [
+                { "label": "YES", "value": true },
+                { "label": "NO", "value": false }
+              ]
+            },
+            {
+              "type": "radio",
+              "name": "refusedRenew",
+              "label": "Refused to renew your policy?",
+              "validation": {
+                "required": "Required"
+              },
+              "options": [
+                { "label": "YES", "value": true },
+                { "label": "NO", "value": false }
+              ]
+            },
+            {
+              "type": "radio",
+              "name": "canceledPolicy",
+              "label": "Cancelled your policy?",
+              "validation": {
+                "required": "Required"
+              },
+              "options": [
+                { "label": "YES", "value": true },
+                { "label": "NO", "value": false }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "info",
+          "content": "If Yes, give reasons for the above",
+          "variant": "descTb"
+        },
+        {
+          "type": "radio",
+          "label": "Have you been insured in respect to any motor vehicle?",
+          "name": "insuredInRespect",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": true },
+            { "label": "NO", "value": false }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "insuredInRespectYes",
+          "label": "If Yes, please state the company",
+          "validation": {
+            "maxLength": {
+              "value": 50,
+              "message": "Character > 50"
+            }
+          }
+        },
+        {
+          "type": "radio",
+          "label": "Have you ever made a motor calim against any Insurance company?",
+          "name": "motorClaim",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": true },
+            { "label": "NO", "value": false }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "motorClaimYes",
+          "label": "If Yes, give details:",
+          "validation": {
+            "maxLength": {
+              "value": 150,
+              "message": "Character > 150"
+            }
+          }
+        }
+      ]
+    },
     {
       "name": "declaration",
       "label": "DECLARATION",
@@ -544,7 +716,9 @@
           "type": "radio",
           "name": "acceptDeclaration",
           "label": "",
-          "required": true,
+          "validation": {
+            "required": "Required"
+          },
           "options": [{ "label": "I Accept", "value": true }]
         }
       ]
