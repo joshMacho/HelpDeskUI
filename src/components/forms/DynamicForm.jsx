@@ -151,11 +151,13 @@ export default function DynamicForm({ schema }) {
     children: <SectionRenderer section={section} />,
   }));
 
+  // get field names from a section
+
   const currentIndex = schema.sections.findIndex((s) => s.name === activeTab);
   const next = async () => {
-    const valid = await methods.trigger();
-    console.log("valid: ", valid);
-    if (!valid) return;
+    // const valid = await methods.trigger();
+    // console.log("valid: ", valid);
+    // if (!valid) return;
 
     setActiveTab(schema.sections[currentIndex + 1].name);
 
