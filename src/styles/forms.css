@@ -159,6 +159,15 @@
   justify-center items-center gap-2;
 }
 
+.save-draft-div {
+  @apply fixed bottom-[60px] left-2 z-50 bg-white shadow-md;
+}
+
+.save-draft-div button {
+  @apply flex flex-col border border-[#30296f] rounded-md
+   gap-2 hover:border-2 hover:border-[#d7d7d7] p-2 justify-center items-center;
+}
+
 .section {
   @apply mx-4;
 }

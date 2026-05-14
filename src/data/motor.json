@@ -2,6 +2,49 @@
   "type": "object",
   "sections": [
     {
+      "name": "policyInfo",
+      "label": "POLICY DETAILS",
+      "fields": [
+        {
+          "type": "group",
+          "name": "policyInfo",
+          "label": "Policy Details",
+          "fields": [
+            {
+              "type": "select",
+              "name": "currency",
+              "label": "Currency",
+              "validation": {
+                "required": "Currency is required"
+              },
+              "options": [
+                { "label": "GHC", "value": "GHC" },
+                { "label": "EUR", "value": "EUR" },
+                { "label": "USD", "value": "USD" },
+                { "label": "GBP", "value": "GBP" }
+              ]
+            },
+            {
+              "type": "date",
+              "name": "startDate",
+              "label": "Start Date",
+              "validation": {
+                "required": "Enter/Select a start date"
+              }
+            },
+            {
+              "type": "date",
+              "name": "endDate",
+              "label": "End Date",
+              "validation": {
+                "required": "Enter/Select an end date"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "personalDetails",
       "label": "PERSONAL DETAILS",
       "fields": [
@@ -143,6 +186,124 @@
         }
       ]
     },
+
+    {
+      "name": "preferredCover",
+      "label": "COVER PREFERRED",
+      "fields": [
+        {
+          "type": "info",
+          "content": "COVER PREFERRED (Type of Cover)",
+          "variant": "heading"
+        },
+        {
+          "type": "select",
+          "name": "typeOfCover",
+          "label": "Select Cover Preferred",
+          "validation": {
+            "required": "Cover is required"
+          },
+          "options": [
+            { "label": "COMPREHENSIVE", "value": "Comprehensive" },
+            { "label": "THIRD PARTY", "value": "Third Party" },
+            {
+              "label": "THIRD PARTY, FIRE & THEFT",
+              "value": "Third Party, Fire & Theft"
+            }
+          ]
+        },
+        {
+          "type": "radio",
+          "name": "requireTTPD",
+          "label": "Do you require an increase in your Third Party Property Damage Limit?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": true },
+            { "label": "NO", "value": false }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "requireTTPDyes",
+          "label": "Increase Amount",
+          "showWhen": {
+            "field": "requireTTPD",
+            "value": "true"
+          },
+          "validation": {
+            "pattern": {
+              "value": "^[1-9]\\d*$",
+              "message": "Should be whole numbers, no decimals"
+            }
+          }
+        },
+        {
+          "type": "radio",
+          "name": "buyExcessBack",
+          "label": "Excess ?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "Applicable", "value": true },
+            { "label": "Bought", "value": false }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "vehicleUse",
+      "label": "VEHICLE(S) USE",
+      "fields": [
+        {
+          "type": "select",
+          "name": "product",
+          "label": "What is the vehicle (s) used or licensed for:",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            {
+              "label": "PRIVATE INDIVIDUAL USE",
+              "value": "PRIVATE INDIVIDUAL USE"
+            },
+            {
+              "label": "PRIVATE COPORATE USE",
+              "value": "PRIVATE COPORATE USE"
+            },
+            {
+              "label": "FARE PAYING USE (TAXI)",
+              "value": "FARE PAYING USE (TAXI)"
+            },
+            {
+              "label": "FARE PAYING (HIRING)",
+              "value": "FARE PAYING (HIRING)"
+            },
+            {
+              "label": "CARRIAGE OF OWN GOODS",
+              "value": "CARRIAGE OF OWN GOODS"
+            },
+            {
+              "label": "CARRIAGE OF OTHER PERSON's GOODS",
+              "value": "CARRIAGE OF OTHER PERSON's GOODS"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "otherProduct",
+          "label": "Any other use not stated above",
+          "validation": {
+            "maxLength": {
+              "value": 50,
+              "message": "Characters > 50"
+            }
+          }
+        }
+      ]
+    },
     {
       "name": "vehicleDetails",
       "label": "VEHICLE DETAILS",
@@ -280,17 +441,29 @@
                   {
                     "type": "text",
                     "name": "otherAssessories",
-                    "label": "Other accessories (please list)"
+                    "label": "Other accessories (please list)",
+                    "showWhen": {
+                      "field": "$root.preferredCover.typeOfCover",
+                      "value": ["Comprehensive", "Third Party, Fire & Theft"]
+                    }
                   },
                   {
                     "type": "text",
                     "name": "valueOfAssess",
-                    "label": "Value of Accessories"
+                    "label": "Value of Accessories",
+                    "showWhen": {
+                      "field": "$root.preferredCover.typeOfCover",
+                      "value": ["Comprehensive", "Third Party, Fire & Theft"]
+                    }
                   },
                   {
                     "type": "text",
                     "name": "valueOfVehicle",
-                    "label": "Value of Vehicle Incl. Accessories"
+                    "label": "Value of Vehicle Incl. Accessories",
+                    "showWhen": {
+                      "field": "$root.preferredCover.typeOfCover",
+                      "value": ["Comprehensive", "Third Party, Fire & Theft"]
+                    }
                   }
                 ]
               },
@@ -328,6 +501,10 @@
                 "type": "text",
                 "name": "ifYesAltered",
                 "label": "If Yes, provide details",
+                "showWhen": {
+                  "field": "vehicleAltered",
+                  "value": "true"
+                },
                 "validation": {
                   "maxLength": {
                     "value": 30,
@@ -393,6 +570,10 @@
                 "type": "text",
                 "name": "notInName",
                 "label": "If NO state in whose name it is registered and the address",
+                "showWhen": {
+                  "field": "isRegisterdInYourName",
+                  "value": "false"
+                },
                 "validation": {
                   "maxLength": {
                     "value": 30,
@@ -422,6 +603,10 @@
                 "type": "text",
                 "name": "ifYesNameCompany",
                 "label": "if Yes, name the Company?",
+                "showWhen": {
+                  "field": "subjectToHirePurchase",
+                  "value": "true"
+                },
                 "validation": {
                   "maxLength": {
                     "value": 50,
@@ -443,119 +628,6 @@
               }
             ]
           }
-        }
-      ]
-    },
-    {
-      "name": "vehicleUse",
-      "label": "VEHICLE(S) USE",
-      "fields": [
-        {
-          "type": "select",
-          "name": "product",
-          "label": "What is the vehicle (s) used or licensed for:",
-          "validation": {
-            "required": "Required"
-          },
-          "options": [
-            {
-              "label": "PRIVATE INDIVIDUAL USE",
-              "value": "PRIVATE INDIVIDUAL USE"
-            },
-            {
-              "label": "PRIVATE COPORATE USE",
-              "value": "PRIVATE COPORATE USE"
-            },
-            {
-              "label": "FARE PAYING USE (TAXI)",
-              "value": "FARE PAYING USE (TAXI)"
-            },
-            {
-              "label": "FARE PAYING (HIRING)",
-              "value": "FARE PAYING (HIRING)"
-            },
-            {
-              "label": "CARRIAGE OF OWN GOODS",
-              "value": "CARRIAGE OF OWN GOODS"
-            },
-            {
-              "label": "CARRIAGE OF OTHER PERSON's GOODS",
-              "value": "CARRIAGE OF OTHER PERSON's GOODS"
-            }
-          ]
-        },
-        {
-          "type": "text",
-          "name": "otherProduct",
-          "label": "Any other use not stated above",
-          "validation": {
-            "maxLength": {
-              "value": 50,
-              "message": "Characters > 50"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "preferredCover",
-      "label": "COVER PREFERRED",
-      "fields": [
-        {
-          "type": "info",
-          "content": "COVER PREFERRED (Type of Cover)",
-          "variant": "heading"
-        },
-        {
-          "type": "select",
-          "name": "typeOfCover",
-          "label": "Select Cover Preferred",
-          "validation": {
-            "required": "Cover is required"
-          },
-          "options": [
-            { "label": "COMPREHENSIVE", "value": "Comprehensive" },
-            { "label": "THIRD PARTY", "value": "Third Party" },
-            {
-              "label": "THIRD PARTY, FIRE & THEFT",
-              "value": "Third Party, Fire & Theft"
-            }
-          ]
-        },
-        {
-          "type": "radio",
-          "name": "requireTTPD",
-          "label": "Do you require an increase in your Third Party Property Damage Limit?",
-          "validation": {
-            "required": "Required"
-          },
-          "options": [
-            { "label": "YES", "value": true },
-            { "label": "NO", "value": false }
-          ]
-        },
-        {
-          "type": "text",
-          "name": "requireTTPDyes",
-          "label": "Increase Amount",
-          "validation": {
-            "pattern": {
-              "value": "^[1-9]\\d*$",
-              "message": "Should be whole numbers, no decimals"
-            }
-          }
-        },
-        {
-          "type": "radio",
-          "name": "buyExcessBack",
-          "label": "Excess ?",
-          "validation": {
-            "required": "Required"
-          },
-          "options": [
-            { "label": "Applicable", "value": true },
-            { "label": "Bought", "value": false }
-          ]
         }
       ]
     },
@@ -583,7 +655,11 @@
         {
           "type": "text",
           "name": "otherInsurablesYes",
-          "label": "If Yes, give details"
+          "label": "If Yes, give details",
+          "showWhen": {
+            "field": "otherInsurables",
+            "value": "true"
+          }
         },
         {
           "type": "info",
@@ -671,6 +747,10 @@
           "type": "text",
           "name": "insuredInRespectYes",
           "label": "If Yes, please state the company",
+          "showWhen": {
+            "field": "insuredInRespect",
+            "value": "true"
+          },
           "validation": {
             "maxLength": {
               "value": 50,
@@ -694,6 +774,10 @@
           "type": "text",
           "name": "motorClaimYes",
           "label": "If Yes, give details:",
+          "showWhen": {
+            "field": "motorClaim",
+            "value": "true"
+          },
           "validation": {
             "maxLength": {
               "value": 150,

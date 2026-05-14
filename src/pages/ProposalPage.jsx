@@ -288,8 +288,8 @@ export default function ProposalPage() {
           </Popover>
         </div>
       </div>
-      <div className="in-content xmargins">
-        <div className="col-span-3">
+      <div className="in-content xmargin">
+        <div className=" prop-div col-span-3">
           <ProposalSendTable />
         </div>
       </div>

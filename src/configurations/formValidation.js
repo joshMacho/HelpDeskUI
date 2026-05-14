@@ -17,7 +17,7 @@ export const deviceValidation = Yup.object({
   cpu: Yup.string(),
   ramSize: Yup.number(),
   storageSize: Yup.string().matches(
-    /^\d{1,3}(GB|TB)$/,
+    /^\d{1,3}(GB|TB|MB)$/,
     "Entry should be 3 digits followed by GB or TB",
   ),
   ipAddress: Yup.string(),

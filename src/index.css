@@ -383,3 +383,7 @@ p {
 .otp-options {
   @apply flex justify-between items-center;
 }
+
+.prop-div {
+  @apply overflow-y-auto;
+}

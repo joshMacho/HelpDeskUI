@@ -8,6 +8,7 @@ export default function FieldRenderer({ field, parentName }) {
   const {
     register,
     control,
+    watch,
     formState: { errors },
   } = useFormContext();
 
@@ -24,6 +25,42 @@ export default function FieldRenderer({ field, parentName }) {
 
   if (validation.pattern?.value) {
     validation.pattern.value = new RegExp(validation.pattern.value);
+  }
+
+  // show when condition
+  // if (field.showWhen) {
+  //   const dependencyName = parentName
+  //     ? `${parentName}.${field.showWhen.field}`
+  //     : field.showWhen.field;
+  //   const dependentValue = watch(dependencyName);
+  //   const expectedValue = field.showWhen.value;
+  //   const shouldShow = dependentValue === field.showWhen.value;
+  //   if (!shouldShow) {
+  //     return null;
+  //   }
+  // }
+
+  if (field.showWhen) {
+    let dependencyName = field.showWhen.field;
+
+    // ROOT HANDLING
+    if (dependencyName.startsWith("$root.")) {
+      dependencyName = dependencyName.replace("$root.", "");
+    }
+
+    // 🧠 ONLY APPLY parentName if NOT absolute path
+    else if (parentName && !dependencyName.includes(".")) {
+      dependencyName = `${parentName}.${dependencyName}`;
+    }
+
+    const dependentValue = watch(dependencyName);
+    const expectedValue = field.showWhen.value;
+
+    const shouldShow = Array.isArray(expectedValue)
+      ? expectedValue.includes(dependentValue)
+      : dependentValue === expectedValue;
+
+    if (!shouldShow) return null;
   }
 
   switch (field.type) {

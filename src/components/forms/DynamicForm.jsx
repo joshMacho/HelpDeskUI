@@ -7,18 +7,44 @@ import { message, Tabs } from "antd";
 import { useToken } from "../../TokenProtectRoute";
 import { useLocation } from "react-router-dom";
 import LoadingModal from "../LoadingModal";
-import { Children, useState } from "react";
+import { Children, useEffect, useState } from "react";
 import OTPModal from "../modal/OTPModal";
 import PreviewModal from "../modal/PreviewModal";
 import { current } from "@reduxjs/toolkit";
+import { DocumentText1 } from "iconsax-reactjs";
 
 export default function DynamicForm({ schema }) {
+  const { tokenData, token } = useToken();
+
   const methods = useForm({
     defaultValues: {},
     mode: "onBlur",
   });
 
-  const { tokenData, token } = useToken();
+  const { watch, getValues, reset } = methods;
+
+  // useEffect(() => {
+  //   const savedDraft = localStorage.getItem(tokenData.proposal_id);
+  //   if (savedDraft) {
+  //     reset(JSON.parse(savedDraft));
+  //   }
+  // }, [reset]);
+
+  // useEffect(() => {
+  //   const subscription = watch((value) => {
+  //     localStorage.setItem(tokenData.proposal_id, JSON.stringify(value));
+  //   });
+
+  //   return () => subscription.unsubscribe();
+  // }, [watch]);
+
+  useEffect(() => {
+    const savedDraft = localStorage.getItem(tokenData.proposal_id);
+    if (savedDraft) {
+      reset(JSON.parse(savedDraft));
+    }
+  }, [reset]);
+
   const [messageApi, context] = message.useMessage();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -29,6 +55,12 @@ export default function DynamicForm({ schema }) {
   const [activeTab, setActiveTab] = useState(schema.sections[0].name);
 
   const query = new URLSearchParams(location.search);
+
+  const saveDraft = () => {
+    const values = getValues();
+    localStorage.setItem(tokenData.proposal_id, JSON.stringify(values));
+    messageApi.info("Draft Saved ");
+  };
 
   const handlePreview = (data) => {
     setPreview(data);
@@ -69,6 +101,7 @@ export default function DynamicForm({ schema }) {
           `Error submitting form. Check connection / contact admin`,
       );
     } finally {
+      localStorage.removeItem("formDraft");
       setLoading(false);
     }
   };
@@ -205,6 +238,11 @@ export default function DynamicForm({ schema }) {
             Submit
           </button>
         </div> */}
+        <div className="save-draft-div">
+          <button type="button" onClick={() => saveDraft()}>
+            <DocumentText1 className="icnax" variant="broken" />
+          </button>
+        </div>
         <div className="form-button-div stickb">
           {currentIndex > 0 && (
             <button type="button" onClick={prev}>
