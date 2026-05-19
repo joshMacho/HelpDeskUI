@@ -28,6 +28,7 @@
               "type": "date",
               "name": "startDate",
               "label": "Start Date",
+              "minDate": "today",
               "validation": {
                 "required": "Enter/Select a start date"
               }
@@ -36,6 +37,8 @@
               "type": "date",
               "name": "endDate",
               "label": "End Date",
+              "minDate": "today+30",
+              "maxDate": "today+364",
               "validation": {
                 "required": "Enter/Select an end date"
               }
@@ -312,6 +315,8 @@
           "type": "array",
           "name": "vehicles",
           "label": "VEHICLES",
+          "addButtonLabel": "Add Vehicle",
+          "removeButtonLabel": "Remove",
           "minItems": 1,
           "itemSchema": {
             "type": "object",
@@ -459,7 +464,7 @@
                   {
                     "type": "text",
                     "name": "valueOfVehicle",
-                    "label": "Value of Vehicle Incl. Accessories",
+                    "label": "Value of Vehicle",
                     "showWhen": {
                       "field": "$root.preferredCover.typeOfCover",
                       "value": ["Comprehensive", "Third Party, Fire & Theft"]
@@ -624,6 +629,70 @@
                     "value": 50,
                     "message": "Character > 50"
                   }
+                }
+              },
+              {
+                "type": "array",
+                "name": "otherAttach",
+                "label": "Attachments",
+                "addButtonLabel": "Add Access..",
+                "removeButtonLabel": "Remove Access..",
+                "minItems": 0,
+                "itemSchema": {
+                  "type": "object",
+                  "fields": [
+                    {
+                      "type": "info",
+                      "content": "*Other accessories refers to front guard and other items that add value to the car. Please note that if accessories are not declared it will be assumed as non-existent and claim will not be paid on any of them",
+                      "variant": "descT"
+                    },
+                    {
+                      "type": "group",
+                      "name": "attachGroup",
+                      "label": "",
+                      "fields": [
+                        {
+                          "type": "text",
+                          "name": "typeOfAttach",
+                          "label": "Type of Attachment"
+                        },
+                        {
+                          "type": "text",
+                          "name": "identificationMark",
+                          "label": "Identification Mark"
+                        },
+                        {
+                          "type": "text",
+                          "name": "value",
+                          "label": "Value",
+                          "validation": {
+                            "pattern": {
+                              "value": "",
+                              "message": "Value has to be an amount"
+                            }
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "name": "usage",
+                          "label": "Usage",
+                          "validation": {
+                            "maxLength": {
+                              "value": 15,
+                              "message": "Character > 15"
+                            }
+                          }
+                        },
+                        {
+                          "type": "file",
+                          "name": "attachedFile",
+                          "label": "Upload Attachment",
+                          "accept": ".pdf, .jpeg, .jpg, .png",
+                          "multiple": false
+                        }
+                      ]
+                    }
+                  ]
                 }
               }
             ]

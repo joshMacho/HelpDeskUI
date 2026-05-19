@@ -3,6 +3,7 @@ import { Controller, useFormContext, useWatch } from "react-hook-form";
 import ArrayField from "./ArrayField";
 import GroupField from "./GroupField";
 import { Select } from "antd";
+import FileField from "./FileField";
 
 export default function FieldRenderer({ field, parentName }) {
   const {
@@ -63,6 +64,30 @@ export default function FieldRenderer({ field, parentName }) {
     if (!shouldShow) return null;
   }
 
+  // date validations
+  const getDateConstraint = (value) => {
+    if (!value) return undefined;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (value === "today") {
+      return today.toISOString().split("T")[0];
+    }
+
+    const match = value.match(/^today([+-]\d+)$/);
+
+    if (match) {
+      const offset = parseInt(match[1], 10);
+
+      today.setDate(today.getDate() + offset);
+
+      return today.toISOString().split("T")[0];
+    }
+
+    return value;
+  };
+
   switch (field.type) {
     case "group":
       return <GroupField field={field} parentName={name} />;
@@ -70,9 +95,82 @@ export default function FieldRenderer({ field, parentName }) {
     case "array":
       return <ArrayField field={field} name={name} />;
 
+    case "date": {
+      const getDateConstraint = (value) => {
+        if (!value) return undefined;
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (value === "today") {
+          return today.toISOString().split("T")[0];
+        }
+
+        const match = value.match(/^today([+-]\d+)$/);
+
+        if (match) {
+          const offset = parseInt(match[1], 10);
+
+          today.setDate(today.getDate() + offset);
+
+          return today.toISOString().split("T")[0];
+        }
+
+        return value;
+      };
+
+      const minDate = getDateConstraint(field.minDate);
+      const maxDate = getDateConstraint(field.maxDate);
+
+      return (
+        <div className="form-input">
+          <label className="field-label">{field.label}</label>
+
+          <div className="input-div">
+            <input
+              type="date"
+              min={minDate}
+              max={maxDate}
+              {...register(name, {
+                ...validation,
+
+                validate: (value) => {
+                  if (!value) return true;
+
+                  const selected = new Date(value);
+                  selected.setHours(0, 0, 0, 0);
+
+                  if (minDate) {
+                    const min = new Date(minDate);
+                    min.setHours(0, 0, 0, 0);
+
+                    if (selected < min) {
+                      return `Date cannot be earlier than ${minDate}`;
+                    }
+                  }
+
+                  if (maxDate) {
+                    const max = new Date(maxDate);
+                    max.setHours(0, 0, 0, 0);
+
+                    if (selected > max) {
+                      return `Date cannot be later than ${maxDate}`;
+                    }
+                  }
+
+                  return true;
+                },
+              })}
+            />
+
+            {fieldError && <span className="danger">{fieldError.message}</span>}
+          </div>
+        </div>
+      );
+    }
+
     case "text":
     case "number":
-    case "date":
       return (
         <div className="form-input">
           <label className="field-label">{field.label}</label>
@@ -82,6 +180,8 @@ export default function FieldRenderer({ field, parentName }) {
           </div>
         </div>
       );
+    case "file":
+      return <FileField field={field} fieldName={field.name} />;
 
     case "select":
       return (

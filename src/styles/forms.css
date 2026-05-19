@@ -175,3 +175,25 @@
 .field-label {
   @apply font-bold text-[#645858];
 }
+
+.file-div {
+  @apply flex flex-col gap-2;
+}
+
+.file-div input {
+  @apply h-[40px] flex justify-center items-center hover:border-gray-700
+  hover:border p-2 hover:cursor-pointer bg-gray-100 text-gray-700
+  hover:bg-gray-200;
+}
+
+.image-prev {
+  @apply rounded-md relative;
+}
+
+.image-prev img {
+  @apply rounded-md;
+}
+
+.remove-img {
+  @apply absolute top-1 right-1;
+}

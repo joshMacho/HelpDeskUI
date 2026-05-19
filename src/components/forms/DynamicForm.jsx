@@ -152,15 +152,12 @@ export default function DynamicForm({ schema }) {
         },
       );
 
-      if (!response?.data?.success)
-        toast.error(response?.data?.error || `Unable to preview Document`);
-
-      toast.success(`Success`);
-
       const pdfBlob = new Blob([response.data], {
         type: "application/pdf",
       });
       const pdfUrl = URL.createObjectURL(pdfBlob);
+
+      toast.success(`Success`);
 
       window.open(pdfUrl, "_blank");
     } catch (error) {

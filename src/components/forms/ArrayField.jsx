@@ -14,7 +14,7 @@ export default function ArrayField({ field, name }) {
   useEffect(() => {
     const currentValues = getValues(name) || [];
 
-    const minItems = field.minItems || 1;
+    const minItems = field.minItems ?? 1;
 
     if (currentValues.length < minItems) {
       for (let i = currentValues.length; i < minItems; i++) {
@@ -48,16 +48,16 @@ export default function ArrayField({ field, name }) {
               className="rem-btn"
               type="button"
               onClick={() => remove(index)}
-              disabled={fields.length === 1}
+              disabled={fields.length === (field.minItems ?? 1)}
             >
-              Remove Vehicle
+              {field?.removeButtonLabel || "Remove"}
             </button>
           </div>
         </div>
       ))}
       <div className="form-cancel-div">
         <button className="add-btn" type="button" onClick={() => append({})}>
-          Add Vehicle
+          {field?.addButtonLabel || "Add Item"}
         </button>
       </div>
     </div>
