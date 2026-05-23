@@ -9,6 +9,7 @@ export default function OTPModal({
   duration = 180,
   cancel,
   resend,
+  data,
 }) {
   const [otp, setOtp] = useState(new Array(length).fill(""));
   const inputRef = useRef([]);
@@ -131,7 +132,7 @@ export default function OTPModal({
             <div className="phone-div">
               <p>OTP sent to the number below</p>
               <div className="phone-number-div">
-                <p>{muskPhoneNumber("0552614121")}</p>
+                <p>{muskPhoneNumber(data?.phoneNumber)}</p>
                 <Call variant="broken" className="icnax" size={20} />
               </div>
             </div>

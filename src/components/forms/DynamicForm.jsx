@@ -142,7 +142,37 @@ export default function DynamicForm({ schema }) {
   };
 
   // handle preview
+  // const previewDoc = async () => {
+  //   try {
+  //     const response = await api.post(
+  //       `/previewdocument/${tokenData.proposal_id}`,
+  //       { token, data: preview },
+  //       {
+  //         responseType: "blob",
+  //       },
+  //     );
+
+  //     const pdfBlob = new Blob([response.data], {
+  //       type: "application/pdf",
+  //     });
+  //     const pdfUrl = URL.createObjectURL(pdfBlob);
+
+  //     toast.success(`Success`);
+
+  //     window.open(pdfUrl, "_blank");
+  //   } catch (error) {
+  //     console.log(error);
+  //     return toast.error(
+  //       error?.response?.data?.error ||
+  //         `Error previewing document. Check connection / Contact Admin`,
+  //     );
+  //   }
+  // };
+
   const previewDoc = async () => {
+    // Open tab immediately (must happen synchronously from click)
+    const newTab = window.open("", "_blank");
+
     try {
       const response = await api.post(
         `/previewdocument/${tokenData.proposal_id}`,
@@ -155,13 +185,35 @@ export default function DynamicForm({ schema }) {
       const pdfBlob = new Blob([response.data], {
         type: "application/pdf",
       });
+
       const pdfUrl = URL.createObjectURL(pdfBlob);
 
-      toast.success(`Success`);
+      // Safari-safe
+      if (newTab) {
+        newTab.location.href = pdfUrl;
+      } else {
+        // fallback
+        window.location.href = pdfUrl;
+      }
 
-      window.open(pdfUrl, "_blank");
+      toast.success("Success");
     } catch (error) {
       console.log(error);
+
+      // close blank tab if request failed
+      if (newTab) newTab.close();
+
+      if (error.response?.data instanceof Blob) {
+        const text = await error.response.data.text();
+
+        try {
+          const json = JSON.parse(text);
+          return toast.error(json.error);
+        } catch {
+          return toast.error("Failed to preview document");
+        }
+      }
+
       return toast.error(
         error?.response?.data?.error ||
           `Error previewing document. Check connection / Contact Admin`,
@@ -221,7 +273,7 @@ export default function DynamicForm({ schema }) {
           duration={180}
           cancel={cancelWindow}
           resend={resend}
-          data
+          data={tokenData}
         />
       )}
       {context}

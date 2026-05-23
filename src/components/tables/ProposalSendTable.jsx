@@ -1,13 +1,68 @@
-import { message, Spin, Table, Tag, Tooltip, Typography } from "antd";
+import { Dropdown, message, Spin, Table, Tag, Tooltip, Typography } from "antd";
 import dayjs from "dayjs";
 import { useState } from "react";
 import api from "../../api";
 import { toast } from "react-toastify";
-import { Copy, Refresh } from "iconsax-reactjs";
+import { Copy, DocumentText1, More, Refresh } from "iconsax-reactjs";
 import { CopyOutlined, LoadingOutlined } from "@ant-design/icons";
 
 export default function ProposalSendTable() {
   const { Text } = Typography;
+
+  const [openDropdownId, setOpenDropdownId] = useState(null);
+
+  const viewForm = async (proposal_id) => {
+    // open tab immediately to avoid popup blockers, then navigate to the form URL after fetching it
+    const newTab = window.open("", "_blank");
+
+    try {
+      const response = await api.post(
+        `/viewdocument/${proposal_id}`,
+        {},
+        {
+          responseType: "blob",
+        },
+      );
+      // if (!response.data.success)
+      //   return messageApi.error(
+      //     response?.data?.error || `Unable to fetch proposal form.`,
+      //   );
+      const pdfBlob = new Blob([response.data], {
+        type: "application/pdf",
+      });
+
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+
+      // safari safe
+      if (newTab) {
+        newTab.location.href = pdfUrl;
+      } else {
+        // fallback if tab couldn't be opened (e.g. popup blocker)
+        window.location.href = pdfUrl;
+      }
+      toast.success(`Proposal form opened`);
+    } catch (error) {
+      console.log(`error from proposal view: `, error);
+
+      // close blank tab if request failed
+      if (newTab) newTab.close();
+
+      if (error?.response?.data instanceof Blob) {
+        const text = await error.response.data.text();
+        try {
+          const json = JSON.parse(text);
+          return toast.error(json?.error);
+        } catch {
+          return toast.error("Failed to preview document");
+        }
+      }
+      return toast.error(
+        error?.response?.data?.error ||
+          `Error fetching proposal form. Contact admin / check connection`,
+      );
+    }
+  };
+
   const tableColumns = [
     { title: "ID", dataIndex: "pt_ID" },
     { title: "Customer Name", dataIndex: "receipient_name" },
@@ -59,7 +114,55 @@ export default function ProposalSendTable() {
         return <Tag color={color}>{name}</Tag>;
       },
     },
-    { title: "", dataIndex: "action", width: 80 },
+    {
+      title: "Action",
+      key: "action",
+      width: 80,
+
+      render: (_, record) => {
+        const isOpen = openDropdownId === record.pt_ID;
+
+        return (
+          <Dropdown
+            open={isOpen}
+            placement="bottomLeft"
+            trigger={["click"]}
+            onOpenChange={(open) => {
+              setOpenDropdownId(open ? record.pt_ID : null);
+            }}
+            menu={{
+              items: [
+                {
+                  key: "view-form",
+                  label: (
+                    <div
+                      className="flex items-center gap-2"
+                      onClick={() => {
+                        viewForm(record.pt_ID);
+                        setOpenDropdownId(null);
+                      }}
+                    >
+                      <DocumentText1
+                        className="icnax"
+                        variant="Broken"
+                        size={16}
+                      />
+                      <span>View Form</span>
+                    </div>
+                  ),
+                },
+              ],
+            }}
+          >
+            <span>
+              <button type="button" className="act-btn all-border btn-p-s">
+                <More className="icnax" variant="Broken" size={20} />
+              </button>
+            </span>
+          </Dropdown>
+        );
+      },
+    },
   ];
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
