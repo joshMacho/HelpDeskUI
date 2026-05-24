@@ -3,13 +3,33 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import api from "../../api";
 import { toast } from "react-toastify";
-import { Copy, DocumentText1, More, Refresh } from "iconsax-reactjs";
+import {
+  Book,
+  Copy,
+  DocumentText1,
+  Link1,
+  More,
+  Refresh,
+} from "iconsax-reactjs";
 import { CopyOutlined, LoadingOutlined } from "@ant-design/icons";
+import motorSchema from "../../data/motor.json";
+import { set } from "react-hook-form";
+import LoadingModal from "../LoadingModal";
+import ViewFormModal from "../modal/ViewFormModal";
 
 export default function ProposalSendTable() {
   const { Text } = Typography;
 
   const [openDropdownId, setOpenDropdownId] = useState(null);
+  const [modalData, setModalData] = useState(null);
+  const [detailsModalOpen, setDetailsModalOpen] = useState(false);
+  const [loadingModal, setLoadingModal] = useState(false);
+
+  const viewSubmitted = async (proposal_id) => {
+    const previewUrl = `${import.meta.env.VITE_API_BASE_URL}/document/${proposal_id}/preview`;
+    console.log(previewUrl);
+    window.open(previewUrl, "_blank");
+  };
 
   const viewForm = async (proposal_id) => {
     // open tab immediately to avoid popup blockers, then navigate to the form URL after fetching it
@@ -60,6 +80,29 @@ export default function ProposalSendTable() {
         error?.response?.data?.error ||
           `Error fetching proposal form. Contact admin / check connection`,
       );
+    }
+  };
+
+  // view form details in modal
+  const viewDetails = async (proposal_id) => {
+    try {
+      const response = await api.get(`/viewdocument/${proposal_id}`);
+      if (!response.data.success)
+        return messageApi.error(
+          response?.data?.error || `Unable to fetch proposal details.`,
+        );
+      setModalData(response.data.data);
+      setDetailsModalOpen(true);
+      setLoadingModal(false);
+    } catch (error) {
+      console.log(`error from proposal details fetch: `, error);
+
+      return toast.error(
+        error?.response?.data?.error ||
+          `Error fetching proposal details. Contact admin / check connection`,
+      );
+    } finally {
+      setLoadingModal(false);
     }
   };
 
@@ -147,7 +190,31 @@ export default function ProposalSendTable() {
                         variant="Broken"
                         size={16}
                       />
-                      <span>View Form</span>
+                      <span>Preview Form</span>
+                    </div>
+                  ),
+                },
+                {
+                  key: "view-details",
+                  label: (
+                    <div
+                      className="flex items-center gap-2"
+                      onClick={() => viewDetails(record.pt_ID)}
+                    >
+                      <Book className="incax" variant="Broken" size={16} />
+                      View Proposal
+                    </div>
+                  ),
+                },
+                {
+                  key: "submitted-document",
+                  label: (
+                    <div
+                      className="flex items-center gap-2"
+                      onClick={() => viewSubmitted(record.pt_ID)}
+                    >
+                      <Link1 className="icnax" variant="Broken" size={16} />
+                      Submitted Document
                     </div>
                   ),
                 },
@@ -212,10 +279,20 @@ export default function ProposalSendTable() {
     }
   };
 
+  if (loadingModal)
+    return <LoadingModal message="Loading proposal details..." />;
+
   return (
     <div className="atdtable">
       {context}
-
+      {detailsModalOpen && (
+        <ViewFormModal
+          open={detailsModalOpen}
+          onClose={() => setDetailsModalOpen(false)}
+          schema={motorSchema}
+          data={modalData}
+        />
+      )}
       <div className="comp-head-div">
         <p>Proposals</p>
         <div className="table-actions">

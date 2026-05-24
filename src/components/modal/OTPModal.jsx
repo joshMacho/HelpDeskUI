@@ -1,6 +1,7 @@
 import { Modal } from "antd";
 import { Call } from "iconsax-reactjs";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function OTPModal({
   length = 6,
@@ -17,7 +18,7 @@ export default function OTPModal({
   // countdown
   const [countdown, setCountdown] = useState(duration);
   const [expired, setExpired] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   // useEffect(() => {
   //   setCountdown(duration);
   //   const timer = setInterval(() => {
@@ -86,7 +87,7 @@ export default function OTPModal({
     }
   };
 
-  const handlePaste = (e) => {
+  const handlePaste = async (e) => {
     const pasteData = e.clipboardData.getData("text").slice(0, length);
     if (!/^\d+$/.test(pasteData)) return;
 
@@ -99,7 +100,8 @@ export default function OTPModal({
       }
     });
 
-    onComplete?.(newOtp.join(""));
+    //onComplete?.(newOtp.join(""));
+    await handleVerify();
   };
 
   const isOtpComplete = otp.every((digit) => digit !== "");
@@ -113,6 +115,21 @@ export default function OTPModal({
     const maskPart = "x".repeat(phone.length - 6);
 
     return `${firstPart}${maskPart}${lastPart}`;
+  };
+
+  // handle verify click
+  const handleVerify = async () => {
+    if (!isOtpComplete || expired || loading) return;
+
+    try {
+      setLoading(true);
+      await onComplete?.(otp.join(""));
+    } catch (error) {
+      console.log("OTP verification error: ", error);
+      toast.error(error?.message || "OTP verification failed. Try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -162,20 +179,17 @@ export default function OTPModal({
         <div className="expiry-div">
           <p>Code expires in {`${formatTime(countdown)}`}</p>
         </div>
-        <div
-          className="otp-button-div butt"
-          onClick={() => onComplete?.(otp.join(""))}
-        >
-          <button type="submit" disabled={!isOtpComplete || expired}>
-            Verify
+        <div className="otp-button-div butt" onClick={handleVerify}>
+          <button type="submit" disabled={!isOtpComplete || expired || loading}>
+            {loading ? "Verifying..." : "Verify"}
           </button>
         </div>
         <div className="otp-options">
-          <div className="otp-" onClick={cancel}>
+          <div className="otp-" onClick={cancel} disabled={loading}>
             <a>Cancel</a>
           </div>
           <div>
-            <a disabled={!expired} onClick={resend}>
+            <a disabled={!expired || loading} onClick={resend}>
               Re-Send
             </a>
           </div>

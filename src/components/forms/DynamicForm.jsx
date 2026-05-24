@@ -136,7 +136,7 @@ export default function DynamicForm({ schema }) {
     } catch (error) {
       console.log(`Error submitting form request: `, error);
       return toast.error(
-        error?.response?.date?.error || `Error submitting proposal form`,
+        error?.response?.data?.error || `Error submitting proposal form`,
       );
     }
   };
