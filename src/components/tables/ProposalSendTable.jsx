@@ -1,6 +1,6 @@
 import { Dropdown, message, Spin, Table, Tag, Tooltip, Typography } from "antd";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../../api";
 import { toast } from "react-toastify";
 import {
@@ -159,7 +159,7 @@ export default function ProposalSendTable() {
     },
     {
       title: "Action",
-      key: "action",
+      dataIndex: "action",
       width: 80,
 
       render: (_, record) => {
@@ -221,11 +221,9 @@ export default function ProposalSendTable() {
               ],
             }}
           >
-            <span>
-              <button type="button" className="act-btn all-border btn-p-s">
-                <More className="icnax" variant="Broken" size={20} />
-              </button>
-            </span>
+            <button type="button" className="act-btn all-border btn-p-s">
+              <More className="icnax" variant="Broken" size={20} />
+            </button>
           </Dropdown>
         );
       },

@@ -151,20 +151,10 @@ export default function LocationTable() {
         />
       )}
       <div className="comp-head-div">
-        <p>Branches</p>
-        <div className="table-actions">
-          <div className="search-input-div">
-            <input type="text" />
-          </div>
-          <button
-            className="act-btn all-border btn-p-s"
-            onClick={() => fetchTable()}
-          >
-            <Refresh size={20} className="icnax" variant="Broken" />
-          </button>
+        <div className="tab-m">
           <Dropdown
             open={dropOpen}
-            placement="bottomRight"
+            placement="bottomLeft"
             trigger={["click"]}
             onOpenChange={setDropOpen}
             popupRender={() => (
@@ -196,6 +186,18 @@ export default function LocationTable() {
               <HamburgerMenu variant="Broken" values="icnax" size={20} />
             </button>
           </Dropdown>
+          <p>Branches</p>
+        </div>
+        <div className="table-actions">
+          <div className="search-input-div">
+            <input type="text" />
+          </div>
+          <button
+            className="act-btn all-border btn-p-s"
+            onClick={() => fetchTable()}
+          >
+            <Refresh size={20} className="icnax" variant="Broken" />
+          </button>
         </div>
       </div>
       {tableLoading ? (

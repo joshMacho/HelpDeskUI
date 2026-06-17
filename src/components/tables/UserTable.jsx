@@ -226,28 +226,10 @@ export default function UserTable() {
         />
       )}
       <div className="comp-head-div">
-        <p>Users</p>
-        <div className="table-actions">
-          <div className="search-input-div">
-            <input
-              type="text"
-              id="sch1"
-              name="sch1"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search Name..."
-            />
-          </div>
-          <button
-            className="act-btn all-border btn-p-s"
-            onClick={() => fetchUsers()}
-            disabled={loading}
-          >
-            <Refresh variant="Broken" className="icnax" size={20} />
-          </button>
+        <div className="tab-m">
           <Dropdown
             open={renderOpen}
-            placement="left"
+            placement="bottomLeft"
             trigger={["click"]}
             onOpenChange={setRenderOpen}
             popupRender={() => (
@@ -284,6 +266,26 @@ export default function UserTable() {
               <HamburgerMenu variant="Broken" className="icnax" size={20} />
             </button>
           </Dropdown>
+          <p>Users</p>
+        </div>
+        <div className="table-actions">
+          <div className="search-input-div">
+            <input
+              type="text"
+              id="sch1"
+              name="sch1"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search Name..."
+            />
+          </div>
+          <button
+            className="act-btn all-border btn-p-s"
+            onClick={() => fetchUsers()}
+            disabled={loading}
+          >
+            <Refresh variant="Broken" className="icnax" size={20} />
+          </button>
         </div>
       </div>
       {loading ? (

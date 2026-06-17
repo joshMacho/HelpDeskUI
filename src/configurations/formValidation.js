@@ -113,3 +113,13 @@ export const proposalLinkValidation = Yup.object({
     "Number should start with 0,\nBe 10 digits eg. 054xxxxxxx",
   ),
 });
+
+export const incidentReportValidation = Yup.object({
+  title: Yup.string().required("Title is required"),
+  issue_type: Yup.string().required("Issue type is required"),
+  description: Yup.string().required("Description is required"),
+});
+
+export const incidentStatusValidation = Yup.object({
+  state: Yup.number().required("State is required"),
+});

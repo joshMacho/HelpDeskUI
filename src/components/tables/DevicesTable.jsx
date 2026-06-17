@@ -215,23 +215,7 @@ export default function DevicesTable() {
         />
       )}
       <div className="comp-head-div">
-        <p>Devices</p>
-        <div className="table-actions">
-          <div className="search-input-div">
-            <input
-              type="text"
-              id="sch"
-              name="sch"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-          <button
-            className="act-btn all-border btn-p-s"
-            onClick={() => fetchTableData()}
-          >
-            <Refresh size={20} className="icnax" variant="Broken" />
-          </button>
+        <div className="tab-m">
           <Dropdown
             open={renderOpen}
             placement="bottomRight"
@@ -271,6 +255,24 @@ export default function DevicesTable() {
               <HamburgerMenu variant="Broken" className="icnax" size={20} />
             </button>
           </Dropdown>
+          <p>Devices</p>
+        </div>
+        <div className="table-actions">
+          <div className="search-input-div">
+            <input
+              type="text"
+              id="sch"
+              name="sch"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <button
+            className="act-btn all-border btn-p-s"
+            onClick={() => fetchTableData()}
+          >
+            <Refresh size={20} className="icnax" variant="Broken" />
+          </button>
         </div>
       </div>
       {tableLoading ? (

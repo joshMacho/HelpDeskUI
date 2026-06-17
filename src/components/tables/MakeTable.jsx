@@ -96,6 +96,7 @@ export default function MakeTable() {
             deleted?.error || `Unable to delete ${deleted.failed.join(", ")}`,
           );
         } else {
+          console.log(deleted);
           toast.success(deleted.message);
         }
       })

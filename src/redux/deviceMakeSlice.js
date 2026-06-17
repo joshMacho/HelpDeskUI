@@ -14,7 +14,7 @@ export const deleteMakeAsync = createAsyncThunk(
         error: error.response?.data?.error || error.message,
       });
     }
-  }
+  },
 );
 
 export const updateMakeAsync = createAsyncThunk(
@@ -30,7 +30,7 @@ export const updateMakeAsync = createAsyncThunk(
         error: error.response?.data?.error || error.message,
       });
     }
-  }
+  },
 );
 
 const initialState = {
@@ -69,7 +69,7 @@ const deviceMake = createSlice({
         state.loading = false;
         const info = action.payload.data;
         const index = state.data.findIndex(
-          (type) => type.type_id === info.type_id
+          (make) => make.make_id === info.make_id,
         );
         // update at index
         if (index !== -1) {

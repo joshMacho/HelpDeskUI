@@ -137,23 +137,7 @@ export default function AssignTable() {
         />
       )}
       <div className="comp-head-div">
-        <p>Devices</p>
-        <div className="table-actions">
-          <div className="search-input-div">
-            <input
-              type="text"
-              name="sch"
-              id="sch"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-          <button
-            className="act-btn all-border btn-p-s"
-            onClick={() => fetchDeviceUser()}
-          >
-            <Refresh size={20} className="icnax" variant="Broken" />
-          </button>
+        <div className="tab-m">
           <Dropdown
             open={renderOpen}
             placement="bottomLeft"
@@ -172,6 +156,24 @@ export default function AssignTable() {
               <HamburgerMenu variant="broken" className="icnax" size={20} />
             </button>
           </Dropdown>
+          <p>Devices</p>
+        </div>
+        <div className="table-actions">
+          <div className="search-input-div">
+            <input
+              type="text"
+              name="sch"
+              id="sch"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <button
+            className="act-btn all-border btn-p-s"
+            onClick={() => fetchDeviceUser()}
+          >
+            <Refresh size={20} className="icnax" variant="Broken" />
+          </button>
         </div>
       </div>
       {tableLoading ? (

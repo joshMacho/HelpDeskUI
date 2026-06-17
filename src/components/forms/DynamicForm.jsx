@@ -236,18 +236,14 @@ export default function DynamicForm({ schema }) {
   // get field names from a section
 
   const currentIndex = schema.sections.findIndex((s) => s.name === activeTab);
-  const next = async () => {
-    // const valid = await methods.trigger();
-    // console.log("valid: ", valid);
-    // if (!valid) return;
+  const next = async (e) => {
+    e?.preventDefault();
 
     setActiveTab(schema.sections[currentIndex + 1].name);
-
-    // if (currentIndex < schema.sections.length - 1) {
-    //   setActiveTab(schema.sections[currentIndex + 1].name);
-    // }
   };
-  const prev = () => {
+  const prev = (e) => {
+    e?.preventDefault(); // prevent default form submission
+
     if (currentIndex > 0) {
       setActiveTab(schema.sections[currentIndex - 1].name);
     }

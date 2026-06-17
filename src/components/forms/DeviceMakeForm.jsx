@@ -33,14 +33,14 @@ export default function DeviceMakeForm({ isEdit, info, onSuccess }) {
       const response = await api.post("/addmake", values);
       if (!response.data.success)
         messageApi.error(
-          response.data?.error || `Error adding make. Contact admin`
+          response.data?.error || `Error adding make. Contact admin`,
         );
       onSuccess();
       toast.success(response.data?.message || `Type added successfully`);
       resetForm();
     } catch (error) {
       messageApi.error(
-        error.response?.data?.error || `Error adding type. Check connection`
+        error.response?.data?.error || `Error adding type. Check connection`,
       );
     }
   };
@@ -54,7 +54,7 @@ export default function DeviceMakeForm({ isEdit, info, onSuccess }) {
           onSuccess();
           resetForm();
           return toast.success(
-            response?.message || `Type Updated successfully`
+            response?.message || `Type Updated successfully`,
           );
         }
       })

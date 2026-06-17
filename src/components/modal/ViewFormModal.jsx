@@ -11,7 +11,7 @@ export default function ViewFormModal({ open, onClose, schema, data }) {
       className=""
       width={"auto"}
     >
-      <ViewDocument schema={schema} data={data} />
+      <ViewDocument schema={schema} data={JSON.parse(data)} />
     </Modal>
   );
 }

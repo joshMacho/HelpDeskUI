@@ -30,6 +30,10 @@ import ProposalPage from "./pages/ProposalPage.jsx";
 import LicenseAssignPage from "./pages/LicenseAssignPage.jsx";
 import MotorPage from "./pages/MotorPage.jsx";
 import TokenProtectRoute from "./TokenProtectRoute.jsx";
+import IncidentReportForm from "./components/forms/IncidentReportForm.jsx";
+import IssueDetailsPage from "./pages/IssueDetailsPage.jsx";
+import AdminRoute from "./AdminRoute.jsx";
+import UnAuthorizedPage from "./pages/UnAuthorizedPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -47,25 +51,65 @@ const router = createBrowserRouter([
         //<Navigate to="inventory" replace />,
       },
       {
-        path: "inventory",
-        element: <InventoryPage />,
-      },
-      {
-        path: "licenses",
-        element: <LicenseAssignPage />,
-      },
-      {
-        path: "users",
-        element: <UsersPage />,
-      },
-      {
-        path: "incidentReport",
-        element: <IncidentReportPage />,
+        element: <AdminRoute />,
+        // errorElement: <UnAuthorizedPage />,
         children: [
           {
-            index: true,
-            path: "issues",
-            element: <IssuesPage />,
+            path: "inventory",
+            element: <InventoryPage />,
+          },
+          {
+            path: "licenses",
+            element: <LicenseAssignPage />,
+          },
+          {
+            path: "users",
+            element: <UsersPage />,
+          },
+          {
+            path: "settings",
+            element: <SettingsPage />,
+            children: [
+              {
+                path: "license",
+                element: <License />,
+              },
+              {
+                path: "locations",
+                element: <LocationsPage />,
+              },
+              {
+                path: "departments",
+                element: <DepartmentPage />,
+              },
+            ],
+          },
+
+          {
+            path: "assigned",
+            element: <AssignPage />,
+          },
+          {
+            path: "trail",
+            element: <DeviceTrailPage />,
+          },
+          {
+            path: "settings",
+            element: <SettingsPage />,
+            children: [
+              {
+                path: "license",
+                element: <License />,
+              },
+              {
+                path: "locations",
+                element: <LocationsPage />,
+              },
+              {
+                path: "departments",
+                element: <DepartmentPage />,
+              },
+            ],
           },
         ],
       },
@@ -73,31 +117,28 @@ const router = createBrowserRouter([
         path: "proposal",
         element: <ProposalPage />,
       },
+
       {
-        path: "settings",
-        element: <SettingsPage />,
+        path: "incidentReport",
+        element: <IncidentReportPage />,
         children: [
           {
-            path: "license",
-            element: <License />,
+            index: true,
+            element: <Navigate to="issues" replace />,
           },
           {
-            path: "locations",
-            element: <LocationsPage />,
+            path: "issues",
+            element: <IssuesPage />,
           },
           {
-            path: "departments",
-            element: <DepartmentPage />,
+            path: "issues/:issue_id",
+            element: <IssueDetailsPage />,
+          },
+          {
+            path: "new",
+            element: <IncidentReportForm />,
           },
         ],
-      },
-      {
-        path: "assigned",
-        element: <AssignPage />,
-      },
-      {
-        path: "trail",
-        element: <DeviceTrailPage />,
       },
     ],
   },

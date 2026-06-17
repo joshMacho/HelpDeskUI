@@ -27,6 +27,11 @@ export default function LicenseAssignPage() {
                 <FolderOpen className="icnax" size={20} variant="Broken" />
               </button>
             </Tooltip>
+            <Tooltip title={`Add Device`}>
+              <button className="act-btn all-border btn-p-s">
+                <Add className="icnax" size={20} variant="Broken" />
+              </button>
+            </Tooltip>
           </div>
         </div>
       </div>

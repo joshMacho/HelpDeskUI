@@ -136,21 +136,10 @@ export default function LoginTable() {
       {content}
       <div className="ac-upndown">
         <div className="comp-head-div">
-          <p>Accounts</p>
-          <div className="table-actions">
-            <div className="search-input-div">
-              <input type="text" />
-            </div>
-            <button
-              className="act-btn all-border btn-p-s"
-              disabled={loading}
-              onClick={() => fetchAccounts(accounts.filterIndex)}
-            >
-              <Refresh variant="Broken" className="icnax" size={20} />
-            </button>
+          <div className="tab-m">
             <Dropdown
               open={renderOpen}
-              placement="left"
+              placement="right"
               trigger={["click"]}
               onOpenChange={setRenderOpen}
               popupRender={() => (
@@ -189,6 +178,19 @@ export default function LoginTable() {
                 <HamburgerMenu variant="Broken" className="icnax" size={20} />
               </button>
             </Dropdown>
+            <p>Accounts</p>
+          </div>
+          <div className="table-actions">
+            <div className="search-input-div">
+              <input type="text" />
+            </div>
+            <button
+              className="act-btn all-border btn-p-s"
+              disabled={loading}
+              onClick={() => fetchAccounts(accounts.filterIndex)}
+            >
+              <Refresh variant="Broken" className="icnax" size={20} />
+            </button>
           </div>
         </div>
         <div className="seg-div">

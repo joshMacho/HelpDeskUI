@@ -136,7 +136,7 @@ p {
 }
 
 .top-action-div {
-  @apply flex justify-end items-center
+  @apply flex justify-between items-center
   mt-2 dark:bg-[--dark-comp-background] py-1
   rounded-md shadow-[--dark-shadow] dark:shadow-[--shadow-dark]
   dark:bg-[var(--dark-comp-background)]
@@ -159,7 +159,7 @@ p {
   @apply dark:text-[--dark-text-color]
   flex justify-center items-center dark:bg-[--dark-comp-color] dark:border-none
   disabled:opacity-70 rounded-md hover:shadow-md hover:bg-[#e3e3e3] hover:border-none
-  dark:hover:bg-transparent;
+  dark:hover:bg-transparent gap-2;
 }
 
 .btn-p-lg {
@@ -386,4 +386,103 @@ p {
 
 .prop-div {
   @apply overflow-y-auto;
+}
+
+/* details design */
+.title-div {
+  @apply flex justify-between rounded-md shadow-sm shadow-gray-300
+  h-[50px] items-center mt-2;
+}
+
+.title-text {
+  @apply text-[18px] font-thin ml-2;
+}
+
+.det-body-div {
+  @apply flex gap-4;
+}
+
+.detbody-div {
+  @apply flex flex-col min-h-[300px] w-full rounded-md shadow-sm shadow-gray-300
+  mt-2;
+}
+
+.detbody-div .he {
+  @apply text-[16px] p-2 mx-2 dark:text-gray-500;
+}
+
+.detbody-div .bod {
+  @apply text-[16px] font-mono p-2 mx-2;
+}
+
+.repdet-div .bod2 {
+  @apply text-[16px] font-mono mx-2 px-2;
+}
+
+.tag {
+  @apply text-[14px] px-2 py-1 items-center 
+  justify-center flex min-w-20 font-light;
+}
+
+.attachment-div {
+  @apply flex flex-col rounded-md shadow-sm shadow-gray-300 mt-4 mb-2 min-h-50
+  justify-between;
+}
+
+.preview-div {
+  @apply mx-2 mt-1 flex gap-4;
+}
+
+.center-flex {
+  @apply flex justify-center items-center min-h-20;
+}
+
+.imges {
+  @apply relative flex border border-[#30296f] w-60
+  rounded-md min-h-10;
+}
+
+.attachment-name {
+  @apply truncate p-2;
+}
+.attimage-div {
+  @apply flex justify-between items-center;
+}
+
+.all-attach {
+  @apply flex;
+}
+
+.select-file {
+  @apply border border-[#d7d7d7] mx-2 my-1
+  rounded-md 
+  disabled:shadow-none;
+}
+
+.select-file button {
+  @apply flex justify-center items-center p-2 gap-2
+  disabled:opacity-80 disabled:cursor-not-allowed
+  disabled:shadow-none
+  hover:shadow-md hover:shadow-gray-300;
+}
+
+.ldiv {
+  @apply grid grid-cols-2 gap-2 mx-2;
+}
+
+.afiles {
+  @apply relative border border-[#d7d7d7] p-2 rounded-lg w-60;
+}
+
+.afile-text {
+  @apply block whitespace-nowrap overflow-hidden text-ellipsis;
+}
+
+.delib {
+  @apply absolute -top-2 -right-2 z-50 shadow-sm shadow-gray-300
+  rounded-2xl;
+}
+
+.tab-m {
+  @apply flex gap-2 items-center;
 }
