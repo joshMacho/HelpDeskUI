@@ -86,6 +86,7 @@ export default function SetStateModal({ incident_id, open, cancel, success }) {
                 name="state"
                 id="state"
                 className="custom-select"
+                variant="borderless"
                 loading={statLoading}
                 placeholder="Select State"
                 value={formik.values.state || null}

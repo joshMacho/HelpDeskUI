@@ -38,7 +38,7 @@ export default function MigrateViewModal({
         submitForm(
           { user_id: info.user_id, ...values },
           resetForm,
-          setSubmitting
+          setSubmitting,
         );
       }
     },
@@ -52,20 +52,20 @@ export default function MigrateViewModal({
       if (!response.data.success) {
         setSubmitting(false);
         return messageApi.error(
-          response?.data?.error || `Error adding user account`
+          response?.data?.error || `Error adding user account`,
         );
       }
       setSubmitting(false);
       onSuccess();
       resetForm();
       return toast.success(
-        response.data?.message || `Successfully migrated user`
+        response.data?.message || `Successfully migrated user`,
       );
     } catch (error) {
       setSubmitting(false);
       return toast.error(
         error.response.data.error ||
-          `Error migrating user. Check connection / contact admin`
+          `Error migrating user. Check connection / contact admin`,
       );
     }
   };
@@ -152,6 +152,7 @@ export default function MigrateViewModal({
                   name="role"
                   id="role"
                   className="custom-select"
+                  variant="borderless"
                   placeholder="Select make"
                   onSelect={(value) => {
                     formik.setFieldValue("role", value);

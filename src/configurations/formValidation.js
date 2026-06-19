@@ -118,6 +118,7 @@ export const incidentReportValidation = Yup.object({
   title: Yup.string().required("Title is required"),
   issue_type: Yup.string().required("Issue type is required"),
   description: Yup.string().required("Description is required"),
+  request_for: Yup.string().required("Request For is required"),
 });
 
 export const incidentStatusValidation = Yup.object({

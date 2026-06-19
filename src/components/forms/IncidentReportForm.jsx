@@ -4,30 +4,42 @@ import { Input, Select } from "antd";
 import api from "../../api";
 import { message } from "antd";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../ui/Loading";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function IncidentReportForm() {
+  // embeded user info
+  const credentials = useSelector((state) => state.credentials.user);
+
   const [incidentTypes, setIncidentTypes] = useState([]);
   const [typeLoading, setTypeLoading] = useState(false);
   const [messageApi, content] = message.useMessage();
+  const [userLoading, setUserLoading] = useState(false);
+  const [users, setUsers] = useState([]);
 
   const navigate = useNavigate();
 
   const { TextArea } = Input;
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
       title: "",
       issue_type: "",
       description: "",
+      request_for: credentials?.user_id || "",
     },
     validationSchema: incidentReportValidation,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       await submitForm(values, setSubmitting, resetForm);
     },
   });
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const fetchIncidentTypes = async () => {
     // fetch the incident types
@@ -47,6 +59,24 @@ export default function IncidentReportForm() {
       );
     } finally {
       setTypeLoading(false);
+    }
+  };
+
+  // get users
+  const fetchUsers = async () => {
+    try {
+      setUserLoading(true);
+      const response = await api.get(`/getusersforusers`);
+      if (!response?.data?.success)
+        return messageApi.error(response?.data?.error || `Unable to get users`);
+      setUsers(response?.data?.data || []);
+      setUserLoading(false);
+    } catch (error) {
+      console.log(`Error from getting users (user): `, error);
+      return toast.error(
+        error?.response?.data?.error ||
+          `Error getting users. Check connection / contact admin`,
+      );
     }
   };
 
@@ -103,6 +133,7 @@ export default function IncidentReportForm() {
               name="issue_type"
               id="issue_type"
               className="custom-select"
+              variant="borderless"
               placeholder="Select Issue Type"
               onChange={(value) => {
                 formik.setFieldValue("issue_type", value);
@@ -121,6 +152,37 @@ export default function IncidentReportForm() {
             />
             {formik.touched.issue_type && formik.errors.issue_type && (
               <small className="danger">{formik.errors.issue_type}</small>
+            )}
+          </div>
+        </div>
+        <div className="form input col-span-2">
+          <label htmlFor="for">Affected User</label>
+          <div className="input-div">
+            <Select
+              showSearch
+              name="request_for"
+              id="request_for"
+              className="custom-select"
+              variant="borderless"
+              value={formik.values.request_for || null}
+              placeholder="Select Affected User"
+              onChange={(value) => {
+                formik.setFieldValue("request_for", value);
+                formik.setFieldTouched("request_for", true);
+              }}
+              onBlur={() => formik.setFieldTouched("request_for", true)}
+              onOpenChange={(visible) => {
+                if (visible) fetchUsers();
+              }}
+              options={users?.map((user) => ({
+                label: user.fullName,
+                value: user.user_id,
+              }))}
+              loading={userLoading}
+              optionFilterProp="label"
+            />
+            {formik.touched.request_for && formik.errors.request_for && (
+              <small className="danger">{formik.errors.request_for}</small>
             )}
           </div>
         </div>

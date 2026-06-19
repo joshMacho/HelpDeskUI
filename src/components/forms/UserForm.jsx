@@ -175,6 +175,7 @@ export default function UserForm({ isEdit, onSuccess, info }) {
               name="department"
               id="department"
               className="custom-select"
+              variant="borderless"
               placeholder="Select make"
               onChange={(value) => {
                 formik.setFieldValue("department", value);
@@ -202,6 +203,7 @@ export default function UserForm({ isEdit, onSuccess, info }) {
               name="location"
               id="location"
               className="custom-select"
+              variant="borderless"
               placeholder="Select make"
               onChange={(value) => {
                 formik.setFieldValue("location", value);

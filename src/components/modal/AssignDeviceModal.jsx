@@ -40,7 +40,7 @@ export default function AssignDeviceModal({ open, onClose, info, onSuccess }) {
       submitForm(
         { created_by: user.user_id, ...values },
         resetForm,
-        setSubmitting
+        setSubmitting,
       );
     },
   });
@@ -54,18 +54,18 @@ export default function AssignDeviceModal({ open, onClose, info, onSuccess }) {
       const response = await dispatch(assignDeviceAsync(values)).unwrap();
       if (!response.success)
         return messageApi.error(
-          response?.error || `Unable to assign device to user`
+          response?.error || `Unable to assign device to user`,
         );
       resetForm();
       onSuccess();
       return toast.success(
-        response?.message || `Device successfully assigned to user`
+        response?.message || `Device successfully assigned to user`,
       );
     } catch (error) {
       console.log("Error from assigning device: ", error);
       toast.error(
         error?.error ||
-          "Error assigning device to user. Check connection / contact admin"
+          "Error assigning device to user. Check connection / contact admin",
       );
     } finally {
       setSubmitting(false);
@@ -81,7 +81,7 @@ export default function AssignDeviceModal({ open, onClose, info, onSuccess }) {
       console.log(`Error from getting users (assign form): `, error);
       setUsers((previous) => ({ ...previous, loading: false }));
       return messageApi.error(
-        error.reponse?.data?.error || `Error loading users`
+        error.reponse?.data?.error || `Error loading users`,
       );
     }
   };
@@ -95,7 +95,7 @@ export default function AssignDeviceModal({ open, onClose, info, onSuccess }) {
       console.log(`Error from getting devices (assign form): `, error);
       setUsers((previous) => ({ ...previous, loading: false }));
       return messageApi.error(
-        error.reponse?.data?.error || `Error loading devices`
+        error.reponse?.data?.error || `Error loading devices`,
       );
     }
   };
@@ -120,6 +120,7 @@ export default function AssignDeviceModal({ open, onClose, info, onSuccess }) {
                 id="assignedDevice"
                 name="assignedDevice"
                 className="custom-select"
+                variant="borderless"
                 showSearch
                 placeholder="Search or Select"
                 optionFilterProp="label"
@@ -153,6 +154,7 @@ export default function AssignDeviceModal({ open, onClose, info, onSuccess }) {
                 id="assignee"
                 name="assignee"
                 className="custom-select"
+                variant="borderless"
                 showSearch
                 placeholder="Search or Select"
                 optionFilterProp="label"

@@ -202,6 +202,7 @@ export default function FieldRenderer({ field, parentName }) {
                     label: opt.label,
                   }))}
                   className="custom-select"
+                  variant="borderless"
                   onChange={(value) => controllerField.onChange(value)}
                   value={controllerField.value}
                 />

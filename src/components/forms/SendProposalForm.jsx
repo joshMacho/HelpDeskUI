@@ -83,6 +83,7 @@ export default function SendProposalForm({ onSuccess }) {
               name="proposal"
               id="proposal"
               className="custom-select"
+              variant="borderless"
               placeholder="Select Proposal Type"
               onChange={(value) => {
                 formik.setFieldValue("proposal", value);

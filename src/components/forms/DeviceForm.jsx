@@ -101,14 +101,14 @@ export default function DeviceForm({ isEdit, info, onSuccess }) {
       const response = await api.get("/getstoragetypes");
       if (!response.data.success)
         messageApi.error(
-          response.data?.error || `Error fetching storag types. Contact admin`
+          response.data?.error || `Error fetching storag types. Contact admin`,
         );
       setStorageLoading(false);
       return setStorageTypes(response.data.data);
     } catch (error) {
       toast.error(
         error.response.data.error ||
-          `Error from reaching server (storage types), contact admin`
+          `Error from reaching server (storage types), contact admin`,
       );
       console.log(error);
       setStorageLoading(false);
@@ -122,14 +122,14 @@ export default function DeviceForm({ isEdit, info, onSuccess }) {
       const response = await api.get("/getbranches");
       if (!response.data.success)
         messageApi.error(
-          response.data?.error || `Error fetching storag types. Contact admin`
+          response.data?.error || `Error fetching storag types. Contact admin`,
         );
       setBranchLoading(false);
       return setBranches(response.data.data);
     } catch (error) {
       toast.error(
         error.response.data.error ||
-          `Error from reaching server (storage types), contact admin`
+          `Error from reaching server (storage types), contact admin`,
       );
       console.log(error);
       setBranchLoading(false);
@@ -143,14 +143,14 @@ export default function DeviceForm({ isEdit, info, onSuccess }) {
       const response = await api.get("/getdevicestatus");
       if (!response.data.success)
         messageApi.error(
-          response.data?.error || `Error fetching device status. Contact admin`
+          response.data?.error || `Error fetching device status. Contact admin`,
         );
       setDeviceStatusLoading(false);
       return setDeviceStatus(response.data.data);
     } catch (error) {
       toast.error(
         error.response.data.error ||
-          `Error from reaching server (device status), contact admin`
+          `Error from reaching server (device status), contact admin`,
       );
       console.log(error);
       setDeviceStatusLoading(false);
@@ -187,6 +187,7 @@ export default function DeviceForm({ isEdit, info, onSuccess }) {
               id="type"
               name="type"
               className="custom-select"
+              variant="borderless"
               placeholder="Select type"
               options={typeDataSource}
               onChange={(value) => {
@@ -208,6 +209,7 @@ export default function DeviceForm({ isEdit, info, onSuccess }) {
               name="make"
               id="make"
               className="custom-select"
+              variant="borderless"
               placeholder="Select make"
               options={makeDataSource}
               onChange={(value) => {
@@ -314,6 +316,7 @@ export default function DeviceForm({ isEdit, info, onSuccess }) {
               id="storageType"
               name="storageType"
               className="custom-select"
+              variant="borderless"
               placeholder="Select storage type"
               onChange={(value) => {
                 formik.setFieldValue("storageType", value);
@@ -415,6 +418,7 @@ export default function DeviceForm({ isEdit, info, onSuccess }) {
               id="location"
               name="location"
               className="custom-select"
+              variant="borderless"
               placeholder="Select location"
               onChange={(value) => {
                 formik.setFieldValue("location", value);
@@ -443,6 +447,7 @@ export default function DeviceForm({ isEdit, info, onSuccess }) {
               id="lifeCycleState"
               name="lifeCycleState"
               className="custom-select"
+              variant="borderless"
               placeholder="Select location"
               loading={deviceStatusLoading}
               value={formik.values.lifeCycleState || null}
