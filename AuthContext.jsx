@@ -109,7 +109,6 @@ export const ContextProvider = ({ children }) => {
 
   // logout function
   const logout = async () => {
-    await api.post("/auth/logout");
     dispatch(setCredentials(null));
   };
 

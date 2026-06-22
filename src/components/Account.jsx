@@ -1,15 +1,21 @@
 import { Dropdown } from "antd";
 import { KeySquare, Logout, Setting2, User } from "iconsax-reactjs";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ResetPasswordModal from "./modal/ResetPasswordModal";
+import { setUserLoading } from "../redux/credentialsSlice";
+import { toast } from "react-toastify";
+import api from "../api";
+import { useAuth } from "../../AuthContext";
 
 export default function Account() {
   const navigate = useNavigate();
   const credentials = useSelector((state) => state.credentials.user);
   const [openDrop, setOpenDrop] = useState(false);
   const [openReset, setOpenReset] = useState(false);
+  const dispatch = useDispatch();
+  const { logout } = useAuth();
 
   const navigateToSettings = () => {
     setOpenDrop(false);
@@ -27,6 +33,24 @@ export default function Account() {
 
   const onSuccess = () => {
     setOpenReset(false);
+  };
+
+  const userLogout = async () => {
+    dispatch(setUserLoading(true));
+    try {
+      const response = await api.post("/auth/logout");
+      if (!response.data?.success)
+        return toast.error(response?.data?.error || `An error occured`);
+      await logout();
+      return toast.success(response.data?.message);
+    } catch (error) {
+      console.log(`error logging out: `, error);
+      return toast.error(
+        error?.response?.data?.error || `An error occured. Contact Admin`,
+      );
+    } finally {
+      dispatch(setUserLoading(false));
+    }
   };
 
   return (
@@ -53,7 +77,7 @@ export default function Account() {
               <Setting2 className="popIcon" variant="Broken" />
               Settings
             </button>
-            <button>
+            <button onClick={() => userLogout()}>
               <Logout className="popIcon" variant="Broken" />
               Logout
             </button>
