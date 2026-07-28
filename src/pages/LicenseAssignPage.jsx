@@ -1,38 +1,45 @@
-import { Tooltip } from "antd";
-import { Add, FolderOpen, Minus } from "iconsax-reactjs";
+import { Popover } from "antd";
+import { Add, ArrowLeft } from "iconsax-reactjs";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 export default function LicenseAssignPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // go back to issues page
+  const goBack = () => {
+    navigate("all");
+  };
+
+  // location
+  const showLocation = location.pathname !== "/licenses/all";
+
   return (
     <div className="main-page">
-      <div className="li-grid">
-        <div className="li-div grid-cols-2">
-          <div className="li-info col-span-3">
-            <div className="li-title row-span-2">OFFICE 2023</div>
-            <div className="li-description row-span-1">Description</div>
-            <div className="li-used grid-rows-1">20 / 50</div>
-          </div>
-          <div className="li-action col-span-1">
-            {/* <Tooltip title={`Add`}>
-              <button className="act-btn all-border btn-p-s">
-                <Add size={20} className="icnax" variant="Broken" />
-              </button>
-            </Tooltip>
-            <Tooltip title={`Remove`}>
-              <button className="act-btn all-border btn-p-s">
-                <Minus size={20} className="icnax" variant="Broken" />
-              </button>
-            </Tooltip> */}
-            <Tooltip title={`View Devices`}>
-              <button className="act-btn all-border btn-p-s">
-                <FolderOpen className="icnax" size={20} variant="Broken" />
-              </button>
-            </Tooltip>
-            <Tooltip title={`Add Device`}>
-              <button className="act-btn all-border btn-p-s">
-                <Add className="icnax" size={20} variant="Broken" />
-              </button>
-            </Tooltip>
-          </div>
+      <div className="top-action-div xmargin">
+        <div className="actions-div">
+          {showLocation && (
+            <button
+              type="button"
+              className="act-btn all-border btn-p-lg"
+              onClick={goBack}
+            >
+              <ArrowLeft variant="Broken" className="icnax" size={20} />
+              -Back
+            </button>
+          )}
+        </div>
+        <div className="actions-div">
+          <Popover placement="top" content={`Report an Issue`}>
+            <button type="button" className="act-btn all-border btn-p-lg">
+              <Add variant="outline" className="icnax" size={20} />
+            </button>
+          </Popover>
+        </div>
+      </div>
+      <div className="in-content xmargin">
+        <div className="assign-table-div col-span-3">
+          <Outlet />
         </div>
       </div>
     </div>

@@ -66,11 +66,6 @@
             },
             {
               "type": "text",
-              "name": "middleName",
-              "label": "Middle Name"
-            },
-            {
-              "type": "text",
               "name": "surname",
               "label": "Surname",
               "validation": {
@@ -136,7 +131,7 @@
               },
               "options": [
                 {
-                  "label": "National ID",
+                  "label": "Ghana Card",
                   "value": "GHANA_CARD"
                 },
                 {
@@ -149,11 +144,31 @@
               "type": "text",
               "name": "idNumber",
               "label": "Valid National ID No",
+              "showWhen": {
+                "field": "typeOfId",
+                "value": "GHANA_CARD"
+              },
               "validation": {
-                "required": "National Number is required",
+                "required": "ID Number is required",
                 "pattern": {
                   "value": "^GHA-\\d{9}-\\d$",
                   "message": "Ghana card shold be in the format GHA-XXXXXXXXX-X"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "idNumber",
+              "label": "Valid TIN No",
+              "showWhen": {
+                "field": "typeOfId",
+                "value": "TIN_NUMBER"
+              },
+              "validation": {
+                "required": "TIN Number is required",
+                "pattern": {
+                  "value": "^[PCGQV]00[A-Z0-9]{8}$",
+                  "message": "Tin Number should be in the format P00XXXXXXXX"
                 }
               }
             },

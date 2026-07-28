@@ -1,15 +1,21 @@
 import { useFormik } from "formik";
 import { licenseValidation } from "../../configurations/formValidation";
 import Loading from "../ui/Loading";
-import { Input, message } from "antd";
+import { Input, message, Select } from "antd";
 import { useDispatch } from "react-redux";
 import { addLicenseAsync, updateLicenseAsync } from "../../redux/licenseSlice";
 import { toast } from "react-toastify";
+import api from "../../api";
+import { useState } from "react";
 
 export default function LicenseForm({ isEdit, info, onSuccess }) {
   const dispatch = useDispatch();
   const [messageApi, content] = message.useMessage();
   const { TextArea } = Input;
+  const [licenseType, setLicenseType] = useState({
+    loading: false,
+    data: [],
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -76,6 +82,23 @@ export default function LicenseForm({ isEdit, info, onSuccess }) {
   // delete key
   const deleteLicense = async (ids) => {};
 
+  // fetch the license type
+  const fetchLicenseTypes = async () => {
+    try {
+      setLicenseType((prev) => ({ ...prev, loading: false }));
+      const response = await api.get("/auth/licensetypes");
+      if (!response.data.success)
+        return messageApi.error(response?.data?.error);
+      setLicenseType((prev) => ({ ...prev, data: response.data.data }));
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.error || `Unable to load license types`,
+      );
+    } finally {
+      setLicenseType((prev) => ({ ...prev, loading: false }));
+    }
+  };
+
   return (
     <form className="form" method="POST" onSubmit={formik.handleSubmit}>
       {content}
@@ -126,6 +149,38 @@ export default function LicenseForm({ isEdit, info, onSuccess }) {
             />
             {formik.touched.license_number && formik.errors.license_number && (
               <small className="danger">{formik.errors.license_number}</small>
+            )}
+          </div>
+        </div>
+        {/* license type */}
+        <div className="form-input col-span-2">
+          <label htmlFor="type">Proposal Type</label>
+          <div className="select-div">
+            <Select
+              name="type"
+              id="type"
+              className="custom-select"
+              variant="borderless"
+              placeholder="Select License Type"
+              onChange={(value) => {
+                formik.setFieldValue("type", value);
+                formik.setFieldTouched("type", true);
+              }}
+              onBlur={() => formik.setFieldTouched("type", true)}
+              value={formik.values.type || null}
+              loading={licenseType.loading}
+              onOpenChange={async (visible) => {
+                if (visible) {
+                  fetchLicenseTypes();
+                }
+              }}
+              options={licenseType?.data?.map((prop) => ({
+                value: prop.licenseType_id,
+                label: prop.name,
+              }))}
+            />
+            {formik.touched.type && formik.errors.type && (
+              <span className="danger">{formik.errors.type}</span>
             )}
           </div>
         </div>

@@ -34,6 +34,8 @@ import IncidentReportForm from "./components/forms/IncidentReportForm.jsx";
 import IssueDetailsPage from "./pages/IssueDetailsPage.jsx";
 import AdminRoute from "./AdminRoute.jsx";
 import UnAuthorizedPage from "./pages/UnAuthorizedPage.jsx";
+import LicenseView from "./pages/LicenseView.jsx";
+import LicenseAssignDetails from "./pages/LicenseAssignDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -57,10 +59,6 @@ const router = createBrowserRouter([
           {
             path: "inventory",
             element: <InventoryPage />,
-          },
-          {
-            path: "licenses",
-            element: <LicenseAssignPage />,
           },
           {
             path: "users",
@@ -117,7 +115,24 @@ const router = createBrowserRouter([
         path: "proposal",
         element: <ProposalPage />,
       },
-
+      {
+        path: "licenses",
+        element: <LicenseAssignPage />,
+        children: [
+          {
+            index: true,
+            element: <Navigate to="all" replace />,
+          },
+          {
+            path: "all",
+            element: <LicenseView />,
+          },
+          {
+            path: "all/:license_id",
+            element: <LicenseAssignDetails />,
+          },
+        ],
+      },
       {
         path: "incidentReport",
         element: <IncidentReportPage />,

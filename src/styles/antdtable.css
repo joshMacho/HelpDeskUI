@@ -57,3 +57,9 @@
 .tablink-div {
   @apply flex items-center gap-3;
 }
+
+.disabled-row td,
+.disabled-row td * {
+  text-decoration: line-through !important;
+  color: #999 !important;
+}

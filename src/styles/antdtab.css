@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.ant-tabs-tab {
+  @apply mx-2 sticky top-0;
+}

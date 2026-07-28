@@ -211,3 +211,7 @@
 .remove-img {
   @apply absolute top-1 right-1;
 }
+
+.dynamic-form {
+  @apply mb-5;
+}

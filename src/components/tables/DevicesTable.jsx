@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../api";
 import { toast } from "react-toastify";
-import { deleteDeviceAsync, setDevices } from "../../redux/deviceSlice";
+import { deleteDeviceAsync, fetchDevicesAsync, setDevices } from "../../redux/deviceSlice";
 import DeviceViewModal from "../modal/DeviceViewModal";
 import DeviceDrawer from "../drawers/DeviceDrawer";
 
@@ -51,7 +51,7 @@ export default function DevicesTable() {
   ];
 
   useEffect(() => {
-    fetchTableData();
+    // 
   }, []);
 
   useEffect(() => {
@@ -61,23 +61,18 @@ export default function DevicesTable() {
     return () => clearTimeout(timer);
   }, [search]);
 
-  // fetch data for device table
+  // fetch data from the redux
   const fetchTableData = async () => {
-    setTableLoading(true);
     try {
-      const response = await api.get("/getdevicetable");
-      if (!response.data.success)
-        return toast.error(
-          response.data?.error || `Unable to load devices. Contact admin`,
-        );
-      dispatch(setDevices(response.data.data));
-      setTableLoading(false);
-    } catch (error) {
-      messageApi.error(error.response?.data?.error || `Error fetching devices`);
-      console.log(error);
-      setTableLoading(false);
+      await dispatch(fetchDevicesAsync())
+      .unwrap();
+    } catch (error){
+      console.log("Error from reloading devives table")
+      return messageApi.error(
+        error?.error || `Unable to reload data`
+      )
     }
-  };
+  }
 
   const rowSelection = {
     selectedRowKeys,
@@ -275,7 +270,7 @@ export default function DevicesTable() {
           </button>
         </div>
       </div>
-      {tableLoading ? (
+      {devices.loading ? (
         <div className="load-in">
           <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
         </div>

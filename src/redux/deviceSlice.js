@@ -1,6 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../api";
 
+export const fetchDevicesAsync = createAsyncThunk(
+  "devices/fetchDevicesAsync",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/getdevicetable");
+
+      if (response.data.success) {
+        return response.data;
+      }
+
+      throw new Error(response.data?.error || "Error fetching devices");
+    } catch (error) {
+      return rejectWithValue({
+        error: error.response?.data?.error || error.message,
+      });
+    }
+  }
+);
+
 export const addDeviceAsync = createAsyncThunk(
   "devices/addDeviceAsync",
   async (values, { rejectWithValue }) => {
@@ -108,7 +127,19 @@ const devices = createSlice({
       .addCase(deleteDeviceAsync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.error;
-      });
+      })
+      .addCase(fetchDevicesAsync.pending, (state) => {
+  state.loading = true;
+  state.error = null;
+})
+.addCase(fetchDevicesAsync.fulfilled, (state, action) => {
+  state.loading = false;
+  state.data = action.payload.data;
+})
+.addCase(fetchDevicesAsync.rejected, (state, action) => {
+  state.loading = false;
+  state.error = action.payload?.error;
+})
   },
 });
 

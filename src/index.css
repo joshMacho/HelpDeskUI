@@ -5,6 +5,7 @@
 @import "./styles/antdall.css";
 @import "./styles/antdtable.css";
 @import "./styles/antdsplitter.css";
+@import "./styles/antdtab.css";
 
 * {
   margin: 0;
@@ -214,7 +215,7 @@ p {
 }
 
 .table-actions {
-  @apply flex justify-center items-center gap-1;
+  @apply flex justify-center items-center gap-1 mr-2;
 }
 
 .load-in {
@@ -314,22 +315,30 @@ p {
 }
 
 .li-grid {
-  @apply grid grid-cols-4 grid-rows-4 bg-white
-  grid-flow-dense auto-rows-[200px]
-   mt-2 mx-2 dark:bg-inherit w-full h-full;
+  @apply grid
+    grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
+    auto-rows-[minmax(200px,auto)]
+    gap-3 bg-white mt-2 px-2 dark:bg-inherit
+    w-full;
 }
 
 .li-div {
   @apply border border-[#d7d7d7] rounded-md  shadow-md
   dark:bg-[var(--dark-comp-background)]
-  grid grid-cols-4 dark:border-none;
+  
+  grid grid-cols-4 dark:border-none m-2;
 }
 
 .li-info {
-  @apply grid grid-rows-3 m-1;
+  @apply grid grid-rows-3 m-1 ml-2;
 }
 .li-title {
-  @apply flex justify-center items-center;
+  @apply flex justify-center items-center
+  font-semibold text-[16px];
+}
+
+.li-description {
+  @apply flex justify-center font-mono text-[16px];
 }
 
 .li-action {

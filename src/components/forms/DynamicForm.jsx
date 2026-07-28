@@ -273,7 +273,10 @@ export default function DynamicForm({ schema }) {
         />
       )}
       {context}
-      <form onSubmit={methods.handleSubmit(handlePreview, handleError)}>
+      <form
+        className="dynamic-form"
+        onSubmit={methods.handleSubmit(handlePreview, handleError)}
+      >
         {/* {schema.sections.map((section) => (
           <SectionRenderer key={section.name} section={section} />
         ))} */}

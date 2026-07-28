@@ -2,6 +2,8 @@ import { useContext, useEffect, useState, createContext } from "react";
 import api from "./src/api";
 import { useDispatch } from "react-redux";
 import { setCredentials, setUserLoading } from "./src/redux/credentialsSlice";
+import { fetchDevicesAsync } from "./src/redux/deviceSlice";
+import { message } from "antd";
 
 export const AuthContext = createContext();
 
@@ -28,6 +30,7 @@ export const ContextProvider = ({ children }) => {
     const set = getStoredSettings();
     return set || initialSettings;
   });
+  const [messageApi, context] = message.useMessage();
 
   // auth user
   // const [user, setUser] = useState(null);
@@ -82,7 +85,20 @@ export const ContextProvider = ({ children }) => {
     };
 
     checkAuth();
+    fetchTableData();
   }, []);
+
+  // load all devices
+  // fetch data for device table globallyzz
+  const fetchTableData = async () => {
+    try{
+      await dispatch(fetchDevicesAsync()).unwrap();
+      
+    } catch (error) {
+      messageApi.error(error?.error || `Error fetching devices`);
+      console.log(error);
+    }
+  };
 
   const setCollapse = () => {
     const init = settings;
@@ -122,6 +138,7 @@ export const ContextProvider = ({ children }) => {
         logout,
       }}
     >
+      {context}
       {children}
     </AuthContext.Provider>
   );

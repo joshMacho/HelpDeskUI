@@ -98,6 +98,7 @@ export const licenseValidation = Yup.object({
     .typeError("License number must be a number")
     .required("License number is required"),
   description: Yup.string(),
+  type: Yup.string().required("License type is required"),
 });
 
 export const locationValidation = Yup.object({
