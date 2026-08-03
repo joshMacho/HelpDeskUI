@@ -31,6 +31,10 @@ export default function ProposalSendTable() {
     window.open(previewUrl, "_blank");
   };
 
+  useEffect(() => {
+    fetchProposals();
+  }, []);
+
   const viewForm = async (proposal_id) => {
     // open tab immediately to avoid popup blockers, then navigate to the form URL after fetching it
     const newTab = window.open("", "_blank");
@@ -305,18 +309,13 @@ export default function ProposalSendTable() {
           </button>
         </div>
       </div>
-      {tableLoading ? (
-        <div className="load-in">
-          <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
-        </div>
-      ) : (
-        <Table
-          columns={tableColumns}
-          className="custom-table"
-          rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
-          dataSource={dataSource}
-        />
-      )}
+      <Table
+        columns={tableColumns}
+        className="custom-table"
+        loading={tableLoading}
+        rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
+        dataSource={dataSource}
+      />
     </div>
   );
 }

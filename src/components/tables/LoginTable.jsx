@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../api";
 import {
@@ -51,6 +51,10 @@ export default function LoginTable() {
       setSelectedAccounts(selected);
     },
   };
+
+  useEffect(() => {
+    fetchAccounts(accounts.filterIndex);
+  }, []);
 
   const dataSource = (
     Array.isArray(accounts.data) && accounts.data.length > 0
@@ -204,18 +208,14 @@ export default function LoginTable() {
           />
         </div>
       </div>
-      {loading ? (
-        <div className="load-in">
-          <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
-        </div>
-      ) : (
-        <Table
-          columns={columns}
-          className="custom-table"
-          rowSelection={Object.assign({ type: "checkbox " }, rowSelection)}
-          dataSource={dataSource}
-        />
-      )}
+
+      <Table
+        columns={columns}
+        className="custom-table"
+        loading={loading}
+        rowSelection={Object.assign({ type: "checkbox " }, rowSelection)}
+        dataSource={dataSource}
+      />
     </div>
   );
 }

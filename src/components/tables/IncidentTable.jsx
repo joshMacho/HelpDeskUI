@@ -255,18 +255,14 @@ export default function IncidentTable() {
           </button>
         </div>
       </div>
-      {loading ? (
-        <div className="load-in">
-          <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
-        </div>
-      ) : (
-        <Table
-          columns={tableColumns}
-          className="custom-table"
-          rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
-          dataSource={dataSource}
-        />
-      )}
+
+      <Table
+        columns={tableColumns}
+        className="custom-table"
+        loading={loading}
+        rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
+        dataSource={dataSource}
+      />
     </div>
   );
 }

@@ -233,23 +233,19 @@ export default function TypeTable() {
           </Dropdown>
         </div>
       </div>
-      {loading ? (
-        <div className="load-in">
-          <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
-        </div>
-      ) : (
-        <Table
-          columns={columns}
-          className="custom-table"
-          rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
-          dataSource={dataSource}
-          sticky
-          pagination={{ pageSize: 3 }}
-          // scroll={{
-          //   y: 150,
-          // }}
-        />
-      )}
+
+      <Table
+        columns={columns}
+        className="custom-table"
+        loading={loading}
+        rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
+        dataSource={dataSource}
+        sticky
+        pagination={{ pageSize: 3 }}
+        // scroll={{
+        //   y: 150,
+        // }}
+      />
     </div>
   );
 }

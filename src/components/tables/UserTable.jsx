@@ -65,6 +65,10 @@ export default function UserTable() {
     return () => clearTimeout(timer);
   });
 
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   const rowSelection = {
     selectedRowKeys,
     onChange: (newSelectedRowKeys, selected) => {
@@ -288,22 +292,18 @@ export default function UserTable() {
           </button>
         </div>
       </div>
-      {loading ? (
-        <div className="load-in">
-          <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
-        </div>
-      ) : (
-        <Table
-          columns={columns}
-          className="custom-table"
-          rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
-          dataSource={dataSource}
-          sticky
-          // scroll={{
-          //   y: 150,
-          // }}
-        />
-      )}
+
+      <Table
+        columns={columns}
+        className="custom-table"
+        loading={loading}
+        rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
+        dataSource={dataSource}
+        sticky
+        // scroll={{
+        //   y: 150,
+        // }}
+      />
     </div>
   );
 }

@@ -27,6 +27,7 @@
   --border-dark-color: #3c3c3c;
   --primary-blue-200: #5145bb;
   --radius: 10px;
+  --nsia-gold: #d5a108;
 }
 
 h1 {
@@ -40,7 +41,8 @@ h3 {
 
 span {
   cursor: pointer;
-  @apply dark:text-[#d7d7d7];
+  @apply dark:text-[#d7d7d7]
+  text-[1em];
 }
 
 p {
@@ -153,7 +155,8 @@ p {
 }
 
 .icnax {
-  @apply text-[--primary-blue-200] dark:text-[#d7d7d7] dark:hover:text-white;
+  @apply text-[var(--nsia-gold)]
+   dark:text-[#d7d7d7] dark:hover:text-white;
 }
 
 .act-btn {
@@ -322,10 +325,17 @@ p {
     w-full;
 }
 
+.li-grid2 {
+  @apply grid
+    grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
+    auto-rows-[minmax(100px,auto)]
+    gap-2 bg-white mt-2 px-2 dark:bg-inherit
+    w-full mt-5;
+}
+
 .li-div {
   @apply border border-[#d7d7d7] rounded-md  shadow-md
   dark:bg-[var(--dark-comp-background)]
-  
   grid grid-cols-4 dark:border-none m-2;
 }
 
@@ -494,4 +504,67 @@ p {
 
 .tab-m {
   @apply flex gap-2 items-center;
+}
+
+.device-grid {
+  @apply grid w-full mt-2 px-2 gap-3
+    grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6;
+}
+
+.device-card {
+  @apply border border-[#d7d7d7] dark:border-[var(--border-dark-color)]
+    rounded-lg p-3 flex flex-col gap-1
+    dark:bg-[var(--dark-comp-background)];
+}
+
+.device-card .dc-name {
+  @apply font-semibold text-[0.9rem];
+}
+
+.device-card .dc-id {
+  @apply text-[0.75rem] text-gray-400;
+}
+
+.device-card .dc-field {
+  @apply text-[0.8rem] dark:text-[var(--dark-text-color)];
+}
+
+.license-title {
+  @apply text-[14px] text-wrap;
+}
+
+.bld {
+  @apply font-semibold!;
+}
+
+.anpulse {
+  @apply animate-pulse min-w-50 min-h-6
+  bg-[#e3e0e0] rounded-md;
+}
+
+.lidev-div {
+  @apply border border-[#d7d7d7] rounded-md  shadow-md
+  dark:bg-[var(--dark-comp-background)]
+  flex flex-col dark:border-none m-2 px-2
+  relative;
+}
+
+.lidev-div .title {
+  @apply text-gray-500! text-[0.9em]! inline-block! w-14!;
+}
+
+.lidev-div .head {
+  @apply font-bold! text-[1em]!;
+}
+
+.lidev-div .user {
+  @apply font-semibold;
+}
+
+.remove {
+  @apply absolute -top-4 -right-4;
+}
+
+.li-selected {
+  @apply border-2! border-amber-200!;
 }

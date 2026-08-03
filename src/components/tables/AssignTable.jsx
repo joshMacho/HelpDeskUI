@@ -57,6 +57,10 @@ export default function AssignTable() {
     return () => clearTimeout(timer);
   }, [search]);
 
+  useEffect(() => {
+    fetchDeviceUser();
+  }, []);
+
   const rowSelection = {
     selectedRowKeys,
     onChange: (newSelectedRowKeys, selected) => {
@@ -176,20 +180,13 @@ export default function AssignTable() {
           </button>
         </div>
       </div>
-      {tableLoading ? (
-        <div className="load-in">
-          <Spin
-            indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />}
-          />{" "}
-        </div>
-      ) : (
-        <Table
-          columns={tableColumns}
-          className="custom-table"
-          rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
-          dataSource={dataSource}
-        />
-      )}
+      <Table
+        columns={tableColumns}
+        className="custom-table"
+        loading={tableLoading}
+        rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
+        dataSource={dataSource}
+      />
     </div>
   );
 }

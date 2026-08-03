@@ -19,9 +19,9 @@ export default function LicenseView() {
   });
   const [messageApi, context] = message.useMessage();
   const [openAssignModal, setOpenAssignModal] = useState(false);
-  const [selectedLicense,setSelectedLicense] = useState({
+  const [selectedLicense, setSelectedLicense] = useState({
     license_key: "",
-    license_type: ""
+    license_type: "",
   });
 
   // get all licenses
@@ -51,27 +51,27 @@ export default function LicenseView() {
 
   // closing the assign license modal
   const onClose = () => {
-    console.log("Assign License closed")
+    console.log("Assign License closed");
     setOpenAssignModal(false);
     setSelectedLicense({
       license_key: "",
-      license_type: ""
-    })
-  }
+      license_type: "",
+    });
+  };
 
   // Successfully assigned devices
   const onSuccessAssign = async () => {
     await getLicenses();
-  }
+  };
 
   // open the license
   const openModal = (key, key_type) => {
     setSelectedLicense({
-      license_key: key,
-      license_type: key_type
+      license_id: key,
+      license_type: key_type,
     });
-    setOpenAssignModal(true)
-  }
+    setOpenAssignModal(true);
+  };
 
   useEffect(() => {
     getLicenses();
@@ -81,10 +81,10 @@ export default function LicenseView() {
     <div className="main-page">
       {openAssignModal && (
         <AssignLicenseModal
-        open={openAssignModal}
-        onClose={onClose}
-        info={selectedLicense}
-        success={onSuccessAssign}
+          open={openAssignModal}
+          onClose={onClose}
+          info={selectedLicense}
+          success={onSuccessAssign}
         />
       )}
       <div className="li-grid">
@@ -103,8 +103,10 @@ export default function LicenseView() {
                 </div>
                 <div className="li-action col-span-1">
                   <Tooltip title={`View Devices`}>
-                    <button className="act-btn all-border btn-p-s"
-                    onClick={() => openPage(li.license_key)}>
+                    <button
+                      className="act-btn all-border btn-p-s"
+                      onClick={() => openPage(li.license_id)}
+                    >
                       <FolderOpen
                         className="icnax"
                         size={20}
@@ -115,7 +117,7 @@ export default function LicenseView() {
                   <Tooltip title={`Add Device`}>
                     <button
                       className="act-btn all-border btn-p-s"
-                      onClick={() => openModal(li.license_key, li.license_type)}
+                      onClick={() => openModal(li.license_id, li.license_type)}
                     >
                       <Add className="icnax" size={20} variant="Broken" />
                     </button>
