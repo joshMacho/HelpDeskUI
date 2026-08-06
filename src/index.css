@@ -128,7 +128,8 @@ p {
 
 .main-page {
   @apply flex flex-col w-full h-full
-  dark:bg-[var(--dark-theme-background)] overflow-x-hidden;
+  dark:bg-[var(--dark-theme-background)] overflow-x-hidden
+  overflow-y-scroll;
 }
 
 .top-search-div {
@@ -356,7 +357,7 @@ p {
 }
 
 .atdtable {
-  @apply flex flex-col overflow-x-auto;
+  @apply flex flex-col overflow-x-auto h-full;
 }
 
 .otp-main {
@@ -567,4 +568,48 @@ p {
 
 .li-selected {
   @apply border-2! border-amber-200!;
+}
+
+.pst-div {
+  @apply flex flex-col lg:flex-row gap-2;
+}
+
+.scard {
+  @apply flex flex-col min-h-30 min-w-70 border mt-2
+  rounded-md border-[#d7d7d7] shadow shadow-md
+  bg-white px-2 pt-2 gap-5;
+}
+
+.scard .head {
+  @apply text-[#7c7878];
+}
+
+.c-desc {
+  @apply text-[2em] font-bold
+  text-gray-600;
+}
+
+.sub-desc {
+  @apply text-[#7c7878];
+}
+
+.d-card {
+  @apply flex gap-4;
+}
+
+.left-1, .left-2 {
+  @apply flex-1 flex flex-col justify-start gap-5 h-full;
+}
+ /* equal spacing head  */
+.eq-sp-he { 
+ @apply flex justify-between;
+}
+
+/* chart div */
+.chart-div {
+  @apply w-full border border-[var(--border-color)] 
+  backdrop:blur-lg
+  rounded-md mt-2 bg-white
+  min-h-[150px]
+  flex justify-center items-center;
 }

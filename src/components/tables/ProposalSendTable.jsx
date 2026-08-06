@@ -24,6 +24,10 @@ export default function ProposalSendTable() {
   const [modalData, setModalData] = useState(null);
   const [detailsModalOpen, setDetailsModalOpen] = useState(false);
   const [loadingModal, setLoadingModal] = useState(false);
+  const [pagi, setPagi] = useState({
+    current: 1,
+    pageSize: 20,
+  });
 
   const viewSubmitted = async (proposal_id) => {
     const previewUrl = `${import.meta.env.VITE_API_BASE_URL}/document/${proposal_id}/preview`;
@@ -32,7 +36,7 @@ export default function ProposalSendTable() {
   };
 
   useEffect(() => {
-    fetchProposals();
+    fetchProposals(1, 20);
   }, []);
 
   const viewForm = async (proposal_id) => {
@@ -261,15 +265,23 @@ export default function ProposalSendTable() {
     status: proposal.status,
   }));
 
-  const fetchProposals = async () => {
+  const fetchProposals = async (page, pageSize) => {
     try {
       setTableLoading(true);
-      const response = await api.get("/getproposals");
+      const response = await api.get(
+        `/getproposals?page=${page}&pageSize=${pageSize}`,
+      );
       if (!response.data.success)
         return messageApi.error(
           response?.data?.error || `Unable to fetch proposals.`,
         );
       setFormData(response.data.data);
+      setPagi((prev) => ({
+        ...prev,
+        current: page,
+        pageSize,
+        total: response.data.total,
+      }));
     } catch (error) {
       console.log(`error from proposal fetch: `, error);
       return toast.error(
@@ -303,7 +315,7 @@ export default function ProposalSendTable() {
           </div>
           <button
             className="act-btn all-border btn-p-s"
-            onClick={() => fetchProposals()}
+            onClick={() => fetchProposals(pagi.current, pagi.pageSize)}
           >
             <Refresh size={20} className="icnax" variant="Broken" />
           </button>
@@ -315,6 +327,10 @@ export default function ProposalSendTable() {
         loading={tableLoading}
         rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
         dataSource={dataSource}
+        pagination={pagi}
+        onChange={(pagination) => {
+          fetchProposals(pagination.current, pagination.pageSize);
+        }}
       />
     </div>
   );

@@ -9,6 +9,7 @@ export default function ProposalModal({ open, onClose, onSuccess }) {
       open={open}
       onCancel={onClose}
       className=""
+      maskClosable={false}
     >
       <SendProposalForm onSuccess={onSuccess} />
     </Modal>
