@@ -17,6 +17,7 @@ export default function DynamicForm({ schema }) {
   const { tokenData, token } = useToken();
 
   const methods = useForm({
+    shouldUnregister: true,
     defaultValues: {},
     mode: "onBlur",
   });
@@ -176,7 +177,7 @@ export default function DynamicForm({ schema }) {
     try {
       const response = await api.post(
         `/previewdocument/${tokenData.proposal_id}`,
-        { token, data: preview },
+        { data: preview },
         {
           responseType: "blob",
         },

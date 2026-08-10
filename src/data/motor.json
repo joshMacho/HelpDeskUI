@@ -192,7 +192,7 @@
                 },
                 "minLength": {
                   "value": 10,
-                  "message": "Maximum 10 digits"
+                  "message": "Minimum 10 digits"
                 },
                 "maxLength": {
                   "value": 10,

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import DynamicForm from "../components/forms/DynamicForm";
-import motorSchema from "../data/motor.json";
+import DynamicForm from "../../components/forms/DynamicForm";
+import motorSchema from "../../data/motor.json";
 
 export default function MotorPage() {
   useEffect(() => {}, []);

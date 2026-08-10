@@ -1,0 +1,986 @@
+{
+  "type": "object",
+  "sections": [
+    {
+      "name": "policyInfo",
+      "label": "POLICY DETAILS",
+      "fields": [
+        {
+          "type": "group",
+          "name": "policyInfo",
+          "label": "Policy Details",
+          "fields": [
+            {
+              "type": "select",
+              "name": "currency",
+              "label": "Currency",
+              "validation": {
+                "required": "Currency is required"
+              },
+              "options": [
+                { "label": "GHC", "value": "GHC" },
+                { "label": "EUR", "value": "EUR" },
+                { "label": "USD", "value": "USD" },
+                { "label": "GBP", "value": "GBP" }
+              ]
+            },
+            {
+              "type": "date",
+              "name": "startDate",
+              "label": "Start Date",
+              "minDate": "today",
+              "validation": {
+                "required": "Enter/Select a start date"
+              }
+            },
+            {
+              "type": "date",
+              "name": "endDate",
+              "label": "End Date",
+              "minDate": "today+30",
+              "maxDate": "today+364",
+              "validation": {
+                "required": "Enter/Select an end date"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "personalDetails",
+      "label": "PERSONAL DETAILS",
+      "fields": [
+        {
+          "type": "group",
+          "name": "insuredDetails",
+          "label": "",
+          "fields": [
+            {
+              "type": "text",
+              "name": "fullName",
+              "label": "Full Name of Proposer",
+              "validation": {
+                "required": "Full Name is required"
+              }
+            },
+            {
+              "type": "text",
+              "name": "address",
+              "label": "Address",
+              "validation": {
+                "required": "Address is required"
+              }
+            },
+            {
+              "type": "text",
+              "name": "occupation",
+              "label": "Occupation / Business",
+              "validation": {
+                "required": "Occupation or Business required"
+              }
+            },
+            {
+              "type": "text",
+              "name": "contact",
+              "label": "Phone Number",
+              "validation": {
+                "required": "Phone number is required",
+                "pattern": {
+                  "value": "^(020|023|024|025|026|027|028|050|053|054|055|056|057|059)\\d{7}$",
+                  "message": "Only Valid Ghanaian Phone Number allowed."
+                },
+                "minLength": {
+                  "value": 10,
+                  "message": "Minimum 10 digits"
+                },
+                "maxLength": {
+                  "value": 10,
+                  "message": "Maximum 10 digits"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "email",
+              "label": "Email",
+              "validation": {
+                "pattern": {
+                  "value": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+                  "message": "Invalid email"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "typeOfCover",
+      "label": " TYPE OF COVER",
+      "fields": [
+        {
+          "type": "select",
+          "name": "coverType",
+          "label": "Type of Cover",
+          "validation": {
+            "required": "Type of cover required"
+          },
+          "options": [
+            { "label": "FIRE", "value": "FIRE" },
+            {
+              "label": "COMBINED FIRE & BURGLARY",
+              "value": "COMBINED FIRE & BURGLARY"
+            },
+            { "label": "ASSETS ALL RISKS", "value": "ASSETS ALL RISKS" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "coverDetails",
+      "label": "COVER DETAILS",
+      "fields": [
+        {
+          "type": "text",
+          "name": "locationAddress",
+          "label": "Location Address and nearest Landmark of property to be insured",
+          "validation": {
+            "required": "Cover is required",
+            "maxLength": {
+              "value": 120,
+              "message": "length should be 120 characters or less"
+            }
+          }
+        },
+        {
+          "type": "select",
+          "name": "natureOfBuilding",
+          "label": "Nature of Building",
+          "validation": {
+            "required": "Nature of building required"
+          },
+          "options": [
+            { "label": "COMMERCIAL", "value": "COMMERCIAL" },
+            { "label": "RESIDENTIAL", "value": "RESIDENTIAL" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "natureOfOccupation",
+          "label": "Nature of occupation engaged in the building (eg. Fcatory, Shop, Offices, Warehouse)",
+          "validation": {
+            "required": "Required",
+            "maxLength": {
+              "value": 100,
+              "message": "length should be 120 characters or less"
+            }
+          },
+          "showWhen": {
+            "field": "natureOfBuilding",
+            "value": "COMMERCIAL"
+          }
+        },
+        {
+          "type": "info",
+          "content": "Construction of Building",
+          "variant": "descTb"
+        },
+        {
+          "type": "group",
+          "name": "cob",
+          "lable": "",
+          "fields": [
+            {
+              "type": "select",
+              "name": "constructionType",
+              "label": "Construciton Type",
+              "validation": {
+                "required": "Construction type is required"
+              },
+              "options": [
+                { "label": "CEMENT BLOCKS", "value": "CEMENT BLOCKS" },
+                { "label": "CONCRETE", "value": "CONCRETE" },
+                { "label": "BRICK STONE", "value": "BRICK STONE" },
+                { "label": "OTHERS", "value": "OTHERS" }
+              ]
+            },
+            {
+              "type": "text",
+              "name": "constructionTypeOther",
+              "label": "Construction Type (OTHER)",
+              "validation": {
+                "required": "required",
+                "maxLength": {
+                  "value": 100,
+                  "message": "Characters should be < than 101"
+                }
+              },
+              "showWhen": {
+                "field": "constructionType",
+                "value": "OTHERS"
+              }
+            },
+            {
+              "type": "select",
+              "name": "typeOfRoofing",
+              "label": "Type of Roofing",
+              "validation": {
+                "required": "Type of roofing is required"
+              },
+              "options": [
+                { "label": "SLATE", "value": "SLATE" },
+                { "label": "TILE CONCRETE", "value": "TILE CONCRETE" },
+                { "label": "ALUMINIUM", "value": "ALUMINIUM" },
+                { "label": "ASBESTOS", "value": "ASBESTOS" },
+                { "label": "OTHERS", "value": "OTHERS" }
+              ]
+            },
+            {
+              "type": "text",
+              "name": "typeOfRoofingOther",
+              "label": "Type of Roofing (OTHER)",
+              "validation": {
+                "required": "required",
+                "maxLength": {
+                  "value": 100,
+                  "message": "Characters should be < than 101"
+                }
+              },
+              "showWhen": {
+                "field": "typeOfRoofing",
+                "value": "OTHERS"
+              }
+            },
+            {
+              "type": "text",
+              "name": "descriptionOfBuilding",
+              "label": "Description of Building / Property",
+              "validation": {
+                "required": "Description is required",
+                "maxLength": {
+                  "value": 80,
+                  "message": "Length should be less than 80"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "radio",
+          "name": "isMultipleTenancy",
+          "label": "Is it a multiple-tenancy occupancy or part of a building",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": true },
+            { "label": "NO", "value": false }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "isMultipleTenancyYes",
+          "label": "If so, which part of the building do you occupy",
+          "validation": {
+            "maxLength": {
+              "value": 80,
+              "message": "length should be less than 80"
+            }
+          },
+          "showWhen": {
+            "field": "isMultipleTenancy",
+            "value": "true"
+          }
+        },
+        {
+          "type": "text",
+          "name": "howLong",
+          "label": "For how long have you occupied the premises?",
+          "validation": {
+            "required": "Required",
+            "maxLength": {
+              "value": 80,
+              "message": "Length should be less than 80"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "name": "securitySystems",
+          "label": "What security systems are put in place to ensure the safety of the property being proposed for insurance?",
+          "validation": {
+            "required": "Required",
+            "maxLength": {
+              "value": 100,
+              "message": "Length should be less than 100"
+            }
+          }
+        },
+        {
+          "type": "group",
+          "name": "premisInstall",
+          "label": "",
+          "fields": [
+            {
+              "type": "radio",
+              "name": "fireInstalled",
+              "label": "Is your premises installed with fire extinguishing appliances",
+              "validation": {
+                "required": "Required"
+              },
+              "options": [
+                { "label": "YES", "value": true },
+                { "label": "NO", "value": false }
+              ]
+            },
+            {
+              "type": "radio",
+              "name": "smokeInstalled",
+              "label": "Are smoke detectors installed at your premises?",
+              "validation": {
+                "required": "Required"
+              },
+              "options": [
+                { "label": "YES", "value": true },
+                { "label": "NO", "value": false }
+              ]
+            },
+            {
+              "type": "radio",
+              "name": "alarmInstalled",
+              "label": "Is there an intruder alarm?",
+              "validation": {
+                "required": "Required"
+              },
+              "options": [
+                { "label": "YES", "value": true },
+                { "label": "NO", "value": false }
+              ]
+            },
+            {
+              "type": "radio",
+              "name": "exposedFlooding",
+              "label": "Is the premises exposed to flooding?",
+              "validation": {
+                "required": "Required"
+              },
+              "options": [
+                { "label": "YES", "value": true },
+                { "label": "NO", "value": false }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "name": "eight",
+          "label": "",
+          "fields": [
+            {
+              "type": "radio",
+              "name": "engageIn",
+              "label": "Do you engage in any process of manufacture or any hazardous activity?",
+              "options": [
+                { "label": "YES", "value": true },
+                { "label": "NO", "value": false }
+              ]
+            },
+            {
+              "type": "text",
+              "name": "engageInYes",
+              "label": "If so, gice details:",
+              "validation": {
+                "required": "Required",
+                "maxLength": {
+                  "value": 100,
+                  "message": "Length should be less than 100"
+                }
+              },
+              "showWhen": {
+                "field": "engageIn",
+                "value": "true"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "insuranceHistory",
+      "label": "INSURANCE HISTORY",
+      "fields": [
+        {
+          "type": "radio",
+          "name": "sufferedLoss",
+          "label": "Have you ever suffered any loss or damage by Fire or Burglary during the past three years?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": true },
+            { "label": "NO", "value": false }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "sufferedLossYes",
+          "label": "If so, give details:",
+          "validation": {
+            "required": "Required",
+            "maxLength": {
+              "value": 100,
+              "message": "Length should be less than 100"
+            }
+          },
+          "showWhen": {
+            "field": "sufferedLoss",
+            "value": "true"
+          }
+        },
+        {
+          "type": "radio",
+          "name": "hasAnyClaim",
+          "label": "Has any claim been made against you during the past three years by any person for damage to their property or personal injureis?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": true },
+            { "label": "NO", "value": false }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "hasAnyClaimYes",
+          "label": "If so, give details:",
+          "validation": {
+            "required": "Required",
+            "maxLength": {
+              "value": 100,
+              "message": "Length should be less than 100"
+            }
+          },
+          "showWhen": {
+            "field": "hasAnyClaim",
+            "value": "true"
+          }
+        },
+        {
+          "type": "radio",
+          "name": "insuranceRefused",
+          "label": "Has any Insurance Company ever refused/declined your proposal, increased your premium at renewal, cancelled or refused to renew your policy?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": true },
+            { "label": "NO", "value": false }
+          ]
+        },
+        {
+          "type": "radio",
+          "name": "propertyProposed",
+          "label": "Is the property proposed for insurance already insured with another Company?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": true },
+            { "label": "NO", "value": false }
+          ]
+        },
+        {
+          "type": "radio",
+          "name": "otherInsurancePolicy",
+          "label": "Do you have any other Insurance policy here or elsewhere?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": true },
+            { "label": "NO", "value": false }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "otherInsurancePolicyYes",
+          "label": "If so, state type:",
+          "validation": {
+            "required": "Required",
+            "maxLength": {
+              "value": 100,
+              "message": "Length should be less than 100"
+            }
+          },
+          "showWhen": {
+            "field": "otherInsurancePolicy",
+            "value": "true"
+          }
+        }
+      ]
+    },
+    {
+      "name": "propertyDetails",
+      "label": "PROPERTY DETAILS",
+      "fields": [
+        {
+          "type": "group",
+          "name": "pDetails",
+          "label": "",
+          "fields": [
+            {
+              "type": "info",
+              "content": "Building",
+              "variant": "descTb"
+            },
+            {
+              "type": "text",
+              "name": "buildingValue",
+              "label": "Value (GHS)",
+              "validation": {
+                "required": "Required",
+                "pattern": {
+                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
+                  "message": "Invalid value"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "buildingDesc",
+              "label": "Additional Information"
+            },
+            {
+              "type": "info",
+              "content": "Wall, fences & Gates",
+              "variant": "descTb",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "wallValue",
+              "label": "Value (GHS)",
+              "validation": {
+                "required": "Required",
+                "pattern": {
+                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
+                  "message": "Invalid value"
+                }
+              },
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "wallDesc",
+              "label": "Additional Information",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "info",
+              "content": "Office Equipment",
+              "variant": "descTb",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "officeValue",
+              "label": "Value (GHS)",
+              "validation": {
+                "required": "Required",
+                "pattern": {
+                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
+                  "message": "Invalid value"
+                }
+              },
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "officeDesc",
+              "label": "Additional Information",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "info",
+              "content": "Furniture, Fixtures & Fittings",
+              "variant": "descTb",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "furnitureValue",
+              "label": "Value (GHS)",
+              "validation": {
+                "required": "Required",
+                "pattern": {
+                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
+                  "message": "Invalid value"
+                }
+              },
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "furnitureDesc",
+              "label": "Additional Information",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "info",
+              "content": "Stock-in-Trade / Finished goods",
+              "variant": "descTb",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "stockValue",
+              "label": "Value (GHS)",
+              "validation": {
+                "required": "Required",
+                "pattern": {
+                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
+                  "message": "Invalid value"
+                }
+              },
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "stockDesc",
+              "label": "Additional Information",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "info",
+              "content": "Stock of Raw Materials/Work-in-Progress",
+              "variant": "descTb",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "stockRawValue",
+              "label": "Value (GHS)",
+              "validation": {
+                "required": "Required",
+                "pattern": {
+                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
+                  "message": "Invalid value"
+                }
+              },
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "stockRawDesc",
+              "label": "Additional Information",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "info",
+              "content": "Plant & Machinery",
+              "variant": "descTb",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "plantValue",
+              "label": "Value (GHS)",
+              "validation": {
+                "required": "Required",
+                "pattern": {
+                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
+                  "message": "Invalid value"
+                }
+              },
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "plantDesc",
+              "label": "Additional Information",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "info",
+              "content": "Goods held in Trust or Commission",
+              "variant": "descTb",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "goodsValue",
+              "label": "Value (GHS)",
+              "validation": {
+                "required": "Required",
+                "pattern": {
+                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
+                  "message": "Invalid value"
+                }
+              },
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "goodsDesc",
+              "label": "Additional Information",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "COMMERCIAL"
+              }
+            },
+            {
+              "type": "info",
+              "content": "Content",
+              "variant": "descTb",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "RESIDENTIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "contentValue",
+              "label": "Value (GHS)",
+              "validation": {
+                "required": "Required",
+                "pattern": {
+                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
+                  "message": "Invalid value"
+                }
+              },
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "RESIDENTIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "contentDesc",
+              "label": "Additional Information",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "RESIDENTIAL"
+              }
+            },
+            {
+              "type": "info",
+              "content": "Personal Effect",
+              "variant": "descTb",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "RESIDENTIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "personalValue",
+              "label": "Value (GHS)",
+              "validation": {
+                "required": "Required",
+                "pattern": {
+                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
+                  "message": "Invalid value"
+                }
+              },
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "RESIDENTIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "personalDesc",
+              "label": "Additional Information",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "RESIDENTIAL"
+              }
+            },
+            {
+              "type": "info",
+              "content": "Art Works",
+              "variant": "descTb",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "RESIDENTIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "artValue",
+              "label": "Value (GHS)",
+              "validation": {
+                "required": "Required",
+                "pattern": {
+                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
+                  "message": "Invalid value"
+                }
+              },
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "RESIDENTIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "artDesc",
+              "label": "Additional Information",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "RESIDENTIAL"
+              }
+            },
+            {
+              "type": "info",
+              "content": "Jewelery",
+              "variant": "descTb",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "RESIDENTIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "jewelValue",
+              "label": "Value (GHS)",
+              "validation": {
+                "required": "Required",
+                "pattern": {
+                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
+                  "message": "Invalid value"
+                }
+              },
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "RESIDENTIAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "jewelDesc",
+              "label": "Additional Information",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": "RESIDENTIAL"
+              }
+            },
+            {
+              "type": "info",
+              "content": "Any Other Propoerties to be Insured",
+              "variant": "descTb"
+            },
+            {
+              "type": "text",
+              "name": "anyOtherValue",
+              "label": "Value (GHS)",
+              "validation": {
+                "required": "Required",
+                "pattern": {
+                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
+                  "message": "Invalid value"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "anyOtherDesc",
+              "label": "Additional Information"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "extensions",
+          "label": "Please indicate extension(s) / Add-on-cover required",
+          "validation": {
+            "maxLength": {
+              "value": 100,
+              "message": "Length should be less than 150"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "declaration",
+      "label": "DECLARATION",
+      "fields": [
+        {
+          "type": "info",
+          "content": "I / We warrant that all the statements made above are true and that I / We have not with-held or noncealed anything affecting the proposal. I / We also agree that this proposal shall be the basis of the Contract.",
+          "variant": "decText"
+        },
+        {
+          "type": "radio",
+          "name": "declaration",
+          "label": "",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [{ "label": "I Accept", "value": true }]
+        }
+      ]
+    }
+  ]
+}

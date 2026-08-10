@@ -28,7 +28,7 @@ import IssuesPage from "./pages/IssuesPage.jsx";
 import DepartmentPage from "./pages/DepartmentPage.jsx";
 import ProposalPage from "./pages/ProposalPage.jsx";
 import LicenseAssignPage from "./pages/LicenseAssignPage.jsx";
-import MotorPage from "./pages/MotorPage.jsx";
+import MotorPage from "./pages/proposalPages/MotorPage.jsx";
 import TokenProtectRoute from "./TokenProtectRoute.jsx";
 import IncidentReportForm from "./components/forms/IncidentReportForm.jsx";
 import IssueDetailsPage from "./pages/IssueDetailsPage.jsx";
@@ -36,6 +36,7 @@ import AdminRoute from "./AdminRoute.jsx";
 import UnAuthorizedPage from "./pages/UnAuthorizedPage.jsx";
 import LicenseView from "./pages/LicenseView.jsx";
 import LicenseAssignDetails from "./pages/LicenseAssignDetails.jsx";
+import FirePage from "./pages/proposalPages/FirePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -170,6 +171,14 @@ const router = createBrowserRouter([
     element: (
       <TokenProtectRoute>
         <MotorPage />
+      </TokenProtectRoute>
+    ),
+  },
+  {
+    path: "/fire",
+    element: (
+      <TokenProtectRoute>
+        <FirePage />
       </TokenProtectRoute>
     ),
   },
