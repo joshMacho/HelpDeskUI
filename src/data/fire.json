@@ -950,15 +950,23 @@
           ]
         },
         {
-          "type": "text",
+          "type": "multiSelect",
           "name": "extensions",
           "label": "Please indicate extension(s) / Add-on-cover required",
-          "validation": {
-            "maxLength": {
-              "value": 100,
-              "message": "Length should be less than 150"
+          "options": [
+            { "label": "TEMPORARY REMOVAL", "value": "TEMPORARY REMOVAL" },
+            { "label": "CAPITAL ADDITIONS", "value": "CAPITAL ADDITIONS" },
+            { "label": "DEBIR REMOVAL", "value": "DEBIR REMOVAL" },
+            { "label": "PROFESSIONAL FEES", "value": "PROFESSIONAL FEES" },
+            {
+              "label": "CARE CUSTODY & CONTROL",
+              "value": "CARE CUSTODY & CONTROL"
+            },
+            {
+              "label": "REINSTATEMENT CONDITION",
+              "value": "REINSTATEMENT CONDITION"
             }
-          }
+          ]
         }
       ]
     },

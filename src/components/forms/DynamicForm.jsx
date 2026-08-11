@@ -17,7 +17,6 @@ export default function DynamicForm({ schema }) {
   const { tokenData, token } = useToken();
 
   const methods = useForm({
-    shouldUnregister: true,
     defaultValues: {},
     mode: "onBlur",
   });
@@ -39,12 +38,44 @@ export default function DynamicForm({ schema }) {
   //   return () => subscription.unsubscribe();
   // }, [watch]);
 
+  // useEffect(() => {
+  //   const savedDraft = localStorage.getItem(tokenData.proposal_id);
+  //   if (savedDraft) {
+  //     reset(JSON.parse(savedDraft));
+  //   }
+  // }, [reset]);
+
+  // 1. Restore saved form data
   useEffect(() => {
-    const savedDraft = localStorage.getItem(tokenData.proposal_id);
+    if (!tokenData?.proposal_id) return;
+
+    const savedDraft = localStorage.getItem(tokenData?.proposal_id);
+
     if (savedDraft) {
-      reset(JSON.parse(savedDraft));
+      try {
+        const parsedDraft = JSON.parse(savedDraft);
+
+        console.log("Restoring draft:", parsedDraft);
+
+        reset(parsedDraft);
+      } catch (error) {
+        console.error("Failed to restore saved draft:", error);
+      }
     }
-  }, [reset]);
+  }, [tokenData?.proposal_id, reset]);
+
+  // 2. Save changes to localStorage
+  useEffect(() => {
+    if (!tokenData?.proposal_id) return;
+
+    const subscription = watch((value) => {
+      console.log("Saving draft:", value);
+
+      localStorage.setItem(tokenData?.proposal_id, JSON.stringify(value));
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, tokenData?.proposal_id]);
 
   const [messageApi, context] = message.useMessage();
   const location = useLocation();
@@ -65,6 +96,7 @@ export default function DynamicForm({ schema }) {
 
   const handlePreview = (data) => {
     setPreview(data);
+    console.log(data);
     setOpenPreview(true);
   };
 
@@ -172,6 +204,7 @@ export default function DynamicForm({ schema }) {
 
   const previewDoc = async () => {
     // Open tab immediately (must happen synchronously from click)
+    console.log(preview);
     const newTab = window.open("", "_blank");
 
     try {
@@ -287,11 +320,11 @@ export default function DynamicForm({ schema }) {
             Submit
           </button>
         </div> */}
-        <div className="save-draft-div">
+        {/* <div className="save-draft-div">
           <button type="button" onClick={() => saveDraft()}>
             <DocumentText1 className="icnax" variant="broken" />
           </button>
-        </div>
+        </div> */}
         <div className="form-button-div stickb">
           {currentIndex > 0 && (
             <button type="button" onClick={prev}>

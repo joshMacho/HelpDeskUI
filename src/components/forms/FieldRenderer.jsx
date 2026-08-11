@@ -213,6 +213,44 @@ export default function FieldRenderer({ field, parentName }) {
         </div>
       );
 
+    case "multiSelect":
+      console.log("MULTI SELECT NAME:", name);
+      return (
+        <div className="form-input col-span-1">
+          <label>{field.label}</label>
+
+          <div className="select-div">
+            <Controller
+              name={name}
+              control={control}
+              rules={{
+                required: field.required ? `${field.label} is required` : false,
+              }}
+              defaultValue={[]}
+              render={({ field: controllerField }) => (
+                <Select
+                  {...controllerField}
+                  mode="multiple"
+                  allowClear
+                  placeholder="Select"
+                  className="custom-select"
+                  options={field.options?.map((opt) => ({
+                    value: opt.value,
+                    label: opt.label,
+                  }))}
+                  value={controllerField.value || []}
+                  onChange={(values) => {
+                    controllerField.onChange(values);
+                  }}
+                />
+              )}
+            />
+
+            {fieldError && <span className="danger">{fieldError.message}</span>}
+          </div>
+        </div>
+      );
+
     case "radio":
       return (
         <div className="rad-div">
