@@ -52,7 +52,7 @@
 .custom-select .ant-select-selector {
   @apply dark:bg-transparent! dark:text-[#d7d7d7]!
   border-none;
-  background: transparent!;
+  background: transparent;
 }
 
 .custom-select:hover .ant-select-selector {
