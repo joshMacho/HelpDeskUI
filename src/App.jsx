@@ -36,6 +36,7 @@ function App() {
         </Sider>
         <Layout>
           <Header
+            className="header"
             style={{
               padding: 0,
               background: colorBgContainer,

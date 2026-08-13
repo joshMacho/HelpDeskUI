@@ -23,10 +23,15 @@ export default function LoginTable() {
     {
       title: "Status",
       dataIndex: "status",
+
       render: (value) => {
-        const color = value === 1 ? "green" : "red";
-        const name = value === 1 ? "Active" : "Disabled";
-        return <Tag color={color}>{name}</Tag>;
+        const isPending = value === 0;
+
+        return (
+          <Tag className={isPending ? "tag-disabled" : "tag-submitted"}>
+            {isPending ? "Disabled" : "Active"}
+          </Tag>
+        );
       },
     },
   ];

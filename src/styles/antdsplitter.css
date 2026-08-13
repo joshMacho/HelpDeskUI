@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
 .my-splitter {
-  @apply shadow-lg bg-white my-2;
+  @apply shadow-lg bg-white my-2
+  dark:bg-transparent;
+}
+
+.my-splitter .ant-splitter-bar {
+  background-color: #444;
 }

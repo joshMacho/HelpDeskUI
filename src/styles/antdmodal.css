@@ -1,14 +1,17 @@
 @import "tailwindcss";
 
 .mod-content {
-  @apply w-full h-full flex-col gap-2 flex justify-center items-center;
+  @apply w-full h-full flex-col gap-2 flex justify-center items-center
+  dark:bg-[var(--dark-theme-background)];
 }
 
 .custom-modal .ant-modal-content {
-  @apply flex justify-center items-center dark:bg-[#292a2d];
+  @apply flex flex-col justify-center items-center dark:bg-[#292a2d]
+  w-full!;
 }
 
 .custom-modal .ant-modal-body {
+  @apply w-full;
 }
 
 .update-modal .ant-modal-content {
@@ -21,4 +24,8 @@
 
 .errorView {
   @apply flex flex-col justify-center items-center;
+}
+
+.custom-modal .ant-modal-close {
+  color: #d7d7d7 !important;
 }

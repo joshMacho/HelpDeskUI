@@ -115,7 +115,7 @@ export default function ProposalSendTable() {
   };
 
   const tableColumns = [
-    { title: "ID", dataIndex: "pt_ID" },
+    // { title: "ID", dataIndex: "pt_ID" },
     { title: "Customer Name", dataIndex: "receipient_name" },
     {
       title: "Link",
@@ -154,15 +154,23 @@ export default function ProposalSendTable() {
       title: "Type",
       dataIndex: "proposal_name",
     },
+    {
+      title: "User",
+      dataIndex: "created_by",
+    },
     // { title: "Created By", dataIndex: "created_by" },
     { title: "Date", dataIndex: "date_created" },
     {
       title: "Status",
       dataIndex: "status",
       render: (value) => {
-        const color = value === 0 ? "yellow" : "green";
-        const name = value === 0 ? "PENDING" : "SUBMITTED";
-        return <Tag color={color}>{name}</Tag>;
+        const isPending = value === 0;
+
+        return (
+          <Tag className={isPending ? "tag-pending" : "tag-submitted"}>
+            {isPending ? "PENDING" : "SUBMITTED"}
+          </Tag>
+        );
       },
     },
     {
@@ -176,6 +184,7 @@ export default function ProposalSendTable() {
         return (
           <Dropdown
             open={isOpen}
+            rootClassName="my-dropdown"
             placement="bottomLeft"
             trigger={["click"]}
             onOpenChange={(open) => {
@@ -187,7 +196,7 @@ export default function ProposalSendTable() {
                   key: "view-form",
                   label: (
                     <div
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 drop-in-div"
                       onClick={() => {
                         viewForm(record.pt_ID);
                         setOpenDropdownId(null);

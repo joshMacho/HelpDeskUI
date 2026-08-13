@@ -3,3 +3,42 @@
 .ant-tabs-tab {
   @apply mx-2 sticky top-0;
 }
+
+/* ******************* SEGMENTED *********************** */
+[data-theme="dark"] .ant-segmented {
+  @apply dark:bg-[var(--dark-theme-background)]! border-none;
+}
+
+.ant-segmented-item {
+  @apply dark:text-[#d7d7d7]!;
+}
+
+.ant-segmented-item-selected {
+  @apply dark:bg-[var(--dark-comp-background)]! dark:text-white!;
+}
+
+.ant-segmented-thumb {
+  @apply dark:bg-[var(--dark-comp-background)]!;
+  /* more like the transition color from one thumb to the other */
+}
+
+/* **************************************** TABS ************************************ */
+[data-theme="dark"] .ant-tabs-tab {
+  color: #d7d7d7;
+}
+
+[data-theme="dark"] .ant-tabs-tab:hover {
+  color: #7c72e6;
+}
+
+[data-theme="dark"] .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #5145bb !important;
+}
+
+[data-theme="dark"] .ant-tabs-ink-bar {
+  background: #5145bb !important;
+}
+
+[data-theme="dark"] .ant-tabs-nav::before {
+  border-bottom: 1px solid #444 !important;
+}

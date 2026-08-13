@@ -789,43 +789,10 @@
                 "value": "COMMERCIAL"
               }
             },
+
             {
               "type": "info",
-              "content": "Content",
-              "variant": "descTb",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "RESIDENTIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "contentValue",
-              "label": "Value (GHS)",
-              "validation": {
-                "required": "Required",
-                "pattern": {
-                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
-                  "message": "Invalid value"
-                }
-              },
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "RESIDENTIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "contentDesc",
-              "label": "Additional Information",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "RESIDENTIAL"
-              }
-            },
-            {
-              "type": "info",
-              "content": "Personal Effect",
+              "content": "Personal Effect & Content",
               "variant": "descTb",
               "showWhen": {
                 "field": "$root.coverDetails.natureOfBuilding",

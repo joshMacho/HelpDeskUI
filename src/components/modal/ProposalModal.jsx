@@ -8,7 +8,7 @@ export default function ProposalModal({ open, onClose, onSuccess }) {
       footer={null}
       open={open}
       onCancel={onClose}
-      className=""
+      className="custom-modal"
       maskClosable={false}
     >
       <SendProposalForm onSuccess={onSuccess} />

@@ -14,6 +14,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { useSelector } from "react-redux";
+import { useAuth } from "../../AuthContext";
 
 export default function ProposalPage() {
   const [proposalOpen, setProposalOpen] = useState(false);
@@ -32,6 +34,8 @@ export default function ProposalPage() {
     { month: "Mar", sales: 500, profit: 200 },
   ];
 
+  const set = useAuth();
+  const isDark = set?.settings?.theme === "dark";
   // close proposal
   const closeProp = () => {
     setProposalOpen(false);
@@ -155,7 +159,12 @@ export default function ProposalPage() {
             <LineChart data={stats.graphStat}>
               <XAxis dataKey="monthName" tickLine={false} axisLine={false} />
               <YAxis />
-              <Tooltip />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: isDark ? "#202124" : "#fff",
+                  border: isDark ? "none" : "1px solid #444",
+                }}
+              />
               <Line
                 type="monotone"
                 dataKey="total"

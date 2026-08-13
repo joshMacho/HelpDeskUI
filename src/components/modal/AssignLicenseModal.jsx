@@ -100,7 +100,7 @@ export default function AssignLicenseModal({ open, onClose, info, success }) {
       onCancel={onClose}
       footer={null}
       maskClosable={false}
-      className=""
+      className="custom-modal"
       width={"auto"}
     >
       {content}
@@ -109,7 +109,7 @@ export default function AssignLicenseModal({ open, onClose, info, success }) {
           <p>Devices</p>
           <div className="table-actions">
             <div className="search-input-div">
-              <input type="text" id="sch" name="sch" />
+              <input type="text" id="sch" name="sch" placeholder="Search" />
             </div>
             <button className="act-btn all-border btn-p-s">
               <Refresh size={20} className="icnax" variant="Broken" />

@@ -151,15 +151,16 @@ export default function DeviceTrailPage() {
     label: dayjs(item.date_assigned).format("D MMMM, YYYY HH:mm"),
     children: (
       <>
-        <div>
-          <strong>Device: </strong> {` ${item.assigned_device}`}
+        <div className="time-desc">
+          <strong className="time-label">Device: </strong>{" "}
+          {` ${item.assigned_device}`}
         </div>
-        <div>
-          <strong>Assigned To:</strong>
+        <div className="time-desc">
+          <strong className="time-label">Assigned To:</strong>
           {` ${item.assigned_user}`}
         </div>
-        <div>
-          <strong>Assigned By:</strong>
+        <div className="time-desc">
+          <strong className="time-label">Assigned By:</strong>
           {` ${item.created_by}`}
         </div>
       </>
@@ -180,7 +181,7 @@ export default function DeviceTrailPage() {
                 <input
                   type="text"
                   placeholder="Search Device or User"
-                  id="search"
+                  id="sch"
                   name="search"
                   value={formik.values.search}
                   onChange={formik.handleChange}
@@ -206,7 +207,7 @@ export default function DeviceTrailPage() {
               onCancel={closeModal}
               onOk={selectedSearch}
               okButtonProps={{ loading: searchData.loading }}
-              className=""
+              className="custom-modal"
             >
               <div className="margin-top">
                 <div className="comp-head-div">
@@ -215,8 +216,9 @@ export default function DeviceTrailPage() {
                     <div className="search-input-div">
                       <input
                         type="text"
-                        id="sch"
+                        id="sech"
                         name="sch"
+                        placeholder="Search..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                       />
@@ -245,7 +247,12 @@ export default function DeviceTrailPage() {
             {` ${trail.info?.name || ""}`}
           </p>
         </div>
-        <Timeline orientation="vertical" items={timelineItems} mode="left" />
+        <Timeline
+          className="custom-timeline"
+          orientation="vertical"
+          items={timelineItems}
+          mode="left"
+        />
       </div>
     </div>
   );

@@ -13,7 +13,9 @@ const initialSettings = {
 };
 
 const getSystemTheme = () => {
-  return window.matchMedia("(prefers-color-scheme)").matches ? "dark" : "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 };
 
 const getStoredSettings = () => {
@@ -91,9 +93,8 @@ export const ContextProvider = ({ children }) => {
   // load all devices
   // fetch data for device table globallyzz
   const fetchTableData = async () => {
-    try{
+    try {
       await dispatch(fetchDevicesAsync()).unwrap();
-      
     } catch (error) {
       messageApi.error(error?.error || `Error fetching devices`);
       console.log(error);

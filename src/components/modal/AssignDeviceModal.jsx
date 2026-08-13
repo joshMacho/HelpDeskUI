@@ -107,7 +107,7 @@ export default function AssignDeviceModal({ open, onClose, info, onSuccess }) {
       open={open}
       onCancel={onClose}
       footer={null}
-      className=""
+      className="custom-modal"
       width={"auto"}
     >
       <form className="form" method="POST" onSubmit={formik.handleSubmit}>

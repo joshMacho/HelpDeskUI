@@ -6,7 +6,7 @@ export default function PreviewModal({ open, cancel, preview, submit }) {
     <Modal
       head={null}
       footer={null}
-      className=""
+      className="custom-modal"
       open={open}
       maskClosable={false}
       closable={true}

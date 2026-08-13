@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+.header {
+  @apply dark:bg-[var(--dark-theme-background)]!;
+}
+
+.content-body {
+  display: flex;
+  /* height: calc(100vh - var(--header-height)); */
+  height: 100%;
+  flex-direction: column;
+  /* background-color: var(--bg-body); */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar {
+  @apply dark:bg-[var(--dark-theme-background)];
+}
+
+.menu-bar {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 16px;
+  position: relative;
+  @apply dark:bg-inherit;
+}
+
+/* Default icon color */
+.menu-bar .ant-menu-item-icon {
+  @apply dark:text-[var(--nsia-gold)]!;
+}
+
+/* Hovered menu item icon */
+.menu-bar .ant-menu-item:hover .ant-menu-item-icon {
+  color: #5145bb;
+}
+
+/* Selected menu item */
+.menu-bar .ant-menu-item-selected {
+  @apply dark:bg-[var(--primary-blue-200)]!;
+}
+
+/* Selected menu item icon */
+.menu-bar .ant-menu-item-selected .ant-menu-item-icon {
+}
+
+/* Disabled menu item icon */
+.menu-bar .ant-menu-item-disabled .ant-menu-item-icon {
+  color: #666;
+}

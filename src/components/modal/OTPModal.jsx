@@ -136,7 +136,7 @@ export default function OTPModal({
     <Modal
       header={null}
       footer={null}
-      className=""
+      className="custom-modal"
       open={open}
       maskClosable={false}
       closable={true}

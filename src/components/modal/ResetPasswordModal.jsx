@@ -8,7 +8,7 @@ export default function ResetPasswordModal({ open, onClose, onSuccess }) {
       footer={null}
       open={open}
       onCancel={onClose}
-      className=""
+      className="custom-modal"
     >
       <PasswordResetForm2 onSuccess={onSuccess} />
     </Modal>

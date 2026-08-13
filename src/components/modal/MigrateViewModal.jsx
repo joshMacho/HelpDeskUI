@@ -93,7 +93,7 @@ export default function MigrateViewModal({
       open={open}
       onCancel={onClose}
       footer={null}
-      className=""
+      className="custom-modal"
       width={"auto"}
     >
       <Descriptions title={`Migrate ${info.fullName}`} bordered column={2}>

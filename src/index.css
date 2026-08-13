@@ -6,6 +6,11 @@
 @import "./styles/antdtable.css";
 @import "./styles/antdsplitter.css";
 @import "./styles/antdtab.css";
+@import "./styles/layoutStyle.css";
+@import "./styles/antddrawer.css";
+@import "./styles/antdtimeline.css";
+@import "./styles/antdtag.css";
+@import "./styles/antddropdown.css";
 
 * {
   margin: 0;
@@ -39,21 +44,14 @@ h3 {
   font-size: 1em;
 }
 
-span {
-  cursor: pointer;
-  @apply dark:text-[#d7d7d7]
-  text-[1em];
-}
-
 p {
-  @apply dark:text-[var(--dark-text-color)];
+  @apply dark:text-[var(--dark-text-color)]!;
   font-size: 1rem;
 }
 
-.layout {
-  display: flex;
-  width: 100%;
-  height: 100%;
+span {
+  cursor: pointer;
+  /* @apply dark:text-neutral-400!; */
 }
 
 .logo {
@@ -62,16 +60,6 @@ p {
   justify-content: center;
   color: #fff;
   padding: 10px;
-}
-
-.content-body {
-  display: flex;
-  /* height: calc(100vh - var(--header-height)); */
-  height: 100%;
-  flex-direction: column;
-  /* background-color: var(--bg-body); */
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 .logo-icon {
@@ -85,25 +73,18 @@ p {
   background: rgba(28, 17, 41, 0.88);
 }
 
-.menu-bar {
-  margin-top: 1em;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  font-size: 16px;
-  position: relative;
-}
-
 .xmargin {
   @apply mx-2;
 }
 
 .login-page {
-  @apply w-full h-full flex justify-center items-center;
+  @apply w-full h-full flex justify-center items-center
+  dark:bg-[var(--dark-theme-background)];
 }
 
 .login-div {
-  @apply flex flex-col justify-center items-center w-1/2 h-[400px];
+  @apply flex flex-col justify-center items-center w-1/2 h-[400px]
+  dark:bg-[var(--dark-comp-background)];
 }
 
 .loginform {
@@ -126,6 +107,12 @@ p {
   disabled:bg-[#5145bb];
 }
 
+.main-page-proposal {
+  @apply flex flex-col w-full h-full
+  dark:bg-[var(--dark-comp-background)] overflow-x-hidden
+  overflow-y-scroll;
+}
+
 .main-page {
   @apply flex flex-col w-full h-full
   dark:bg-[var(--dark-theme-background)] overflow-x-hidden
@@ -136,6 +123,7 @@ p {
   @apply flex justify-start items-center
   mt-2 dark:bg-[--dark-comp-background] py-1
   rounded-md shadow-[--dark-shadow] dark:shadow-[--shadow-dark]
+  dark:bg-[var(--dark-comp-background)]
   bg-white;
 }
 
@@ -156,8 +144,8 @@ p {
 }
 
 .icnax {
-  @apply text-[var(--nsia-gold)]
-   dark:text-[#d7d7d7] dark:hover:text-white;
+  @apply text-[var(--nsia-gold)]!
+   dark:text-[var(--nsia-gold)]!;
 }
 
 .act-btn {
@@ -182,7 +170,7 @@ p {
 
 .inventory-left,
 .inventory-right {
-  @apply dark:bg-[var(-dark-comp-background)] mb-1;
+  @apply dark:bg-[var(--dark-comp-background)] mb-1;
 }
 
 .inventory-left,
@@ -210,7 +198,7 @@ p {
 
 .comp-head-div {
   @apply flex justify-between items-center p-1 sticky top-0 bg-white
-  dark:bg-[var(--dark-comp-background)];
+  dark:bg-[#292a2d] dark:text-neutral-500;
   z-index: 999;
 }
 
@@ -228,7 +216,9 @@ p {
 
 .pop-render {
   @apply flex flex-col border border-gray-400 rounded-md py-2 bg-white
-   dark:border-[#3c3c3c] dark:shadow-md dark:text-[var(--dark-text-color)] mt-1 gap-1;
+   dark:border-[#3c3c3c] dark:shadow-md dark:text-[var(--dark-text-color)] mt-1 gap-1
+   dark:bg-[#202124];
+  z-index: 999;
 }
 
 .pop-render button {
@@ -345,11 +335,13 @@ p {
 }
 .li-title {
   @apply flex justify-center items-center
-  font-semibold text-[16px];
+  font-semibold text-[16px]
+  dark:text-neutral-400;
 }
 
 .li-description {
-  @apply flex justify-center font-mono text-[16px];
+  @apply flex justify-center font-mono text-[16px]
+  dark:text-neutral-500;
 }
 
 .li-action {
@@ -365,11 +357,13 @@ p {
 }
 
 .otp-title {
-  @apply flex flex-col justify-center items-center my-2;
+  @apply flex flex-col justify-center items-center my-2
+  dark:text-neutral-400;
 }
 
 .otp-title .t-text {
-  @apply text-[24px] font-bold;
+  @apply text-[24px] font-bold
+  dark:text-neutral-400;
 }
 
 .otp-means {
@@ -389,11 +383,18 @@ p {
 }
 
 .otp-input-div {
-  @apply flex gap-[10px] justify-center items-center;
+  @apply flex gap-[10px] justify-center items-center
+  dark:text-[#d7d7d7]!;
+}
+
+.otp-input-div input {
+  @apply dark:text-[var(--primary-blue-200)]!
+  dark:border-1! dark:border-[#444]!;
 }
 
 .expiry-div {
-  @apply flex justify-center items-center my-2;
+  @apply flex justify-center items-center my-2
+  dark:text-neutral-500;
 }
 
 .expiry-div p {
@@ -451,6 +452,10 @@ p {
 
 .preview-div {
   @apply mx-2 mt-1 flex gap-4;
+}
+
+.preview-declare p {
+  @apply dark:text-neutral-400!;
 }
 
 .center-flex {
@@ -570,6 +575,10 @@ p {
   @apply border-2! border-amber-200!;
 }
 
+.li-used {
+  @apply dark:text-neutral-500;
+}
+
 .pst-div {
   @apply flex flex-col lg:flex-row gap-2;
 }
@@ -577,7 +586,8 @@ p {
 .scard {
   @apply flex flex-col min-h-30 min-w-70 border mt-2
   rounded-md border-[#d7d7d7] shadow shadow-md
-  bg-white px-2 pt-2 gap-5;
+  bg-white px-2 pt-2 gap-5 dark:bg-[var(--dark-comp-background)]
+  dark:border-none;
 }
 
 .scard .head {
@@ -594,15 +604,16 @@ p {
 }
 
 .d-card {
-  @apply flex gap-4;
+  @apply flex gap-4 bg-[-var(--dark-comp-background)] dark:bg-inherit;
 }
 
-.left-1, .left-2 {
+.left-1,
+.left-2 {
   @apply flex-1 flex flex-col justify-start gap-5 h-full;
 }
- /* equal spacing head  */
-.eq-sp-he { 
- @apply flex justify-between;
+/* equal spacing head  */
+.eq-sp-he {
+  @apply flex justify-between;
 }
 
 /* chart div */
@@ -611,5 +622,6 @@ p {
   backdrop:blur-lg
   rounded-md mt-2 bg-white
   min-h-[150px]
-  flex justify-center items-center;
+  flex justify-center items-center
+  dark:bg-[var(--dark-comp-background)] dark:border-none;
 }

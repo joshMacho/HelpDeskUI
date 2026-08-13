@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+.custom-timeline .ant-timeline-item-head {
+  background: #5145bb !important;
+  border-color: #5145bb !important;
+}
+
+.custom-timeline .ant-timeline-item-tail {
+  border-inline-start: 2px solid #3e3e3e !important;
+}
+
+.custom-timeline .ant-timeline-item-label {
+  @apply dark:text-gray-400!;
+  /* color: #d7d7d7 !important; */
+}
+
+.time-desc {
+  @apply dark:text-gray-400;
+}
+
+.time-label {
+  @apply dark:text-neutral-400!;
+}

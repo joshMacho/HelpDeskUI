@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import InventoryPage from "./pages/InventoryPage.jsx";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { ContextProvider } from "../AuthContext.jsx";
 import { ToastContainer } from "react-toastify";
 import { store } from "./redux/store.js";
@@ -188,7 +188,7 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
       <ContextProvider>
-        <ToastContainer position="top-right" />
+        <ToastContainer position="top-right" theme="dark" />
         <RouterProvider router={router} />
       </ContextProvider>
     </Provider>

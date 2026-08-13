@@ -6,7 +6,7 @@ export default function FirePage() {
   useEffect(() => {}, []);
 
   return (
-    <div className="main-page">
+    <div className="main-page-proposal">
       <div className="banner"></div>
       <DynamicForm schema={fireSchema} />
     </div>

@@ -2,7 +2,7 @@
 
 .custom-table {
   @apply dark:bg-[#292a2d]
-  overflow-x-scroll;
+  overflow-y-scroll;
   /* height: auto !important; */
 }
 
@@ -11,7 +11,13 @@
 }
 
 .custom-table .ant-table-thead > tr > th {
-  @apply dark:bg-[#292a2d] dark:text-[#d7d7d7] dark:border-b-[#3e3e3e];
+  @apply dark:bg-[var(--dark-comp-background)]  dark:border-b-[var(--dark-theme-background)]!
+  /* dark:text-[#d7d7d7]; */
+  dark:text-neutral-500;
+}
+
+.custom-table .ant-table-thead > tr > th::before {
+  @apply dark:bg-[var(--dark-theme-background)]!;
 }
 
 .custom-table .ant-table-content {
@@ -19,13 +25,29 @@
 }
 
 .custom-table .ant-table-tbody > tr > td {
-  @apply dark:bg-[#292a2d] dark:text-[#d7d7d7] dark:border-b-[#292a2d];
+  @apply dark:bg-[#292a2d] 
+  dark:text-neutral-400 /* color for dark mode table values */
+  dark:border-b-[#292a2d];
 }
 
 /* styling on hover */
-.custom-table .ant-table-tbody > tr:hover > td {
-  @apply dark:bg-[#202124]!;
+[data-theme="dark"] .custom-table .ant-table-tbody > tr:hover > td {
+  background-color: #202124 !important;
 }
+
+/* This is to override the antd designs and fully implement my dark mode settings */
+[data-theme="dark"]
+  .custom-table
+  .ant-table-tbody
+  .ant-table-row
+  > .ant-table-cell-row-hover {
+  background-color: #202124 !important;
+}
+
+/* html.dark .custom-table .ant-table-tbody > tr:hover > td,
+html.dark .custom-table .ant-table-tbody > tr.ant-table-row:hover > td {
+  background-color: #202124 !important;
+} */
 
 /* styling on table row selected */
 .custom-table .ant-table-row-selected > td {
@@ -42,7 +64,7 @@
 
 /* styling the checkbox itself, you need to access .inner in the checkbox wrapper */
 .custom-table .ant-checkbox-inner {
-  @apply dark:bg-transparent! dark:border-[#3e3e3e]! dark:hover:border-[#5145bb]!;
+  @apply dark:bg-transparent! dark:border-[#d7d7d7]! dark:hover:border-[#5145bb]!;
 }
 
 /* styling when the checked box is checked */
@@ -62,4 +84,117 @@
 .disabled-row td * {
   text-decoration: line-through !important;
   color: #999 !important;
+}
+.custom-table .ant-table,
+.custom-table .ant-table-container,
+.custom-table .ant-table-content {
+  @apply dark:bg-[var(--dark-comp-background)];
+}
+
+.custom-table .ant-table-content {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #3e3e3e #202124; /* thumb track */
+}
+
+/* Chrome, Edge, Safari */
+.custom-table .ant-table-content::-webkit-scrollbar {
+  width: 8px;
+  height: 8px; /* horizontal scrollbar */
+}
+
+.custom-table .ant-table-content::-webkit-scrollbar-track {
+  background: #202124;
+}
+
+.custom-table .ant-table-content::-webkit-scrollbar-thumb {
+  background: #3e3e3e;
+  border-radius: 6px;
+}
+
+.custom-table .ant-table-content::-webkit-scrollbar-thumb:hover {
+  background: #5145bb;
+}
+
+/* Firefox */
+html {
+  @apply dark:[scrollbar-width:thin] dark:[scrollbar-color:#202124_#292a2d];
+}
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply dark:bg-[var(--dark-theme-background)];
+}
+
+::-webkit-scrollbar-thumb {
+  @apply dark:bg-[#3e3e3e] dark:rounded-[6px];
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d7d7d7;
+}
+
+/* *********************************** PAGINATION ******************************************* */
+/* Pagination container */
+.custom-table .ant-pagination {
+  @apply dark:text-[#d7d7d7];
+}
+
+/* Page numbers */
+.custom-table .ant-pagination-item {
+  @apply dark:bg-[#292a2d] dark:border-[#3e3e3e];
+}
+
+/* Page number text */
+.custom-table .ant-pagination-item a {
+  @apply dark:text-[var(--dark-text-color)];
+}
+
+/* Active page */
+.custom-table .ant-pagination-item-active {
+  @apply dark:bg-[#5145bb] dark:border-[#5145bb];
+}
+
+.custom-table .ant-pagination-item-active a {
+  @apply text-white;
+}
+
+/* Hover state */
+.custom-table .ant-pagination-item:hover {
+  @apply dark:border-[#5145bb];
+}
+
+.custom-table .ant-pagination-item:hover a {
+  @apply dark:text-[#5145bb];
+}
+
+/* **************************************88 table size selectors ******************************** */
+/* Pagination page size selector */
+[data-theme="dark"] .ant-pagination-options .ant-select-selector {
+  background-color: #202124 !important;
+  border-color: #444 !important;
+  color: #d7d7d7 !important;
+}
+
+[data-theme="dark"] .ant-pagination-options .ant-select-selection-item {
+  color: #d7d7d7 !important;
+}
+
+[data-theme="dark"] .ant-select-dropdown {
+  background-color: #202124 !important;
+}
+
+[data-theme="dark"] .ant-select-item {
+  color: #d7d7d7 !important;
+}
+
+[data-theme="dark"] .ant-select-item-option-selected {
+  background-color: #30296f !important;
+}
+
+[data-theme="dark"] .ant-select-item-option-active {
+  background-color: #37383a !important;
 }

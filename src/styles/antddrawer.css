@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+/* Drawer container */
+.custom-drawer .ant-drawer-content {
+  @apply dark:bg-[var(--dark-theme-background)];
+}
+
+/* Header */
+.custom-drawer .ant-drawer-header {
+  @apply dark:bg-[#292a2d] dark:border-b-[#3e3e3e];
+}
+
+/* Title */
+.custom-drawer .ant-drawer-title {
+  @apply dark:text-[#d7d7d7];
+}
+
+/* Close icon */
+.custom-drawer .ant-drawer-close {
+  @apply dark:text-[#d7d7d7];
+}
+
+.custom-drawer .ant-drawer-close:hover {
+  @apply dark:text-[#5145bb];
+}
+
+/* Body */
+.custom-drawer .ant-drawer-body {
+  @apply dark:bg-[#292a2d] dark:text-[#d7d7d7];
+}
+
+/* Footer */
+.custom-drawer .ant-drawer-footer {
+  @apply dark:bg-[#292a2d] dark:border-t-[#3e3e3e];
+}
+
+/* Close button */
+.ant-drawer-close {
+  color: #d7d7d7 !important;
+}
+
+/* Hover */
+.ant-drawer-close:hover {
+  color: #5145bb !important;
+}
