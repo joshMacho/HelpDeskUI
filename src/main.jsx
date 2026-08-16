@@ -38,151 +38,156 @@ import LicenseView from "./pages/LicenseView.jsx";
 import LicenseAssignDetails from "./pages/LicenseAssignDetails.jsx";
 import FirePage from "./pages/proposalPages/FirePage.jsx";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <ProtectedRoute>
-        <App />
-      </ProtectedRoute>
-    ),
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <RoleRedirect />,
-        //<Navigate to="inventory" replace />,
-      },
-      {
-        element: <AdminRoute />,
-        // errorElement: <UnAuthorizedPage />,
-        children: [
-          {
-            path: "inventory",
-            element: <InventoryPage />,
-          },
-          {
-            path: "users",
-            element: <UsersPage />,
-          },
-          {
-            path: "settings",
-            element: <SettingsPage />,
-            children: [
-              {
-                path: "license",
-                element: <License />,
-              },
-              {
-                path: "locations",
-                element: <LocationsPage />,
-              },
-              {
-                path: "departments",
-                element: <DepartmentPage />,
-              },
-            ],
-          },
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: (
+        <ProtectedRoute>
+          <App />
+        </ProtectedRoute>
+      ),
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          index: true,
+          element: <RoleRedirect />,
+          //<Navigate to="inventory" replace />,
+        },
+        {
+          element: <AdminRoute />,
+          // errorElement: <UnAuthorizedPage />,
+          children: [
+            {
+              path: "inventory",
+              element: <InventoryPage />,
+            },
+            {
+              path: "users",
+              element: <UsersPage />,
+            },
+            {
+              path: "settings",
+              element: <SettingsPage />,
+              children: [
+                {
+                  path: "license",
+                  element: <License />,
+                },
+                {
+                  path: "locations",
+                  element: <LocationsPage />,
+                },
+                {
+                  path: "departments",
+                  element: <DepartmentPage />,
+                },
+              ],
+            },
 
-          {
-            path: "assigned",
-            element: <AssignPage />,
-          },
-          {
-            path: "trail",
-            element: <DeviceTrailPage />,
-          },
-          {
-            path: "settings",
-            element: <SettingsPage />,
-            children: [
-              {
-                path: "license",
-                element: <License />,
-              },
-              {
-                path: "locations",
-                element: <LocationsPage />,
-              },
-              {
-                path: "departments",
-                element: <DepartmentPage />,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        path: "proposal",
-        element: <ProposalPage />,
-      },
-      {
-        path: "licenses",
-        element: <LicenseAssignPage />,
-        children: [
-          {
-            index: true,
-            element: <Navigate to="all" replace />,
-          },
-          {
-            path: "all",
-            element: <LicenseView />,
-          },
-          {
-            path: "all/:license_id",
-            element: <LicenseAssignDetails />,
-          },
-        ],
-      },
-      {
-        path: "incidentReport",
-        element: <IncidentReportPage />,
-        children: [
-          {
-            index: true,
-            element: <Navigate to="issues" replace />,
-          },
-          {
-            path: "issues",
-            element: <IssuesPage />,
-          },
-          {
-            path: "issues/:issue_id",
-            element: <IssueDetailsPage />,
-          },
-          {
-            path: "new",
-            element: <IncidentReportForm />,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/auth/reset",
-    element: <PasswordResetPage />,
-  },
-  {
-    path: "/motor",
-    element: (
-      <TokenProtectRoute>
-        <MotorPage />
-      </TokenProtectRoute>
-    ),
-  },
-  {
-    path: "/fire",
-    element: (
-      <TokenProtectRoute>
-        <FirePage />
-      </TokenProtectRoute>
-    ),
-  },
-]);
+            {
+              path: "assigned",
+              element: <AssignPage />,
+            },
+            {
+              path: "trail",
+              element: <DeviceTrailPage />,
+            },
+            {
+              path: "settings",
+              element: <SettingsPage />,
+              children: [
+                {
+                  path: "license",
+                  element: <License />,
+                },
+                {
+                  path: "locations",
+                  element: <LocationsPage />,
+                },
+                {
+                  path: "departments",
+                  element: <DepartmentPage />,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          path: "proposal",
+          element: <ProposalPage />,
+        },
+        {
+          path: "licenses",
+          element: <LicenseAssignPage />,
+          children: [
+            {
+              index: true,
+              element: <Navigate to="all" replace />,
+            },
+            {
+              path: "all",
+              element: <LicenseView />,
+            },
+            {
+              path: "all/:license_id",
+              element: <LicenseAssignDetails />,
+            },
+          ],
+        },
+        {
+          path: "incidentReport",
+          element: <IncidentReportPage />,
+          children: [
+            {
+              index: true,
+              element: <Navigate to="issues" replace />,
+            },
+            {
+              path: "issues",
+              element: <IssuesPage />,
+            },
+            {
+              path: "issues/:issue_id",
+              element: <IssueDetailsPage />,
+            },
+            {
+              path: "new",
+              element: <IncidentReportForm />,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/auth/reset",
+      element: <PasswordResetPage />,
+    },
+    {
+      path: "/motor",
+      element: (
+        <TokenProtectRoute>
+          <MotorPage />
+        </TokenProtectRoute>
+      ),
+    },
+    {
+      path: "/fire",
+      element: (
+        <TokenProtectRoute>
+          <FirePage />
+        </TokenProtectRoute>
+      ),
+    },
+  ],
+  // {
+  //   basename: "/prop",
+  // },
+);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

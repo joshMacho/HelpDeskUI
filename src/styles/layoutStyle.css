@@ -57,3 +57,7 @@
 .menu-bar .ant-menu-item-disabled .ant-menu-item-icon {
   color: #666;
 }
+
+.menu-bar .ant-menu-item {
+  @apply dark:text-neutral-400!;
+}

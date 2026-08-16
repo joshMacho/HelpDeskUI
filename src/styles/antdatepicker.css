@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* date picker style */
+.ant-picker {
+  @apply bg-transparent!;
+}
+
+/* datepicker input */
+.ant-picker input {
+  @apply dark:bg-transparent! dark:caret-white! dark:text-[#d7d7d7]!;
+}
+
+/* date picker's placeholder */
+.ant-picker input::placeholder {
+  @apply text-[14px] font-light dark:text-gray-600!;
+}
+
+/* styling the date navigation icons */
+.ant-picker-header-view button {
+  @apply dark:text-[#d7d7d7]!;
+}
+
+/* Month and year text */
+/* .ant-picker-header-view {
+  color: white !important;
+} */
+
+/* Previous/Next month arrows */
+.ant-picker-prev-icon,
+.ant-picker-next-icon,
+.ant-picker-super-prev-icon,
+.ant-picker-super-next-icon {
+  @apply dark:text-[#d5a108]!;
+}
+
+/* date picker's days */
+.ant-picker-content th {
+  color: #d5a108 !important; /* gray-400 */
+  font-weight: 600;
+}
+
+/* footer button TODAY / NOW / OK */
+.ant-picker-now-btn,
+.ant-picker-today-btn {
+  /* blue-400 */
+  @apply dark:text-[#60a5fa]!;
+}
+
+.ant-picker-now-btn:hover,
+.ant-picker-today-btn:hover {
+  @apply dark:text-[#93c5fd]!;
+}
+
+.ant-picker-footer {
+  @apply dark:bg-[#1f2937] /* gray-80* */
+  dark:border-t-[#37415a]; /* gray-700 */
+}

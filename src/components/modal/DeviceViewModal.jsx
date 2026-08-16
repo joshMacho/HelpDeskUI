@@ -10,11 +10,15 @@ export default function DeviceViewModal({ info, open, onClose }) {
       open={open}
       onCancel={onClose}
       footer={null}
-      className=""
+      className="custom-modal"
       width={"auto"}
       //   style={{ maxWidth: 900, width: "90vw" }}
     >
-      <Descriptions title={`${info?.type || "Device"} details`} bordered>
+      <Descriptions
+        title={`${info?.type || "Device"} details`}
+        bordered
+        className="custom-desc"
+      >
         <DescriptionsItem label="Serial Number">{info.sn}</DescriptionsItem>
         <DescriptionsItem label="Type">{info.type}</DescriptionsItem>
         <DescriptionsItem label="Make">{info.make}</DescriptionsItem>

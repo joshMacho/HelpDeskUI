@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+/* for the label */
+.custom-desc .ant-descriptions-item-label {
+  @apply dark:bg-[#202124]! dark:text-neutral-500!;
+}
+
+/* for the content */
+.custom-desc .ant-descriptions-item-content {
+  @apply dark:text-neutral-400;
+}
+
+/* for the title */
+.custom-desc .ant-descriptions-title {
+  @apply dark:text-neutral-500;
+}
