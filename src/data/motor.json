@@ -61,7 +61,11 @@
               "name": "firstName",
               "label": "First Name",
               "validation": {
-                "required": "First Name is required"
+                "required": "First Name is required",
+                "maxLength": {
+                  "value": 80,
+                  "message": "Length should be < 80"
+                }
               }
             },
             {
@@ -527,8 +531,8 @@
                 },
                 "validation": {
                   "maxLength": {
-                    "value": 30,
-                    "message": "Characters > 30"
+                    "value": 40,
+                    "message": "Characters > 40"
                   }
                 }
               },
@@ -596,8 +600,8 @@
                 },
                 "validation": {
                   "maxLength": {
-                    "value": 30,
-                    "message": "Characters > 30"
+                    "value": 120,
+                    "message": "Characters > 120"
                   }
                 }
               },
@@ -641,8 +645,8 @@
                 "validation": {
                   "required": "Park details is required",
                   "maxLength": {
-                    "value": 50,
-                    "message": "Character > 50"
+                    "value": 40,
+                    "message": "Character > 40"
                   }
                 }
               },
@@ -743,6 +747,12 @@
           "showWhen": {
             "field": "otherInsurables",
             "value": "true"
+          },
+          "validation": {
+            "maxLength": {
+              "value": 120,
+              "message": "Length should be less than 120"
+            }
           }
         },
         {
@@ -864,8 +874,8 @@
           },
           "validation": {
             "maxLength": {
-              "value": 150,
-              "message": "Character > 150"
+              "value": 120,
+              "message": "Character > 120"
             }
           }
         }
