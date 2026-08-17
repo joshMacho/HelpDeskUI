@@ -96,7 +96,11 @@ export default function MigrateViewModal({
       className="custom-modal"
       width={"auto"}
     >
-      <Descriptions title={`Migrate ${info.fullName}`} bordered column={2}>
+      <Descriptions
+        title={`Migrate ${info.fullName}`}
+        bordered
+        className="custom-desc"
+      >
         <DescriptionsItem label="Username">{info.username}</DescriptionsItem>
         <DescriptionsItem label="Email">{info.email}</DescriptionsItem>
         <DescriptionsItem label="Location">{info.location}</DescriptionsItem>
