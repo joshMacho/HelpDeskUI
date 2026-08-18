@@ -13,6 +13,7 @@
 @import "./styles/antddropdown.css";
 @import "./styles/andtdescription.css";
 @import "./styles/antdatepicker.css";
+@import "./styles/multiSelect.css";
 
 * {
   margin: 0;

@@ -4,6 +4,7 @@ import ArrayField from "./ArrayField";
 import GroupField from "./GroupField";
 import { Select } from "antd";
 import FileField from "./FileField";
+import MultiSelectTable from "./MultiSelectTable";
 
 export default function FieldRenderer({ field, parentName }) {
   const {
@@ -250,6 +251,8 @@ export default function FieldRenderer({ field, parentName }) {
           </div>
         </div>
       );
+    case "multiSelectTable":
+      return <MultiSelectTable field={field} name={name} />;
 
     case "radio":
       return (
@@ -265,7 +268,7 @@ export default function FieldRenderer({ field, parentName }) {
                 value={opt.value}
                 {...register(name, validation)}
               />{" "}
-              <span>{opt.label}</span>{" "}
+              <span className="rad-opt">{opt.label}</span>{" "}
             </label>
           ))}
           {fieldError && <span className="danger">{fieldError.message}</span>}

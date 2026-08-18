@@ -170,7 +170,8 @@
 }
 
 .field-label {
-  @apply font-bold text-[#645858];
+  @apply font-bold text-[#645858]
+  dark:text-[#d7d7d7];
 }
 
 .file-div {
@@ -197,4 +198,8 @@
 
 .dynamic-form {
   @apply mb-5;
+}
+
+.rad-opt {
+  @apply dark:text-[#d7d7d7];
 }

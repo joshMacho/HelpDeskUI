@@ -213,7 +213,7 @@
                 "required": "required",
                 "maxLength": {
                   "value": 100,
-                  "message": "Characters should be < than 101"
+                  "message": "Characters should not be more than 100 characters"
                 }
               },
               "showWhen": {
@@ -260,7 +260,7 @@
                 "required": "Description is required",
                 "maxLength": {
                   "value": 80,
-                  "message": "Length should be less than 80"
+                  "message": "Length should be more than 80 characters"
                 }
               }
             }
@@ -285,7 +285,7 @@
           "validation": {
             "maxLength": {
               "value": 80,
-              "message": "length should be less than 80"
+              "message": "length should not be more than 80 characters"
             }
           },
           "showWhen": {
@@ -301,7 +301,7 @@
             "required": "Required",
             "maxLength": {
               "value": 80,
-              "message": "Length should be less than 80"
+              "message": "Length should not be more than 80"
             }
           }
         },
@@ -313,7 +313,7 @@
             "required": "Required",
             "maxLength": {
               "value": 100,
-              "message": "Length should be less than 100"
+              "message": "Length should not be more than 100 characters"
             }
           }
         },
@@ -394,7 +394,7 @@
                 "required": "Required",
                 "maxLength": {
                   "value": 100,
-                  "message": "Length should be less than 100"
+                  "message": "Length should not be more than 100 characters"
                 }
               },
               "showWhen": {
@@ -917,8 +917,19 @@
           ]
         },
         {
-          "type": "multiSelect",
-          "name": "extensions",
+          "type": "text",
+          "name": "mortgage",
+          "label": "Name and Address of Mortgage, if Any?",
+          "validation": {
+            "maxLength": {
+              "value": 100,
+              "message": "Length should not be above 100 characters"
+            }
+          }
+        },
+        {
+          "type": "multiSelectTable",
+          "name": "extend",
           "label": "Please indicate extension(s) / Add-on-cover required",
           "options": [
             { "label": "TEMPORARY REMOVAL", "value": "TEMPORARY REMOVAL" },

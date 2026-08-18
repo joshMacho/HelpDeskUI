@@ -1,4 +1,13 @@
-import { Dropdown, message, Spin, Table, Tag, Tooltip, Typography } from "antd";
+import {
+  Dropdown,
+  message,
+  Modal,
+  Spin,
+  Table,
+  Tag,
+  Tooltip,
+  Typography,
+} from "antd";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import api from "../../api";
@@ -302,8 +311,9 @@ export default function ProposalSendTable() {
     }
   };
 
-  if (loadingModal)
-    return <LoadingModal message="Loading proposal details..." />;
+  const handleRowClick = (record) => {
+    console.log("Row clicked: ", record);
+  };
 
   return (
     <div className="atdtable">
@@ -340,6 +350,9 @@ export default function ProposalSendTable() {
         onChange={(pagination) => {
           fetchProposals(pagination.current, pagination.pageSize);
         }}
+        onRow={(record) => ({
+          onClick: () => handleRowClick(record),
+        })}
       />
     </div>
   );

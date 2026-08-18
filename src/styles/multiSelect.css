@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+.multi-select-table-div {
+  @apply mt-3 w-full overflow-x-auto;
+}
+
+.multi-select-table {
+  @apply w-full border-collapse text-sm;
+}
+
+.multi-select-table thead tr {
+  @apply dark:bg-[#202124] bg-gray-100;
+}
+
+.multi-select-table th {
+  @apply px-3 py-2 text-left dark:text-neutral-400 text-gray-600 font-medium border dark:border-[#3c3c3c] border-gray-200;
+}
+
+.multi-select-table td {
+  @apply px-3 py-2 dark:text-neutral-300 border dark:border-[#3c3c3c] border-gray-200;
+}
+
+.multi-select-table .input-div input {
+  @apply w-full bg-transparent border-none outline-none dark:text-[#d7d7d7];
+}
