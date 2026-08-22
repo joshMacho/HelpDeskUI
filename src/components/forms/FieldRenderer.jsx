@@ -5,6 +5,7 @@ import GroupField from "./GroupField";
 import { Select } from "antd";
 import FileField from "./FileField";
 import MultiSelectTable from "./MultiSelectTable";
+import StaticTable from "./StaticTable";
 
 export default function FieldRenderer({ field, parentName }) {
   const {
@@ -280,6 +281,9 @@ export default function FieldRenderer({ field, parentName }) {
           <p className={`infoText ${field.variant}`}>{field.content}</p>
         </div>
       );
+
+    case "staticTable":
+      return <StaticTable field={field} name={name} />;
 
     default:
       return null;

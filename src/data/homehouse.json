@@ -1,0 +1,509 @@
+{
+  "type": "object",
+  "sections": [
+    {
+      "name": "policyInfo",
+      "label": "POLICY DETAILS",
+      "fields": [
+        {
+          "type": "group",
+          "name": "policyInfo",
+          "label": "Policy Details",
+          "fields": [
+            {
+              "type": "select",
+              "name": "currency",
+              "label": "Currency",
+              "validation": {
+                "required": "Currency is required"
+              },
+              "options": [
+                { "label": "GHC", "value": "GHC" },
+                { "label": "EUR", "value": "EUR" },
+                { "label": "USD", "value": "USD" },
+                { "label": "GBP", "value": "GBP" }
+              ]
+            },
+            {
+              "type": "date",
+              "name": "startDate",
+              "label": "Start Date",
+              "minDate": "today",
+              "validation": {
+                "required": "Enter/Select a start date"
+              }
+            },
+            {
+              "type": "date",
+              "name": "endDate",
+              "label": "End Date",
+              "minDate": "today+30",
+              "maxDate": "today+364",
+              "validation": {
+                "required": "Enter/Select an end date"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "personalDetails",
+      "label": "PERSONAL DETAILS",
+      "fields": [
+        {
+          "type": "group",
+          "name": "insuredDetails",
+          "label": "",
+          "fields": [
+            {
+              "type": "text",
+              "name": "firstName",
+              "label": "First Name",
+              "validation": {
+                "required": "First Name is required"
+              }
+            },
+            {
+              "type": "text",
+              "name": "surname",
+              "label": "Last Name",
+              "validation": {
+                "required": "Last Name is required"
+              }
+            },
+            {
+              "type": "text",
+              "name": "address",
+              "label": "Address",
+              "validation": {
+                "required": "Address is required"
+              }
+            },
+            {
+              "type": "text",
+              "name": "occupation",
+              "label": "Occupation / Business",
+              "validation": {
+                "required": "Occupation or Business required"
+              }
+            },
+            {
+              "type": "text",
+              "name": "contact",
+              "label": "Phone Number",
+              "validation": {
+                "required": "Phone number is required",
+                "pattern": {
+                  "value": "^(020|023|024|025|026|027|028|050|053|054|055|056|057|059)\\d{7}$",
+                  "message": "Only Valid Ghanaian Phone Number allowed."
+                },
+                "minLength": {
+                  "value": 10,
+                  "message": "Minimum 10 digits"
+                },
+                "maxLength": {
+                  "value": 10,
+                  "message": "Maximum 10 digits"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "email",
+              "label": "Email",
+              "validation": {
+                "pattern": {
+                  "value": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+                  "message": "Invalid email"
+                }
+              }
+            },
+            {
+              "type": "select",
+              "name": "typeOfId",
+              "label": "Type of ID",
+              "validation": {
+                "required": "ID type is required"
+              },
+              "options": [
+                {
+                  "label": "Ghana Card",
+                  "value": "GHANA_CARD"
+                },
+                {
+                  "label": "TIN NUMBER",
+                  "value": "TIN_NUMBER"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "name": "idNumber",
+              "label": "Valid National ID No",
+              "showWhen": {
+                "field": "typeOfId",
+                "value": "GHANA_CARD"
+              },
+              "validation": {
+                "required": "ID Number is required",
+                "pattern": {
+                  "value": "^GHA-\\d{9}-\\d$",
+                  "message": "Ghana card shold be in the format GHA-XXXXXXXXX-X"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "idNumber",
+              "label": "Valid TIN No",
+              "showWhen": {
+                "field": "typeOfId",
+                "value": "TIN_NUMBER"
+              },
+              "validation": {
+                "required": "TIN Number is required",
+                "pattern": {
+                  "value": "^[PCGQV]00[A-Z0-9]{8}$",
+                  "message": "Tin Number should be in the format P00XXXXXXXX"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "typeOfCover",
+      "label": " TYPE OF COVER",
+      "fields": [
+        {
+          "type": "select",
+          "name": "coverType",
+          "label": "Type of Cover",
+          "validation": {
+            "required": "Type of cover required"
+          },
+          "options": [
+            { "label": "HOMEOWNERS", "value": "HOMEOWNERS" },
+            {
+              "label": "HOUSEHOLDERS",
+              "value": "HOUSEHOLDERS"
+            },
+            { "label": "LANDLORDS", "value": "LANDLORDS" }
+          ]
+        },
+        {
+          "type": "info",
+          "content": "Covers the Building, Contents, Rent and Public Liability",
+          "variant": "descT",
+          "showWhen": {
+            "field": "coverType",
+            "value": "HOMEOWNERS"
+          }
+        },
+        {
+          "type": "info",
+          "content": "Covers the Contents and Public Liability",
+          "variant": "descT",
+          "showWhen": {
+            "field": "coverType",
+            "value": "HOUSEHOLDERS"
+          }
+        },
+        {
+          "type": "info",
+          "content": "Covers the Building and Public Liability",
+          "variant": "descT",
+          "showWhen": {
+            "field": "coverType",
+            "value": "LANDLORDS"
+          }
+        }
+      ]
+    },
+    {
+      "name": "coverDetails",
+      "label": "COVER DETAILS",
+      "fields": [
+        {
+          "type": "info",
+          "content": "NATURE AND VALUE OF SUBJECT MATTER",
+          "variant": "descTb"
+        },
+        {
+          "type": "select",
+          "name": "typeOfBuilding",
+          "label": "Type of Building",
+          "validation": {
+            "required": "Field is required"
+          },
+          "options": [
+            { "label": "DETACHED", "value": "DETACHED" },
+            { "label": "SEMI-DETACHED", "value": "SEMI_DETACHED" },
+            { "label": "1 STOREY", "value": "STOREY_1" },
+            { "label": "2 STOREY", "value": "STOREY_2" },
+            { "label": "OTHER", "value": "OTHER" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "typeOfBuildingOther",
+          "label": "If other state, (Type of Building)",
+          "validation": {
+            "maxLength": {
+              "value": 120,
+              "message": "Length cannot be more than 120 characters"
+            }
+          },
+          "showWhen": {
+            "field": "typeOfBuilding",
+            "value": "OTHER"
+          }
+        },
+        {
+          "type": "select",
+          "name": "constructionType",
+          "label": "Construction Type",
+          "validation": {
+            "required": "Field is required"
+          },
+          "options": [
+            { "label": "CEMENT BLOCKS", "value": "CEMENT_BLOCKS" },
+            { "label": "CONCRETE", "value": "CONCRETE" },
+            { "label": "BRICK STONE", "value": "BRICKSTONE" },
+            { "label": "OTHER", "value": "OTHER" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "constructionTypeOther",
+          "label": "If other state, (Construction Type)",
+          "showWhen": {
+            "field": "constructionType",
+            "value": "OTHER"
+          },
+          "validation": {
+            "maxLength": {
+              "value": 120,
+              "message": "Length cannot be more than 120 characters"
+            }
+          }
+        },
+        {
+          "type": "select",
+          "name": "typeOfRoofing",
+          "label": "Type of Roofing",
+          "validation": {
+            "required": "Field is required"
+          },
+          "options": [
+            { "label": "SLATE", "value": "SLATE" },
+            { "label": "TILE CONCRETE", "value": "TILE_CONCRETE" },
+            { "label": "ALUMINIUM", "value": "ALUMINIUM" },
+            { "label": "ASBESTOS", "value": "ASBESTOS" },
+            { "label": "OTHER", "value": "OTHER" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "typeOfRoofingOther",
+          "label": "If other state, (Type of Roofing)",
+          "showWhen": {
+            "field": "typeOfRoofing",
+            "value": "OTHER"
+          },
+          "validation": {
+            "maxLength": {
+              "value": 120,
+              "message": "Length cannot be more than 120 characters"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "name": "physicalAddress",
+          "label": "Physical Address of premises to be insured (House No)",
+          "validation": {
+            "required": "Field is required",
+            "maxLength": {
+              "value": 100,
+              "message": "Length cannot exceed 100 characters"
+            }
+          }
+        },
+        {
+          "type": "radio",
+          "name": "otherBuildingAttached",
+          "label": "Is there any other building attached to the Building(s) on the same premises?",
+          "validation": {
+            "required": "Field is required"
+          },
+          "options": [
+            { "label": "YES", "value": "YES" },
+            { "label": "NO", "value": "NO" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "otherBuildingAttachedYes",
+          "label": "If so, give details",
+          "validation": {
+            "required": "Field is required",
+            "maxLength": {
+              "value": 100,
+              "message": "Length cannot exceed 100 characters"
+            }
+          },
+          "showWhen": {
+            "field": "otherBuildingAttached",
+            "value": "YES"
+          }
+        },
+        {
+          "type": "radio",
+          "name": "businessOrTrade",
+          "label": "Is any Business or Trade carried on in the Building(s)?",
+          "validation": {
+            "required": "Field is required"
+          },
+          "options": [
+            { "label": "YES", "value": "YES" },
+            { "label": "NO", "value": "NO" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "businessOrTradeYes",
+          "label": "If so, please give details",
+          "validation": {
+            "required": "Field is required",
+            "maxLength": {
+              "value": 100,
+              "message": "Length cannot exceed 100 characters"
+            }
+          },
+          "showWhen": {
+            "field": "businessOrTrade",
+            "value": "YES"
+          }
+        },
+        {
+          "type": "text",
+          "name": "unoccupied",
+          "label": "To what extent will the premises be left unoccupied?",
+          "validation": {
+            "required": "Field is required",
+            "maxLength": {
+              "value": 100,
+              "message": "Length cannot exceed 100 characters"
+            }
+          }
+        },
+        {
+          "type": "radio",
+          "name": "sustainedLoss",
+          "label": "Have you sustained any loss or damage due to Fire, Flood or Burglary of the property?",
+          "options": [
+            { "label": "YES", "value": "YES" },
+            { "label": "NO", "value": "NO" }
+          ],
+          "validation": {
+            "required": "Field is required"
+          }
+        },
+        {
+          "type": "radio",
+          "name": "otherInsurance",
+          "label": "Is there any other insurance on the Building(s)?",
+          "options": [
+            { "label": "YES", "value": "YES" },
+            { "label": "NO", "value": "NO" }
+          ],
+          "validation": {
+            "required": "Field is required"
+          }
+        },
+        {
+          "type": "radio",
+          "name": "previousPolicy",
+          "label": "Has any previous policy been declined or cancelled",
+          "options": [
+            { "label": "YES", "value": "YES" },
+            { "label": "NO", "value": "NO" }
+          ],
+          "validation": {
+            "required": "Field is required"
+          }
+        },
+        {
+          "type": "text",
+          "name": "previousPolicyYes",
+          "label": "Please name Company?",
+          "validation": {
+            "maxLength": {
+              "value": 100,
+              "message": "Length cannot exceed 100 characters"
+            }
+          },
+          "showWhen": {
+            "field": "previousPolicy",
+            "value": "YES"
+          }
+        },
+        {
+          "type": "text",
+          "name": "mortgage",
+          "label": "Name and address of mortgage, if Any?",
+          "validation": {
+            "maxLength": {
+              "value": 100,
+              "message": "Length should not be more than 100 characters"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "propertyInsured",
+      "label": "PROPERTY INSURED",
+      "fields": [
+        {
+          "type": "staticTable",
+          "name": "propertyDetails",
+          "label": "Property Breakdown",
+          "columns": ["Item", "Sum Insured"],
+          "rows": [
+            {
+              "label": "On Building(s) of the Insured's dwelling house",
+              "value": "onBuilding"
+            },
+            {
+              "label": "Contents - House hold Goods and Personal Effects",
+              "value": "onContents"
+            },
+            {
+              "label": "On 12 months Rent (not exceeding 10% of the value of building in above",
+              "value": "onRent"
+            },
+            {
+              "label": "Indicate limit for Public liability cover greater than GHS 500.00 which comes with this policy",
+              "value": "onLimit"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "debrisRemoval",
+          "label": "Debris Removal?",
+          "validation": {
+            "pattern": {
+              "value": "^[1-9]\\d*$",
+              "message": "Value has to be a whole number with no decimals"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

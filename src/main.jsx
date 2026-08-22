@@ -37,6 +37,7 @@ import UnAuthorizedPage from "./pages/UnAuthorizedPage.jsx";
 import LicenseView from "./pages/LicenseView.jsx";
 import LicenseAssignDetails from "./pages/LicenseAssignDetails.jsx";
 import FirePage from "./pages/proposalPages/FirePage.jsx";
+import HomeHousePage from "./pages/proposalPages/HomeHousePage.jsx";
 
 const router = createBrowserRouter(
   [
@@ -180,6 +181,14 @@ const router = createBrowserRouter(
       element: (
         <TokenProtectRoute>
           <FirePage />
+        </TokenProtectRoute>
+      ),
+    },
+    {
+      path: "/home-or-house",
+      element: (
+        <TokenProtectRoute>
+          <HomeHousePage />
         </TokenProtectRoute>
       ),
     },
