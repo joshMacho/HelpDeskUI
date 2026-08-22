@@ -69,8 +69,6 @@ export default function DynamicForm({ schema }) {
     if (!tokenData?.proposal_id) return;
 
     const subscription = watch((value) => {
-      console.log("Saving draft:", value);
-
       localStorage.setItem(tokenData?.proposal_id, JSON.stringify(value));
     });
 
@@ -204,7 +202,6 @@ export default function DynamicForm({ schema }) {
 
   const previewDoc = async () => {
     // Open tab immediately (must happen synchronously from click)
-    console.log(preview);
     const newTab = window.open("", "_blank");
 
     try {

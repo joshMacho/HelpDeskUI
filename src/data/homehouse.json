@@ -504,6 +504,26 @@
           }
         }
       ]
+    },
+    {
+      "name": "declaration",
+      "label": "DECLARATION",
+      "fields": [
+        {
+          "type": "info",
+          "content": "I/We hereby declare that the above particulars and stateiemts are true, correct and complete and contain all information known to me/us affecting the risk to be insured, and that this and any other written statement made by me/us or on my/our behalf for the purpose of the proposed insurance shall be held to the promissory and of continuing effect, and shall form the basis of mad be deemed to be incorporated in the contract between NSIA Insurance Company Limited and me/us. I/We further agree to accept the insurance on the terms and conditions set forth in the company policy.",
+          "variant": "decText"
+        },
+        {
+          "type": "radio",
+          "name": "acceptDeclaration",
+          "label": "",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [{ "label": "I Accept", "value": true }]
+        }
+      ]
     }
   ]
 }
