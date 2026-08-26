@@ -6,5 +6,5 @@ export default function RoleRedirect() {
 
   if (user?.role === "admin") return <Navigate to="/inventory" replace />;
 
-  return <Navigate to="/incidentReport" replace />;
+  return <Navigate to="/proposal" replace />;
 }

@@ -49,6 +49,7 @@ function MenuList() {
     {
       key: "incidentReport",
       icon: <WarningOutlined />,
+      disabled: !isStaff,
       label: <Link to="/incidentReport">Incident Report</Link>,
     },
     {

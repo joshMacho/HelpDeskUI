@@ -1,4 +1,4 @@
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 
 export default function StaticTable({ field, name }) {
   const {
@@ -10,6 +10,12 @@ export default function StaticTable({ field, name }) {
     path.split(".").reduce((acc, part) => acc?.[part], errors);
 
   const [col1, col2] = field.columns || ["Item", "Value"];
+
+  // inside StaticTable, below the tbody
+  const allValues = useWatch({ name, control }) || {};
+  const total = Object.entries(allValues)
+    .filter(([key]) => key !== "__selected")
+    .reduce((sum, [, val]) => sum + (parseFloat(val) || 0), 0);
 
   return (
     <div className="form-input col-span-2">
@@ -69,6 +75,14 @@ export default function StaticTable({ field, name }) {
               );
             })}
           </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan={2}>Total</td>
+              <td>
+                {total.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              </td>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </div>

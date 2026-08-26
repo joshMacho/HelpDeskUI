@@ -7,9 +7,9 @@ export default function SectionRenderer({ section }) {
       {/* <h2>{section.label}</h2> */}
 
       {section.fields &&
-        section.fields.map((field) => (
+        section.fields.map((field, index) => (
           <FieldRenderer
-            key={field.name}
+            key={`${field.name}=${index}`}
             field={field}
             parentName={section.name}
           />

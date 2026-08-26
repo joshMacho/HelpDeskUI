@@ -22,6 +22,9 @@ import {
 } from "iconsax-reactjs";
 import { CopyOutlined, LoadingOutlined } from "@ant-design/icons";
 import motorSchema from "../../data/motor.json";
+import fireSchema from "../../data/fire.json";
+import travelSchema from "../../data/travel.json";
+import homeSchema from "../../data/homehouse.json";
 import { set } from "react-hook-form";
 import LoadingModal from "../LoadingModal";
 import ViewFormModal from "../modal/ViewFormModal";
@@ -37,6 +40,7 @@ export default function ProposalSendTable() {
     current: 1,
     pageSize: 20,
   });
+  const [schemaType, setSchemaType] = useState("");
 
   const viewSubmitted = async (proposal_id) => {
     const previewUrl = `${import.meta.env.VITE_API_BASE_URL}/document/${proposal_id}/preview`;
@@ -101,13 +105,15 @@ export default function ProposalSendTable() {
   };
 
   // view form details in modal
-  const viewDetails = async (proposal_id) => {
+  const viewDetails = async (proposal_id, proposal_name) => {
+    setSchemaType(proposal_name);
     try {
       const response = await api.get(`/viewdocument/${proposal_id}`);
       if (!response.data.success)
         return messageApi.error(
           response?.data?.error || `Unable to fetch proposal details.`,
         );
+      console.log(response);
       setModalData(response.data.data);
       setDetailsModalOpen(true);
       setLoadingModal(false);
@@ -225,7 +231,9 @@ export default function ProposalSendTable() {
                   label: (
                     <div
                       className="flex items-center gap-2"
-                      onClick={() => viewDetails(record.pt_ID)}
+                      onClick={() =>
+                        viewDetails(record.pt_ID, record.proposal_name)
+                      }
                     >
                       <Book className="incax" variant="Broken" size={16} />
                       View Proposal
@@ -312,7 +320,23 @@ export default function ProposalSendTable() {
   };
 
   const handleRowClick = (record) => {
-    console.log("Row clicked: ", record);
+    console.log("Row clicked: ");
+  };
+
+  const displaySchema = (type) => {
+    switch (type) {
+      case "MOTOR":
+        return motorSchema;
+      case "FIRE":
+        return fireSchema;
+      case "HOME-OR-HOUSE":
+        return homeSchema;
+      case "TRAVEL":
+        return travelSchema;
+      default: {
+        return {};
+      }
+    }
   };
 
   return (
@@ -322,7 +346,7 @@ export default function ProposalSendTable() {
         <ViewFormModal
           open={detailsModalOpen}
           onClose={() => setDetailsModalOpen(false)}
-          schema={motorSchema}
+          schema={displaySchema(schemaType)}
           data={modalData}
         />
       )}

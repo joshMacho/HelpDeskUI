@@ -628,3 +628,7 @@ span {
   flex justify-center items-center
   dark:bg-[var(--dark-comp-background)] dark:border-none;
 }
+
+.errorView {
+  @apply dark:text-neutral-500!;
+}

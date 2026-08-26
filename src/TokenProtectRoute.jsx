@@ -59,6 +59,7 @@ export default function TokenProtectRoute({ children }) {
         footer={null}
         closable={false}
         className="custom-modal"
+        loading={loading}
       >
         <div className="errorView">
           <Warning2 size={48} className="icnax" variant="Broken" />

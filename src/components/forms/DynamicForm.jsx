@@ -55,7 +55,7 @@ export default function DynamicForm({ schema }) {
       try {
         const parsedDraft = JSON.parse(savedDraft);
 
-        console.log("Restoring draft:", parsedDraft);
+        // console.log("Restoring draft:", parsedDraft);
 
         reset(parsedDraft);
       } catch (error) {
@@ -100,6 +100,29 @@ export default function DynamicForm({ schema }) {
 
   const handleError = (errors) => {
     messageApi.error("Check tabs for validations and required fields");
+
+    // find the first section that contains an error and navigate to it
+    const errorKeys = Object.keys(errors);
+    if (errorKeys.length > 0) {
+      // each top-level error key maps to a section name in the schema
+      const firstErrorSection = schema.sections.find((section) =>
+        errorKeys.includes(section.name),
+      );
+
+      // some fields sit at root level (not nested under a section group),
+      // so also check if the error key matches any section name directly
+      if (firstErrorSection) {
+        setActiveTab(firstErrorSection.name);
+      } else {
+        // fallback: just go to the first section that has any error
+        const firstKey = errorKeys[0];
+        const matchedSection = schema.sections.find(
+          (s) =>
+            s.name === firstKey || s.fields?.some((f) => f.name === firstKey),
+        );
+        if (matchedSection) setActiveTab(matchedSection.name);
+      }
+    }
   };
 
   const onSubmit = async () => {

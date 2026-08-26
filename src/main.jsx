@@ -38,6 +38,7 @@ import LicenseView from "./pages/LicenseView.jsx";
 import LicenseAssignDetails from "./pages/LicenseAssignDetails.jsx";
 import FirePage from "./pages/proposalPages/FirePage.jsx";
 import HomeHousePage from "./pages/proposalPages/HomeHousePage.jsx";
+import TravelPage from "./pages/proposalPages/TravelPage.jsx";
 
 const router = createBrowserRouter(
   [
@@ -59,6 +60,28 @@ const router = createBrowserRouter(
           element: <AdminRoute />,
           // errorElement: <UnAuthorizedPage />,
           children: [
+            {
+              path: "incidentReport",
+              element: <IncidentReportPage />,
+              children: [
+                {
+                  index: true,
+                  element: <Navigate to="issues" replace />,
+                },
+                {
+                  path: "issues",
+                  element: <IssuesPage />,
+                },
+                {
+                  path: "issues/:issue_id",
+                  element: <IssueDetailsPage />,
+                },
+                {
+                  path: "new",
+                  element: <IncidentReportForm />,
+                },
+              ],
+            },
             {
               path: "inventory",
               element: <InventoryPage />,
@@ -136,28 +159,6 @@ const router = createBrowserRouter(
             },
           ],
         },
-        {
-          path: "incidentReport",
-          element: <IncidentReportPage />,
-          children: [
-            {
-              index: true,
-              element: <Navigate to="issues" replace />,
-            },
-            {
-              path: "issues",
-              element: <IssuesPage />,
-            },
-            {
-              path: "issues/:issue_id",
-              element: <IssueDetailsPage />,
-            },
-            {
-              path: "new",
-              element: <IncidentReportForm />,
-            },
-          ],
-        },
       ],
     },
     {
@@ -189,6 +190,14 @@ const router = createBrowserRouter(
       element: (
         <TokenProtectRoute>
           <HomeHousePage />
+        </TokenProtectRoute>
+      ),
+    },
+    {
+      path: "/travel",
+      element: (
+        <TokenProtectRoute>
+          <TravelPage />
         </TokenProtectRoute>
       ),
     },

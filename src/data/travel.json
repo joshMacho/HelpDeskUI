@@ -1,0 +1,359 @@
+{
+  "type": "object",
+  "sections": [
+    {
+      "name": "personalDetails",
+      "label": "POLICY HOLDER DETAILS",
+      "fields": [
+        {
+          "type": "group",
+          "name": "insuredName",
+          "label": "Insured Name",
+          "fields": [
+            {
+              "type": "text",
+              "name": "firstName",
+              "label": "First Name",
+              "validation": {
+                "required": "First Name is required",
+                "maxLength": {
+                  "value": 40,
+                  "message": "should not be more than 40 characters"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "surname",
+              "label": "Surname",
+              "validation": {
+                "required": "Surname is required"
+              }
+            },
+            {
+              "type": "date",
+              "name": "dob",
+              "label": "Date of Birth",
+              "minDate": "today-18y",
+              "validation": {
+                "required": "Requred & cannot be less than 18 years"
+              }
+            },
+            {
+              "type": "text",
+              "name": "placeOfBirth",
+              "label": "Place of Birth",
+              "validation": {
+                "required": "Requred",
+                "maxLength": {
+                  "value": 20,
+                  "message": "length should not exceed 20 characters"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "address",
+              "label": "Address",
+              "validation": {
+                "required": "Requred",
+                "maxLength": {
+                  "value": 100,
+                  "message": "length should not exceed 100 characters"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "contact",
+              "label": "Contact Number",
+              "validation": {
+                "required": "Requred",
+                "pattern": {
+                  "value": "^(020|023|024|025|026|027|028|050|053|054|055|056|057|059)\\d{7}$",
+                  "message": "Only Valid Ghanaian Phone Number allowed."
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "email",
+              "label": "Email",
+              "validation": {
+                "pattern": {
+                  "value": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+                  "message": "Invalid email"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "occupation",
+              "label": "Occupation",
+              "validation": {
+                "maxLength": {
+                  "value": 50,
+                  "message": "length should not exceed 50 characters"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "citizenship",
+              "label": "Citizenship",
+              "validation": {
+                "required": "Required",
+                "maxLength": {
+                  "value": 50,
+                  "message": "length should not exceed 50 characters"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "passportNo",
+              "label": "Passport Number",
+              "validation": {
+                "required": "Required",
+                "maxLength": {
+                  "value": 12,
+                  "message": "length should not exceed 50 characters"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "nextOfKin",
+      "label": "NEXT OF KIN",
+      "fields": [
+        {
+          "type": "text",
+          "name": "nextOfName",
+          "label": "Name",
+          "validation": {
+            "required": "Name is required",
+            "maxLength": {
+              "value": 50,
+              "message": "length should not exceed 50 characters"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "name": "nextOfContact",
+          "label": "Contact Number",
+          "validation": {
+            "required": "Requred",
+            "pattern": {
+              "value": "^(020|023|024|025|026|027|028|050|053|054|055|056|057|059)\\d{7}$",
+              "message": "Only Valid Ghanaian Phone Number allowed."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "tripDetails",
+      "label": "TRIP DETAILS",
+      "fields": [
+        {
+          "type": "group",
+          "name": "details",
+          "label": "",
+          "fields": [
+            {
+              "type": "date",
+              "name": "departureDate",
+              "label": "Departure Date",
+              "minDate": "today",
+              "validation": {
+                "required": "Requred & cannot be less than 18 years"
+              }
+            },
+            {
+              "type": "date",
+              "name": "returnDate",
+              "label": "Return Date",
+              "minDate": "today+1",
+              "validation": {
+                "required": "Requred & cannot be less than 18 years"
+              }
+            },
+            {
+              "type": "text",
+              "name": "destination",
+              "label": "Destination",
+              "validation": {
+                "required": "Destination is required",
+                "maxLength": {
+                  "value": 60,
+                  "message": "length should not exceed 60 characters"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "transit",
+              "label": "Transit",
+              "validation": {
+                "maxLength": {
+                  "value": 80,
+                  "message": "length should not exceed 80 characters"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "destAddress",
+              "label": "Address",
+              "validation": {
+                "maxLength": {
+                  "value": 100,
+                  "message": "length should not exceed 100 characters"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "destPhone",
+              "label": "Destination Phone",
+              "validation": {
+                "pattern": {
+                  "value": "^\\+[1-9]\\d{1,14}$",
+                  "message": "Enter a valid international phone number."
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "otherDest",
+              "label": "Other Destination",
+              "validation": {
+                "maxLength": {
+                  "value": 100,
+                  "message": "length should not exceed 100 characters"
+                }
+              }
+            },
+            {
+              "type": "select",
+              "name": "tripType",
+              "label": "Trip Type",
+              "validation": {
+                "required": "Trip type is required"
+              },
+              "options": [
+                { "label": "SINGLE", "value": "SINGLE" },
+                { "label": "MULTIPLE", "value": "MULTIPLE" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "listPersons",
+      "label": "LIST ALL PERSONS COVERED",
+      "fields": [
+        {
+          "type": "array",
+          "name": "persons",
+          "label": "List All Persons Covered By This Travel Insurance Policy",
+          "addButtonLabel": "Add Person",
+          "removeButtonLabel": "Remove",
+          "minItems": 0,
+          "itemSchema": {
+            "type": "object",
+            "fields": [
+              {
+                "type": "group",
+                "name": "list",
+                "label": "",
+                "fields": [
+                  {
+                    "type": "text",
+                    "name": "fullName",
+                    "label": "Full Name",
+                    "validation": {
+                      "required": "Required",
+                      "maxLength": {
+                        "value": 100,
+                        "message": "length should not exceed 100 characters"
+                      }
+                    }
+                  },
+                  {
+                    "type": "date",
+                    "name": "dob",
+                    "label": "Date of Birth",
+                    "validation": {
+                      "required": "Required"
+                    }
+                  },
+                  {
+                    "type": "select",
+                    "name": "sex",
+                    "label": "Sex",
+                    "validation": {
+                      "required": "Required"
+                    },
+                    "options": [
+                      { "label": "MALE", "value": "Male" },
+                      { "label": "FEMALE", "value": "Female" }
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "name": "passportNo",
+                    "label": "Passport Number",
+                    "validation": {
+                      "required": "Required",
+                      "maxLength": {
+                        "value": 15,
+                        "message": "length should not exceed 15 characters"
+                      }
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "name": "anyInjury",
+                    "label": "Any Injury / Chronic Illness",
+                    "validation": {
+                      "maxLength": {
+                        "value": 100,
+                        "message": "length should not exceed 100 characters"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "declaration",
+      "label": "DECLARATION",
+      "fields": [
+        {
+          "type": "info",
+          "content": "By signing this Travel Insurance Pilicy, the client accepts the general conditions and exclusions attached to this policy, certify that the trip type, initial trip deposit date, travel dates, destination and ages of the Insured's listed on this application are true and correct, and understand that failure to procide correct information may affect this coverage.",
+          "variant": "decText"
+        },
+        {
+          "type": "radio",
+          "name": "acceptDeclaration",
+          "label": "",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [{ "label": "I Accept", "value": "true" }]
+        }
+      ]
+    }
+  ]
+}

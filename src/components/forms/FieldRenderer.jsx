@@ -12,7 +12,7 @@ export default function FieldRenderer({ field, parentName }) {
     register,
     control,
     watch,
-    formState: { errors },
+    formState: { errors, dirtyFields },
   } = useFormContext();
 
   const name = parentName ? `${parentName}.${field.name}` : field.name;
@@ -66,30 +66,6 @@ export default function FieldRenderer({ field, parentName }) {
     if (!shouldShow) return null;
   }
 
-  // date validations
-  const getDateConstraint = (value) => {
-    if (!value) return undefined;
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    if (value === "today") {
-      return today.toISOString().split("T")[0];
-    }
-
-    const match = value.match(/^today([+-]\d+)$/);
-
-    if (match) {
-      const offset = parseInt(match[1], 10);
-
-      today.setDate(today.getDate() + offset);
-
-      return today.toISOString().split("T")[0];
-    }
-
-    return value;
-  };
-
   switch (field.type) {
     case "group":
       return <GroupField field={field} parentName={name} />;
@@ -112,9 +88,7 @@ export default function FieldRenderer({ field, parentName }) {
 
         if (match) {
           const offset = parseInt(match[1], 10);
-
           today.setDate(today.getDate() + offset);
-
           return today.toISOString().split("T")[0];
         }
 
@@ -124,6 +98,13 @@ export default function FieldRenderer({ field, parentName }) {
       const minDate = getDateConstraint(field.minDate);
       const maxDate = getDateConstraint(field.maxDate);
 
+      // only enforce the picker min constraint if this field has been touched
+      // this prevents saved past dates from being blocked on load
+      const isFieldDirty = !!name
+        .split(".")
+        .reduce((acc, part) => acc?.[part], dirtyFields);
+      const effectiveMin = isFieldDirty ? minDate : undefined;
+
       return (
         <div className="form-input">
           <label className="field-label">{field.label}</label>
@@ -131,7 +112,7 @@ export default function FieldRenderer({ field, parentName }) {
           <div className="input-div">
             <input
               type="date"
-              min={minDate}
+              min={effectiveMin}
               max={maxDate}
               {...register(name, {
                 ...validation,
@@ -142,7 +123,8 @@ export default function FieldRenderer({ field, parentName }) {
                   const selected = new Date(value);
                   selected.setHours(0, 0, 0, 0);
 
-                  if (minDate) {
+                  // only enforce minDate if the field was changed this session
+                  if (minDate && isFieldDirty) {
                     const min = new Date(minDate);
                     min.setHours(0, 0, 0, 0);
 
@@ -151,6 +133,7 @@ export default function FieldRenderer({ field, parentName }) {
                     }
                   }
 
+                  // maxDate always enforced — it's a hard cap
                   if (maxDate) {
                     const max = new Date(maxDate);
                     max.setHours(0, 0, 0, 0);

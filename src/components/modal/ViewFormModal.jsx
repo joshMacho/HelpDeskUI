@@ -8,7 +8,7 @@ export default function ViewFormModal({ open, onClose, schema, data }) {
       footer={null}
       open={open}
       onCancel={onClose}
-      className=""
+      className="custom-modal"
       width={"auto"}
     >
       <ViewDocument schema={schema} data={JSON.parse(data)} />

@@ -153,7 +153,7 @@
 .preview-buttons button {
   @apply w-full hover:border hover:border-gray-400
   shadow-gray-500 hover:shadow-md font-bold border border-[#30296f] flex 
-  justify-center items-center gap-2;
+  justify-center items-center gap-2 dark:text-neutral-500;
 }
 
 .save-draft-div {
