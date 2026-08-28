@@ -109,7 +109,7 @@ export const proposalLinkValidation = Yup.object({
   proposal: Yup.string().required(),
   fullName: Yup.string().required("Full name is required"),
   email: Yup.string().email("Enter a valid email"),
-  phone: Yup.string().matches(
+  phone: Yup.string().required("Phone number is required").matches(
     /^0[2-5]\d{8}/,
     "Number should start with 0,\nBe 10 digits eg. 054xxxxxxx",
   ),
