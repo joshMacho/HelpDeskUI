@@ -202,9 +202,9 @@ const router = createBrowserRouter(
       ),
     },
   ],
-  // {
-  //   basename: "/prop",
-  // },
+  {
+    basename: "/prop",
+  },
 );
 
 createRoot(document.getElementById("root")).render(

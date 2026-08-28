@@ -271,7 +271,11 @@
           "options": [
             { "label": "Applicable", "value": true },
             { "label": "Bought", "value": false }
-          ]
+          ],
+          "showWhen": {
+                      "field": "$root.preferredCover.typeOfCover",
+                      "value": "Comprehensive"
+                    }
         }
       ]
     },

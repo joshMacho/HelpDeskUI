@@ -28,6 +28,7 @@ import homeSchema from "../../data/homehouse.json";
 import { set } from "react-hook-form";
 import LoadingModal from "../LoadingModal";
 import ViewFormModal from "../modal/ViewFormModal";
+import ProposalDetailsModal from "../modal/ProposalDetailsModal";
 
 export default function ProposalSendTable() {
   const { Text } = Typography;
@@ -41,6 +42,11 @@ export default function ProposalSendTable() {
     pageSize: 20,
   });
   const [schemaType, setSchemaType] = useState("");
+  const [pDetailsModal, setPDetailsModal] = useState({
+    open: false,
+    proposal_id: "",
+    data: {},
+  });
 
   const viewSubmitted = async (proposal_id) => {
     const previewUrl = `${import.meta.env.VITE_API_BASE_URL}/document/${proposal_id}/preview`;
@@ -320,7 +326,11 @@ export default function ProposalSendTable() {
   };
 
   const handleRowClick = (record) => {
-    console.log("Row clicked: ");
+    setPDetailsModal((prev) => ({
+      ...prev,
+      open: true,
+      proposal_id: record.pt_ID,
+    }));
   };
 
   const displaySchema = (type) => {
@@ -339,6 +349,10 @@ export default function ProposalSendTable() {
     }
   };
 
+  const closeDetailsModal = () => {
+    setPDetailsModal((prev) => ({ ...prev, open: false }));
+  };
+
   return (
     <div className="atdtable">
       {context}
@@ -348,6 +362,13 @@ export default function ProposalSendTable() {
           onClose={() => setDetailsModalOpen(false)}
           schema={displaySchema(schemaType)}
           data={modalData}
+        />
+      )}
+      {pDetailsModal.open && (
+        <ProposalDetailsModal
+          open={pDetailsModal.open}
+          close={() => closeDetailsModal()}
+          info={pDetailsModal.proposal_id}
         />
       )}
       <div className="comp-head-div">
@@ -375,7 +396,7 @@ export default function ProposalSendTable() {
           fetchProposals(pagination.current, pagination.pageSize);
         }}
         onRow={(record) => ({
-          onClick: () => handleRowClick(record),
+          onDoubleClick: () => handleRowClick(record),
         })}
       />
     </div>
