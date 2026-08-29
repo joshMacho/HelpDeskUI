@@ -86,7 +86,8 @@ span {
 }
 
 .login-div {
-  @apply flex flex-col justify-center items-center w-1/2 h-[400px]
+  @apply flex flex-col justify-center items-center h-[400px]
+  lg:w-1/2
   dark:bg-[var(--dark-comp-background)];
 }
 
@@ -167,8 +168,8 @@ span {
 }
 
 .in-content {
-  @apply mt-2 dark:bg-[var(--dark-comp-backgrounds)] mb-1
-  grid grid-cols-3 gap-2 bg-inherit h-full overflow-hidden;
+  @apply mt-2 dark:bg-[var(--dark-comp-backgrounds)]
+  grid grid-cols-3 gap-2 bg-inherit h-full overflow-visible;
 }
 
 .inventory-left,
@@ -409,7 +410,7 @@ span {
 }
 
 .prop-div {
-  @apply overflow-y-auto;
+  @apply overflow-x-scroll;
 }
 
 /* details design */

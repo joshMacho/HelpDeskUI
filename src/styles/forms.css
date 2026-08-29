@@ -41,9 +41,13 @@
 }
 
 .search-input-div {
-  @apply flex  bg-transparent!
+  @apply flex bg-transparent!
   dark:border-transparent! dark:bg-[#202124]! border
   border-[#d7d7d7]! h-full relative;
+}
+
+.search-input-div input {
+  @apply text-[16px]!;
 }
 
 .select-div {

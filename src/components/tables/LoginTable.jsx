@@ -220,6 +220,7 @@ export default function LoginTable() {
         loading={loading}
         rowSelection={Object.assign({ type: "checkbox " }, rowSelection)}
         dataSource={dataSource}
+        scroll={{ x: "max-content" }}
       />
     </div>
   );

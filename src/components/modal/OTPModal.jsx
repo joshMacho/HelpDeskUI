@@ -179,8 +179,12 @@ export default function OTPModal({
         <div className="expiry-div">
           <p>Code expires in {`${formatTime(countdown)}`}</p>
         </div>
-        <div className="otp-button-div butt" onClick={handleVerify}>
-          <button type="submit" disabled={!isOtpComplete || expired || loading}>
+        <div className="otp-button-div butt">
+          <button
+            type="submit"
+            disabled={!isOtpComplete || expired || loading}
+            onClick={handleVerify}
+          >
             {loading ? "Verifying..." : "Verify"}
           </button>
         </div>

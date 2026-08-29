@@ -1,7 +1,7 @@
 import { Popover } from "antd";
 import DynamicForm from "../components/forms/DynamicForm";
 import { Additem, Minus, TickSquare } from "iconsax-reactjs";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProposalModal from "../components/modal/ProposalModal";
 import ProposalSendTable from "../components/tables/ProposalSendTable";
 import { toast } from "react-toastify";
@@ -18,6 +18,8 @@ import { useSelector } from "react-redux";
 import { useAuth } from "../../AuthContext";
 
 export default function ProposalPage() {
+  const tableRef = useRef(null);
+
   const [proposalOpen, setProposalOpen] = useState(false);
   const [loading, setLoading] = useState({
     cardLoading: true,
@@ -28,12 +30,6 @@ export default function ProposalPage() {
     graphStat: [],
   });
 
-  const data = [
-    { month: "Jan", sales: 400, profit: 20 },
-    { month: "Feb", sales: 300, profit: 12 },
-    { month: "Mar", sales: 500, profit: 200 },
-  ];
-
   const set = useAuth();
   const isDark = set?.settings?.theme === "dark";
   // close proposal
@@ -43,7 +39,8 @@ export default function ProposalPage() {
 
   // successfully submitted
   const proposalSuccess = () => {
-    console.log("success fired.");
+    tableRef.current?.refresh();
+    fetchCardStat();
   };
 
   // get the card stats
@@ -189,8 +186,8 @@ export default function ProposalPage() {
       </div>
 
       <div className="in-content xmargin">
-        <div className=" prop-div col-span-3">
-          <ProposalSendTable />
+        <div className="prop-div col-span-3">
+          <ProposalSendTable ref={tableRef} />
         </div>
       </div>
     </div>

@@ -20,7 +20,6 @@ export default function ProposalDetailsModal({ open, close, info }) {
   const fetchDetails = async () => {
     try {
       const response = await api.get(`/proposal/${info}`);
-      console.log(response.data.data);
       if (!response?.data?.success)
         return messageApi.error(
           response?.data?.error || `Unable to load details`,

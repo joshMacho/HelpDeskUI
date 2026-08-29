@@ -9,7 +9,7 @@ import {
   Typography,
 } from "antd";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import api from "../../api";
 import { toast } from "react-toastify";
 import {
@@ -29,8 +29,13 @@ import { set } from "react-hook-form";
 import LoadingModal from "../LoadingModal";
 import ViewFormModal from "../modal/ViewFormModal";
 import ProposalDetailsModal from "../modal/ProposalDetailsModal";
+import { io } from "socket.io-client";
 
-export default function ProposalSendTable() {
+const ProposalSendTable = forwardRef((props, ref) => {
+  useImperativeHandle(ref, () => ({
+    refresh: () => fetchProposals(pagi.current, pagi.pageSize),
+  }));
+
   const { Text } = Typography;
 
   const [openDropdownId, setOpenDropdownId] = useState(null);
@@ -48,6 +53,18 @@ export default function ProposalSendTable() {
     data: {},
   });
 
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [formData, setFormData] = useState([]);
+  const [messageApi, context] = message.useMessage();
+  const [tableLoading, setTableLoading] = useState(false);
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: (newSelectedRowKeys, selected) => {
+      setSelectedRowKeys(newSelectedRowKeys);
+    },
+  };
+
   const viewSubmitted = async (proposal_id) => {
     const previewUrl = `${import.meta.env.VITE_API_BASE_URL}/document/${proposal_id}/preview`;
     console.log(previewUrl);
@@ -56,6 +73,23 @@ export default function ProposalSendTable() {
 
   useEffect(() => {
     fetchProposals(1, 20);
+  }, []);
+
+  // socket effect
+  useEffect(() => {
+    const socket = io(import.meta.env.VITE_API_BASE_URL_SOCKET, {
+      withCredentials: true,
+    });
+
+    socket.on("proposal:submitted", ({ fullName, proposal }) => {
+      console.log("New submission received:", fullName);
+      fetchProposals(pagi.current, pagi.pageSize);
+      messageApi.info(`${fullName} submitted ${proposal} proposal`);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   const viewForm = async (proposal_id) => {
@@ -119,7 +153,6 @@ export default function ProposalSendTable() {
         return messageApi.error(
           response?.data?.error || `Unable to fetch proposal details.`,
         );
-      console.log(response);
       setModalData(response.data.data);
       setDetailsModalOpen(true);
       setLoadingModal(false);
@@ -270,18 +303,6 @@ export default function ProposalSendTable() {
     },
   ];
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [formData, setFormData] = useState([]);
-  const [messageApi, context] = message.useMessage();
-  const [tableLoading, setTableLoading] = useState(false);
-
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: (newSelectedRowKeys, selected) => {
-      setSelectedRowKeys(newSelectedRowKeys);
-    },
-  };
-
   const dataSource = (
     Array.isArray(formData) && formData.length > 0 ? formData : []
   ).map((proposal) => ({
@@ -354,7 +375,7 @@ export default function ProposalSendTable() {
   };
 
   return (
-    <div className="atdtable">
+    <div className="">
       {context}
       {detailsModalOpen && (
         <ViewFormModal
@@ -375,7 +396,7 @@ export default function ProposalSendTable() {
         <p>Proposals</p>
         <div className="table-actions">
           <div className="search-input-div">
-            <input type="text" id="sch" name="sch" />
+            <input type="text" id="sch" name="sch" placeholder="Search..." />
           </div>
           <button
             className="act-btn all-border btn-p-s"
@@ -389,7 +410,7 @@ export default function ProposalSendTable() {
         columns={tableColumns}
         className="custom-table"
         loading={tableLoading}
-        rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
+        // rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
         dataSource={dataSource}
         pagination={pagi}
         onChange={(pagination) => {
@@ -398,7 +419,10 @@ export default function ProposalSendTable() {
         onRow={(record) => ({
           onDoubleClick: () => handleRowClick(record),
         })}
+        scroll={{ x: "max-content" }}
       />
     </div>
   );
-}
+});
+
+export default ProposalSendTable;

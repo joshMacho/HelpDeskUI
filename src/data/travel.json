@@ -264,7 +264,7 @@
           "label": "List All Persons Covered By This Travel Insurance Policy",
           "addButtonLabel": "Add Person",
           "removeButtonLabel": "Remove",
-          "minItems": 0,
+          "minItems": 1,
           "itemSchema": {
             "type": "object",
             "fields": [

@@ -20,6 +20,17 @@ function App() {
   return (
     <ConfigProvider>
       <Layout className="layout">
+        {/* <Sider
+          theme="light"
+          className="sidebar"
+          collapsed={settings.menuCollapse}
+          collapsible
+          trigger={null}
+          breakpoint="lg"
+          onBreakpoint={(broken) => {
+            if (broken) setCollapseWithValue(broken);
+          }}
+        > */}
         <Sider
           theme="light"
           className="sidebar"
@@ -27,6 +38,8 @@ function App() {
           collapsible
           trigger={null}
           breakpoint="lg"
+          collapsedWidth={0} // ← hides it completely instead of showing icons
+          zeroWidthTriggerStyle={{ display: "none" }} // ← hides the default burger Ant adds
           onBreakpoint={(broken) => {
             if (broken) setCollapseWithValue(broken);
           }}

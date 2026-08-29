@@ -277,6 +277,7 @@ export default function DevicesTable() {
         loading={devices.loading}
         rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
         dataSource={datasource}
+        scroll={{ x: "max-content" }}
       />
     </div>
   );

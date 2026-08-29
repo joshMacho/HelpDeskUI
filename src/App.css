@@ -9,14 +9,25 @@
 html,
 body,
 #root {
-  width: 100%;
+  margin: 0;
+  display: flex;
+  flex: 1;
+   width: 100%;
   height: 100%;
-  overflow-y: hidden;
 }
 
 body {
-  margin: 0;
+  width: 100dvw;
+  height: 100dvh;
+  /* overflow-y: hidden; */
   display: flex;
+}
+
+[data-theme="dark"] html,
+[data-theme="dark"] body,
+html[data-theme="dark"],
+body[data-theme="dark"] {
+  background-color: #202124;
 }
 
 .sidebar {
