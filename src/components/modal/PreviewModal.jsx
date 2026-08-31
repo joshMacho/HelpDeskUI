@@ -22,11 +22,11 @@ export default function PreviewModal({ open, cancel, preview, submit }) {
           </p>
         </div>
         <div className="preview-buttons">
-          <button onClick={() => preview()}>
+          <button onClick={(e) => preview(e)}>
             <DocumentText1 className="icnax" variant="Broken" />
             Preview
           </button>
-          <button onClick={() => submit()}>
+          <button onClick={(e) => submit(e)}>
             Submit
             <TickSquare className="icnax" variant="Broken" color="green" />
           </button>

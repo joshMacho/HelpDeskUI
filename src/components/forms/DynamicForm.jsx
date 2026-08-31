@@ -125,7 +125,8 @@ export default function DynamicForm({ schema }) {
     }
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
     console.log(preview);
     // console.log(`tokenData: `, tokenData);
     console.log("token: ", token);
@@ -223,8 +224,9 @@ export default function DynamicForm({ schema }) {
   //   }
   // };
 
-  const previewDoc = async () => {
+  const previewDoc = async (e) => {
     // Open tab immediately (must happen synchronously from click)
+    e.preventDefault();
     const newTab = window.open("", "_blank");
 
     try {

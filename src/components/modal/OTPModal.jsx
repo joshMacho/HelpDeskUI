@@ -118,7 +118,8 @@ export default function OTPModal({
   };
 
   // handle verify click
-  const handleVerify = async () => {
+  const handleVerify = async (e) => {
+    e.preventDefault();
     if (!isOtpComplete || expired || loading) return;
 
     try {
