@@ -34,17 +34,23 @@ export default function TokenProtectRoute({ children }) {
   const verifyToken = async () => {
     try {
       const response = await api.get(`/auth/proposal/verify?token=${token}`);
-      //console.log(`response: `, response);
+      console.log(`response: `, response);
       setTokenData(response.data.data);
       setValid(true);
     } catch (error) {
       console.log("ERROR HIT");
-      setError(error?.response?.data?.error || "Invalid token");
+      setError(error?.response?.data || "Invalid token");
       console.log(`error from verify: `, error);
       console.log(error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const viewSubmitted = async (proposal_id) => {
+    const previewUrl = `${import.meta.env.VITE_API_BASE_URL}/document/${proposal_id}/preview`;
+    console.log(previewUrl);
+    window.open(previewUrl, "_blank");
   };
 
   if (loading) {
@@ -63,7 +69,13 @@ export default function TokenProtectRoute({ children }) {
       >
         <div className="errorView">
           <Warning2 size={48} className="icnax" variant="Broken" />
-          <p>{error}</p>
+          <p>{error.error}</p>
+          <span
+            className="text-blue-400 hover:underline"
+            onClick={() => viewSubmitted(error?.proposal_id)}
+          >
+            View Document
+          </span>
         </div>
       </Modal>
     );

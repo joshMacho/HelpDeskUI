@@ -9,7 +9,13 @@ import {
   Typography,
 } from "antd";
 import dayjs from "dayjs";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import api from "../../api";
 import { toast } from "react-toastify";
 import {
@@ -52,6 +58,9 @@ const ProposalSendTable = forwardRef((props, ref) => {
     proposal_id: "",
     data: {},
   });
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [formData, setFormData] = useState([]);
@@ -63,6 +72,52 @@ const ProposalSendTable = forwardRef((props, ref) => {
     onChange: (newSelectedRowKeys, selected) => {
       setSelectedRowKeys(newSelectedRowKeys);
     },
+  };
+
+  // filter current page data as user types
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+
+    // clear search — restore normal paginated data
+    if (!term.trim()) {
+      setSearchResults([]);
+      return;
+    }
+
+    const localResults = formData.filter((item) =>
+      [
+        item.receipient_name,
+        item.proposal_name,
+        item.created_by,
+        item.proposal_link,
+      ].some((field) => field?.toLowerCase().includes(term.toLowerCase())),
+    );
+
+    setSearchResults(localResults);
+  };
+
+  // query the backend when user hits enter
+  const handleSearchEnter = async (e) => {
+    if (e.key !== "Enter") return;
+    const term = searchTerm.trim();
+    if (!term) return;
+
+    try {
+      setIsSearching(true);
+      const response = await api.get(
+        `/searchproposals?search=${encodeURIComponent(term)}&page=1&pageSize=${pagi.pageSize}`,
+      );
+      if (!response.data.success) {
+        messageApi.error(response?.data?.error || `Search failed`);
+        return;
+      }
+      setSearchResults(response.data.data);
+    } catch (error) {
+      console.log(`error from search: `, error);
+      toast.error(error?.response?.data?.error || `Error searching proposals`);
+    } finally {
+      setIsSearching(false);
+    }
   };
 
   const viewSubmitted = async (proposal_id) => {
@@ -303,8 +358,10 @@ const ProposalSendTable = forwardRef((props, ref) => {
     },
   ];
 
+  const activeData = searchTerm.trim() ? searchResults : formData;
+
   const dataSource = (
-    Array.isArray(formData) && formData.length > 0 ? formData : []
+    Array.isArray(activeData) && activeData.length > 0 ? activeData : []
   ).map((proposal) => ({
     key: proposal.pl_ID,
     pt_ID: proposal.pl_ID,
@@ -396,7 +453,16 @@ const ProposalSendTable = forwardRef((props, ref) => {
         <p>Proposals</p>
         <div className="table-actions">
           <div className="search-input-div">
-            <input type="text" id="sch" name="sch" placeholder="Search..." />
+            <input
+              type="text"
+              id="sch"
+              name="sch"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => handleSearch(e.target.value)}
+              onKeyDown={handleSearchEnter}
+            />
+            {isSearching && <LoadingOutlined className="icnax" />}
           </div>
           <button
             className="act-btn all-border btn-p-s"
@@ -412,7 +478,7 @@ const ProposalSendTable = forwardRef((props, ref) => {
         loading={tableLoading}
         // rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
         dataSource={dataSource}
-        pagination={pagi}
+        pagination={searchTerm.trim() ? false : pagi}
         onChange={(pagination) => {
           fetchProposals(pagination.current, pagination.pageSize);
         }}

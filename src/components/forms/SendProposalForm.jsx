@@ -34,7 +34,6 @@ export default function SendProposalForm({ onSuccess }) {
     },
     validationSchema: proposalLinkValidation,
     onSubmit: (values, { setSubmitting, resetForm }) => {
-      console.log(values);
       submitForm(values, setSubmitting, resetForm);
     },
   });

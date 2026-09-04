@@ -352,6 +352,23 @@
             "required": "Required"
           },
           "options": [{ "label": "I Accept", "value": "true" }]
+        },
+        {
+          "type": "info",
+          "content": "I consent to NSIA Insurance Company Limited contacting me via phone, email, or SMS to share information about other insurance products, tailored offers, and services that may benefit me. I understand I can opt out at any time.",
+          "variant": "decText"
+        },
+        {
+          "type": "radio",
+          "name": "concent",
+          "label": "",
+          "validation": {
+            "required": "Required"
+          },
+          "options":[
+            {"label": "YES", "value": "true"},
+            {"label": "NO", "value": "false"}
+          ]
         }
       ]
     }

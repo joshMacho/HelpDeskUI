@@ -7,10 +7,9 @@ import { message, Tabs } from "antd";
 import { useToken } from "../../TokenProtectRoute";
 import { useLocation } from "react-router-dom";
 import LoadingModal from "../LoadingModal";
-import { Children, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import OTPModal from "../modal/OTPModal";
 import PreviewModal from "../modal/PreviewModal";
-import { current } from "@reduxjs/toolkit";
 import { DocumentText1 } from "iconsax-reactjs";
 
 export default function DynamicForm({ schema }) {
@@ -23,57 +22,79 @@ export default function DynamicForm({ schema }) {
 
   const { watch, getValues, reset } = methods;
 
-  // useEffect(() => {
-  //   const savedDraft = localStorage.getItem(tokenData.proposal_id);
-  //   if (savedDraft) {
-  //     reset(JSON.parse(savedDraft));
-  //   }
-  // }, [reset]);
+  const [draftStatus, setDraftStatus] = useState(null); // null | "saving" | "saved" | "error"
+  const debounceTimer = useRef(null);
+  const isDirty = useRef(false); // tracks if user has made any changes
 
-  // useEffect(() => {
-  //   const subscription = watch((value) => {
-  //     localStorage.setItem(tokenData.proposal_id, JSON.stringify(value));
-  //   });
+  // save draft to backend
+  const saveDraftToBackend = useCallback(
+    async (values) => {
+      if (!tokenData?.proposal_id) return;
+      try {
+        setDraftStatus("saving");
+        await api.post(`/proposal/draft/${tokenData.proposal_id}`, {
+          token: tokenData.token,
+          draft: values,
+        });
 
-  //   return () => subscription.unsubscribe();
-  // }, [watch]);
+        setDraftStatus("saved");
+      } catch (error) {
+        console.error("Failed to save draft:", error);
+        setDraftStatus("error");
+      }
+    },
+    [tokenData?.proposal_id, token],
+  );
 
-  // useEffect(() => {
-  //   const savedDraft = localStorage.getItem(tokenData.proposal_id);
-  //   if (savedDraft) {
-  //     reset(JSON.parse(savedDraft));
-  //   }
-  // }, [reset]);
-
-  // 1. Restore saved form data
+  // 1. Restore draft from backend on mount
   useEffect(() => {
     if (!tokenData?.proposal_id) return;
 
-    const savedDraft = localStorage.getItem(tokenData?.proposal_id);
-
-    if (savedDraft) {
+    const loadDraft = async () => {
       try {
-        const parsedDraft = JSON.parse(savedDraft);
-
-        // console.log("Restoring draft:", parsedDraft);
-
-        reset(parsedDraft);
+        const response = await api.post(
+          `/proposal/drafts/${tokenData.proposal_id}`,
+          { token: tokenData.token },
+        );
+        if (response?.data?.success && response?.data?.draft) {
+          reset(response.data.draft);
+        }
       } catch (error) {
-        console.error("Failed to restore saved draft:", error);
+        console.error("Failed to load draft:", error);
       }
-    }
+    };
+
+    loadDraft();
   }, [tokenData?.proposal_id, reset]);
 
-  // 2. Save changes to localStorage
+  // 2. Watch form changes and debounce save to backend
   useEffect(() => {
     if (!tokenData?.proposal_id) return;
 
     const subscription = watch((value) => {
-      localStorage.setItem(tokenData?.proposal_id, JSON.stringify(value));
+      clearTimeout(debounceTimer.current);
+      debounceTimer.current = setTimeout(() => {
+        saveDraftToBackend(value);
+      }, 3000);
     });
 
-    return () => subscription.unsubscribe();
-  }, [watch, tokenData?.proposal_id]);
+    return () => {
+      subscription.unsubscribe();
+      clearTimeout(debounceTimer.current);
+    };
+  }, [watch, tokenData?.proposal_id, saveDraftToBackend]);
+
+  // 3. Delete draft from backend after successful submission
+  const clearDraft = useCallback(async () => {
+    if (!tokenData?.proposal_id) return;
+    try {
+      await api.delete(`/proposal/draft/${tokenData.proposal_id}`, {
+        params: { token },
+      });
+    } catch (error) {
+      console.error("Failed to clear draft:", error);
+    }
+  }, [tokenData?.proposal_id, tokenData?.token]);
 
   const [messageApi, context] = message.useMessage();
   const location = useLocation();
@@ -94,7 +115,6 @@ export default function DynamicForm({ schema }) {
 
   const handlePreview = (data) => {
     setPreview(data);
-    console.log(data);
     setOpenPreview(true);
   };
 
@@ -127,7 +147,6 @@ export default function DynamicForm({ schema }) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(preview);
     // console.log(`tokenData: `, tokenData);
     console.log("token: ", token);
     try {
@@ -156,7 +175,7 @@ export default function DynamicForm({ schema }) {
           `Error submitting form. Check connection / contact admin`,
       );
     } finally {
-      localStorage.removeItem("formDraft");
+      await clearDraft();
       setLoading(false);
     }
   };
