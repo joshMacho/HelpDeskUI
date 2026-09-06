@@ -4,9 +4,11 @@ import mailerApi from "../../api/mailer";
 import { message } from "antd";
 import { CloseCircle } from "iconsax-reactjs";
 import { toast } from "react-toastify";
+import { useToken } from "../../TokenProtectRoute";
 
 export default function FileField({ field, fieldName }) {
   const { setValue, watch } = useFormContext();
+  const { tokenData } = useToken();
 
   const [messageApi, context] = message.useMessage();
   const [uploading, setUploading] = useState(false);
@@ -23,7 +25,9 @@ export default function FileField({ field, fieldName }) {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await mailerApi.post(`/uploadfile`, formData);
+      const response = await mailerApi.post(`/uploadfile`, formData, {
+        headers: { Authorization: `Bearer ${tokenData?.token}` },
+      });
       console.log(response);
       const data = await response.data;
 
@@ -41,6 +45,7 @@ export default function FileField({ field, fieldName }) {
       setUploading(true);
       const response = await mailerApi.delete(`/deletes3file`, {
         data: { key: url },
+        headers: { Authorization: `Bearer ${tokenData?.token}` },
       });
       if (response?.data?.success) {
         messageApi.success(response?.data?.message);

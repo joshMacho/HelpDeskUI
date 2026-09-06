@@ -34,7 +34,7 @@ export default function TokenProtectRoute({ children }) {
   const verifyToken = async () => {
     try {
       const response = await api.get(`/auth/proposal/verify?token=${token}`);
-      console.log(`response: `, response);
+
       setTokenData(response.data.data);
       setValid(true);
     } catch (error) {

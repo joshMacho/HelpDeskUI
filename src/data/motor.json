@@ -67,6 +67,18 @@
           "label": "Insured Name",
           "fields": [
             {
+              "type": "select",
+              "name": "typeOfCustomer",
+              "label": "Customer type",
+              "validation": {
+                "required": "Select a customer type"
+              },
+              "options": [
+                {"label": "INDIVIDUAL", "value": "INDIVIDUAL"},
+                {"label": "CORPORATE", "value": "CORPORATE"}
+              ]
+            },
+            {
               "type": "text",
               "name": "firstName",
               "label": "First Name",
@@ -137,30 +149,12 @@
               }
             },
             {
-              "type": "select",
-              "name": "typeOfId",
-              "label": "Type of ID",
-              "validation": {
-                "required": "ID type is required"
-              },
-              "options": [
-                {
-                  "label": "Ghana Card",
-                  "value": "GHANA_CARD"
-                },
-                {
-                  "label": "TIN NUMBER",
-                  "value": "TIN_NUMBER"
-                }
-              ]
-            },
-            {
               "type": "text",
               "name": "idNumber",
               "label": "Valid National ID No",
               "showWhen": {
-                "field": "typeOfId",
-                "value": "GHANA_CARD"
+                "field": "$root.personalDetails.insuredName.typeOfCustomer",
+                "value": "INDIVIDUAL"
               },
               "validation": {
                 "required": "ID Number is required",
@@ -175,8 +169,8 @@
               "name": "idNumber",
               "label": "Valid TIN No",
               "showWhen": {
-                "field": "typeOfId",
-                "value": "TIN_NUMBER"
+                "field": "$root.personalDetails.insuredName.typeOfCustomer",
+                "value": "CORPORATE"
               },
               "validation": {
                 "required": "TIN Number is required",

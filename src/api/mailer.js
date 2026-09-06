@@ -5,16 +5,16 @@ const mailerApi = axios.create({
   withCredentials: true,
 });
 
-mailerApi.interceptors.request.use((config) => {
-  // get token from URL query params
-  const params = new URLSearchParams(window.location.search);
-  const token = params.get("token");
+// mailerApi.interceptors.request.use((config) => {
+//   // get token from URL query params
+//   const params = new URLSearchParams(window.location.search);
+//   const token = params.get("token");
 
-  if (token) {
-    // validate token with backend
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+//   if (token) {
+//     // validate token with backend
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// });
 
 export default mailerApi;
