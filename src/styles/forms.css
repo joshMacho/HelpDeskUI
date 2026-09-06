@@ -207,3 +207,25 @@
 .rad-opt {
   @apply dark:text-[#d7d7d7];
 }
+
+/* ===== SIGNATURE FIELD ===== */
+.signature-wrapper {
+  @apply flex flex-col gap-2 w-full;
+}
+
+.signature-canvas-div {
+  @apply w-full border rounded-md overflow-hidden
+  dark:border-[#3c3c3c] border-gray-300;
+}
+
+.signature-canvas {
+  @apply w-full bg-white dark:bg-[#1a1a1a];
+  display: block;
+  touch-action: none;
+}
+
+.signature-hint {
+  @apply text-xs text-center py-1
+  dark:text-neutral-500 text-gray-400
+  dark:border-t-[#3c3c3c] border-t border-gray-200;
+}

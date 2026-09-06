@@ -549,7 +549,16 @@
             {"label": "YES", "value": "true"},
             {"label": "NO", "value": "false"}
           ]
-        }
+        },
+        {
+  "type": "signature",
+  "name": "signature",
+  "label": "Applicant's Signature",
+  "validation": {
+    "required": "Signature is required"
+  }
+}
+
       ]
     }
   ]

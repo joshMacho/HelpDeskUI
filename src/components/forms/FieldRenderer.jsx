@@ -6,6 +6,7 @@ import { Select } from "antd";
 import FileField from "./FileField";
 import MultiSelectTable from "./MultiSelectTable";
 import StaticTable from "./StaticTable";
+import SignatureField from "./SignatureField";
 
 export default function FieldRenderer({ field, parentName }) {
   const {
@@ -267,6 +268,9 @@ export default function FieldRenderer({ field, parentName }) {
 
     case "staticTable":
       return <StaticTable field={field} name={name} />;
+
+    case "signature":
+      return <SignatureField field={field} name={name} />;
 
     default:
       return null;
