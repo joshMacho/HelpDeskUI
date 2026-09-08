@@ -65,17 +65,12 @@ export default function OTPModal({
     if (!/^\d*$/.test(value)) return;
 
     const newOtp = [...otp];
-    newOtp[index] = value.slice(-1); // only last digit
+    newOtp[index] = value.slice(-1);
     setOtp(newOtp);
 
     // move to the next input
     if (value && index < length - 1) {
       inputRef.current[index + 1].focus();
-    }
-
-    // if all filled -> trigger call back
-    if (newOtp.every((digit) => digit !== "")) {
-      onComplete?.(newOtp.join(""));
     }
   };
 
@@ -87,7 +82,7 @@ export default function OTPModal({
     }
   };
 
-  const handlePaste = async (e) => {
+  const handlePaste = (e) => {
     const pasteData = e.clipboardData.getData("text").slice(0, length);
     if (!/^\d+$/.test(pasteData)) return;
 
@@ -99,9 +94,6 @@ export default function OTPModal({
         inputRef.current[i].value = digit;
       }
     });
-
-    //onComplete?.(newOtp.join(""));
-    await handleVerify();
   };
 
   const isOtpComplete = otp.every((digit) => digit !== "");
@@ -118,8 +110,7 @@ export default function OTPModal({
   };
 
   // handle verify click
-  const handleVerify = async (e) => {
-    e.preventDefault();
+  const handleVerify = async () => {
     if (!isOtpComplete || expired || loading) return;
 
     try {
@@ -182,7 +173,7 @@ export default function OTPModal({
         </div>
         <div className="otp-button-div butt">
           <button
-            type="submit"
+            type="button"
             disabled={!isOtpComplete || expired || loading}
             onClick={handleVerify}
           >

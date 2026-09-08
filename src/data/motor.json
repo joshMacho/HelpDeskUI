@@ -81,6 +81,22 @@
             {
               "type": "text",
               "name": "firstName",
+              "label": "Company Name",
+              "validation": {
+                "required": "First Name is required",
+                "maxLength": {
+                  "value": 80,
+                  "message": "Length should be < 80"
+                }
+              },
+              "showWhen": {
+                "field": "typeOfCustomer",
+                "value": "CORPORATE"
+              }
+            },
+            {
+              "type": "text",
+              "name": "firstName",
               "label": "First Name",
               "validation": {
                 "required": "First Name is required",
@@ -88,6 +104,10 @@
                   "value": 80,
                   "message": "Length should be < 80"
                 }
+              },
+              "showWhen": {
+                "field": "typeOfCustomer",
+                "value": "INDIVIDUAL"
               }
             },
             {
@@ -95,7 +115,15 @@
               "name": "surname",
               "label": "Surname",
               "validation": {
-                "required": "Surname is required"
+                "required": "Surname is required",
+                "maxLength": {
+                  "value": 30,
+                  "message": "Should not be greater than 30 characters"
+                }
+              },
+              "showWhen": {
+                "field": "typeOfCustomer",
+                "value": "INDIVIDUAL"
               }
             }
           ]

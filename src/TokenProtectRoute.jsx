@@ -4,6 +4,7 @@ import api from "./api";
 import LoadingModal from "./components/LoadingModal";
 import { Modal } from "antd";
 import { Warning2 } from "iconsax-reactjs";
+import { toast } from "react-toastify";
 
 export const TokenContext = createContext();
 
@@ -34,7 +35,6 @@ export default function TokenProtectRoute({ children }) {
   const verifyToken = async () => {
     try {
       const response = await api.get(`/auth/proposal/verify?token=${token}`);
-
       setTokenData(response.data.data);
       setValid(true);
     } catch (error) {
@@ -47,10 +47,21 @@ export default function TokenProtectRoute({ children }) {
     }
   };
 
-  const viewSubmitted = async (proposal_id) => {
-    const previewUrl = `${import.meta.env.VITE_API_BASE_URL}/document/${proposal_id}/preview`;
-    console.log(previewUrl);
-    window.open(previewUrl, "_blank");
+  const viewSubmitted = async (proposal_id, token) => {
+    console.log(tokenData);
+    // const previewUrl = `${import.meta.env.VITE_API_BASE_URL}/document/${proposal_id}/preview`;
+    try {
+      const response = await api.post(`/document/${proposal_id}/view`, {
+        token,
+      });
+      if (!response?.data.success) toast.error(`error viewing form`);
+      window.open(response?.data?.url, "_blank");
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.error ||
+          `Network Error - Unable to view document`,
+      );
+    }
   };
 
   if (loading) {
@@ -72,7 +83,7 @@ export default function TokenProtectRoute({ children }) {
           <p>{error.error}</p>
           <span
             className="text-blue-400 hover:underline"
-            onClick={() => viewSubmitted(error?.proposal_id)}
+            onClick={() => viewSubmitted(error?.proposal_id, error?.token)}
           >
             View Document
           </span>

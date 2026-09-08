@@ -199,6 +199,31 @@ const ProposalSendTable = forwardRef((props, ref) => {
     }
   };
 
+  // const viewForm = async (proposal_id) => {
+  //   const newTab = window.open("", "_blank");
+
+  //   try {
+  //     const response = await api.post(`/viewdocument/${proposal_id}`);
+
+  //     if (!response.data.success) {
+  //       if (newTab) newTab.close();
+  //       return toast.error(response.data.error);
+  //     }
+
+  //     if (newTab) {
+  //       newTab.location.href = response.data.url;
+  //     }
+
+  //     toast.success("Proposal form opened");
+  //   } catch (error) {
+  //     if (newTab) newTab.close();
+
+  //     toast.error(
+  //       error?.response?.data?.error || "Error fetching proposal form",
+  //     );
+  //   }
+  // };
+
   // view form details in modal
   const viewDetails = async (proposal_id, proposal_name) => {
     setSchemaType(proposal_name);

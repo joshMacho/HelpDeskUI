@@ -204,9 +204,12 @@ export default function DynamicForm({ schema }) {
 
       // close modal
       setOpenOtp(false);
-
       // give a success message
       toast.success(response?.data?.message || `FORM SUBMITTED SUCCESSFULLY`);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       console.log(`Error submitting form request: `, error);
       return toast.error(
