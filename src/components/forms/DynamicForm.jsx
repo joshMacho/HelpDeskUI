@@ -175,7 +175,7 @@ export default function DynamicForm({ schema }) {
           `Error submitting form. Check connection / contact admin`,
       );
     } finally {
-      await clearDraft();
+      // await clearDraft();
       setLoading(false);
     }
   };

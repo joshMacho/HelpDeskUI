@@ -955,10 +955,7 @@
         {
   "type": "signature",
   "name": "signature",
-  "label": "Applicant's Signature",
-  "validation": {
-    "required": "Signature is required"
-  }
+  "label": "Applicant's Signature"
 }
 
       ]
