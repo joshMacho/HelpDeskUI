@@ -187,7 +187,7 @@
               "validation": {
                 "required": "ID Number is required",
                 "pattern": {
-                  "value": "^GHA-\\d{9}-\\d$",
+                  "value": "^[A-Z]{3}-\\d{9}-\\d$",
                   "message": "Ghana card shold be in the format GHA-XXXXXXXXX-X"
                 }
               }
@@ -482,9 +482,18 @@
                     }
                   },
                   {
-                    "type": "text",
-                    "name": "engineNo",
-                    "label": "Engine Number"
+                    "type": "select",
+                    "name": "isElectric",
+                    "label": "Propulsion / Fuel Type",
+                    "validation": {
+                      "required": "Fuel Type is required"
+                    },
+                    "options":[
+                      {"label": "FUEL", "value": "FUEL"},
+                      {"label": "ELECTRIC", "value": "ELECTRIC"},
+                      {"label": "HYBRID", "value": "HYBRID"},
+                      {"label": "OTHER", "value": "OTHER"}
+                    ]
                   },
                   {
                     "type": "text",

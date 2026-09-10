@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import { useFormContext, Controller } from "react-hook-form";
 
@@ -10,11 +10,28 @@ export default function SignatureField({ field, name }) {
   } = useFormContext();
 
   const sigCanvasRef = useRef(null);
+  const wrapperRef = useRef(null);
 
   const getNestedError = (errors, path) =>
     path.split(".").reduce((acc, part) => acc?.[part], errors);
 
   const fieldError = getNestedError(errors, name);
+
+  // sync canvas internal dimensions to actual rendered size on every mount
+  // this fixes the frozen/offset drawing after tab navigation
+  useEffect(() => {
+    if (!wrapperRef.current || !sigCanvasRef.current) return;
+
+    const canvas = sigCanvasRef.current.getCanvas();
+    const { width } = wrapperRef.current.getBoundingClientRect();
+
+    canvas.width = width;
+    canvas.height = 200;
+
+    // clear stale drawing after resize so coordinates are fresh
+    sigCanvasRef.current.clear();
+    setValue(name, null, { shouldValidate: false });
+  }, []);
 
   const handleEnd = () => {
     if (sigCanvasRef.current && !sigCanvasRef.current.isEmpty()) {
@@ -51,14 +68,13 @@ export default function SignatureField({ field, name }) {
         }}
         render={() => (
           <div className="signature-wrapper">
-            <div className="signature-canvas-div">
+            <div className="signature-canvas-div" ref={wrapperRef}>
               <SignatureCanvas
                 ref={sigCanvasRef}
                 onEnd={handleEnd}
                 penColor="black"
                 canvasProps={{
                   className: "signature-canvas",
-                  style: { width: "100%", height: "200px" },
                 }}
               />
               <p className="signature-hint">Sign in the box above</p>
@@ -75,9 +91,7 @@ export default function SignatureField({ field, name }) {
         )}
       />
 
-      {fieldError && (
-        <span className="danger">{fieldError.message}</span>
-      )}
+      {fieldError && <span className="danger">{fieldError.message}</span>}
     </div>
   );
 }

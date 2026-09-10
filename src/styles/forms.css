@@ -219,9 +219,11 @@
 }
 
 .signature-canvas {
-  @apply w-full bg-white dark:bg-[#1a1a1a];
+  @apply bg-white dark:bg-[#1a1a1a];
   display: block;
   touch-action: none;
+  width: 100%;
+  height: 200px;
 }
 
 .signature-hint {

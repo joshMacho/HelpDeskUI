@@ -67,11 +67,63 @@
           "label": "",
           "fields": [
             {
+              "type": "select",
+              "name": "typeOfCustomer",
+              "label": "Customer Type",
+              "validation":{
+                "required": "Customer Type is required"
+              },
+              "options":[
+              {"label": "INDIVIDUAL", "value": "INDIVIDUAL"},
+              {"label": "CORPORATE", "value": "CORPORATE"}
+              ]
+            },
+            {
               "type": "text",
-              "name": "fullName",
-              "label": "Full Name of Proposer",
+              "name": "firstName",
+              "label": "First Name",
               "validation": {
-                "required": "Full Name is required"
+                "required": "First Name is required",
+                "maxLength":{
+                  "value": 50,
+                  "message": "Length cannot be more than 50 characters"
+                }
+              },
+              "showWhen":{
+                "field": "typeOfCustomer",
+                "value": "INDIVIDUAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "firstName",
+              "label": "Company Name",
+              "validation": {
+                "required": "Company Name is required",
+                "maxLength":{
+                  "value": 100,
+                  "message": "Length cannot be more than 100 characters"
+                }
+              },
+              "showWhen":{
+                "field": "typeOfCustomer",
+                "value": "CORPORATE"
+              }
+            },
+            {
+              "type": "text",
+              "name": "surname",
+              "label": "Surname",
+              "validation": {
+                "required": "Surname is required",
+                "maxLength":{
+                  "value": 50,
+                  "message": "Length cannot be more than 50 characters"
+                }
+              },
+              "showWhen":{
+                "field": "typeOfCustomer",
+                "value": "INDIVIDUAL"
               }
             },
             {
@@ -118,6 +170,38 @@
                 "pattern": {
                   "value": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
                   "message": "Invalid email"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "idNumber",
+              "label": "Valid National ID No",
+              "showWhen": {
+                "field": "typeOfCustomer",
+                "value": "INDIVIDUAL"
+              },
+              "validation": {
+                "required": "ID Number is required",
+                "pattern": {
+                  "value": "^[A-Z]{3}-\\d{9}-\\d$",
+                  "message": "Ghana card shold be in the format GHA-XXXXXXXXX-X"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "idNumber",
+              "label": "Valid TIN No",
+              "showWhen": {
+                "field": "typeOfCustomer",
+                "value": "CORPORATE"
+              },
+              "validation": {
+                "required": "TIN Number is required",
+                "pattern": {
+                  "value": "^[PCGQV]00[A-Z0-9]{8}$",
+                  "message": "Tin Number should be in the format P00XXXXXXXX"
                 }
               }
             }
