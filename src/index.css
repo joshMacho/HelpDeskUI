@@ -92,11 +92,13 @@ span {
 }
 
 .loginform {
-  @apply mt-2 border border-[#d7d7d7] w-full h-full;
+  @apply mt-2 border border-[#d7d7d7] w-full h-full
+  dark:border-none
+  flex flex-col justify-between;
 }
 
 .login-button-div {
-  @apply mb-2 flex justify-center items-center mx-2;
+  @apply mb-2 flex-col justify-center items-center mx-2;
 }
 
 .login-label {
@@ -304,7 +306,7 @@ span {
 }
 
 .forgoten-pw {
-  @apply flex justify-center items-center;
+  @apply flex justify-center items-center  mt-2;
 }
 
 .forgoten-pw p {
@@ -639,7 +641,7 @@ span {
 }
 
 .label-div {
-  @apply h-full ;
+  @apply h-full;
 }
 
 .banner-div img {
@@ -652,4 +654,22 @@ span {
 
 .banner-div span {
   @apply ml-2 text-[14px]! dark:text-[#d7d7d7];
+}
+
+.logo-icon img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.microsoft-logo {
+  @apply w-5 h-5;
+}
+
+.login-header {
+  @apply flex flex-col justify-center items-center gap-2;
+}
+
+.login-header img {
+  @apply w-15 h-15;
 }

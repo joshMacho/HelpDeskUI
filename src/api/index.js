@@ -9,9 +9,13 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   const state = store.getState();
   const token = state.credentials?.token;
-  if (token) {
+
+  // Don't overwrite an Authorization header explicitly
+  // supplied by the request (e.g. Microsoft access token).
+  if (token && !config.headers.Authorization) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
   return config;
 });
 

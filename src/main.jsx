@@ -39,6 +39,11 @@ import LicenseAssignDetails from "./pages/LicenseAssignDetails.jsx";
 import FirePage from "./pages/proposalPages/FirePage.jsx";
 import HomeHousePage from "./pages/proposalPages/HomeHousePage.jsx";
 import TravelPage from "./pages/proposalPages/TravelPage.jsx";
+import { msalConfig } from "./api/authConfig.js";
+import { MsalProvider } from "@azure/msal-react";
+import { PublicClientApplication } from "@azure/msal-browser";
+
+const msalInstance = new PublicClientApplication(msalConfig);
 
 const router = createBrowserRouter(
   [
@@ -207,13 +212,38 @@ const router = createBrowserRouter(
   },
 );
 
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <Provider store={store}>
-      <ContextProvider>
-        <ToastContainer position="top-right" theme="dark" />
-        <RouterProvider router={router} />
-      </ContextProvider>
-    </Provider>
-  </StrictMode>,
-);
+// createRoot(document.getElementById("root")).render(
+//   <StrictMode>
+//     <MsalProvider instance={msalInstance}>
+//       <Provider store={store}>
+//         <ContextProvider>
+//           <ToastContainer position="top-right" theme="dark" />
+//           <RouterProvider router={router} />
+//         </ContextProvider>
+//       </Provider>
+//     </MsalProvider>
+//   </StrictMode>,
+// );
+
+async function startApp() {
+  try {
+    await msalInstance.initialize();
+    console.log("MSAL initialized successfully.");
+    createRoot(document.getElementById("root")).render(
+      <StrictMode>
+        <MsalProvider instance={msalInstance}>
+          <Provider store={store}>
+            <ContextProvider>
+              <ToastContainer position="top-right" theme="dark" />
+              <RouterProvider router={router} />
+            </ContextProvider>
+          </Provider>
+        </MsalProvider>
+      </StrictMode>,
+    );
+  } catch (error) {
+    console.error("Failed to initialize MSAL:", error);
+  }
+}
+
+startApp();

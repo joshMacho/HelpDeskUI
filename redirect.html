@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Microsoft Authentication</title>
+  </head>
+  <body>
+    <script type="module">
+      import { broadcastResponseToMainFrame } from "@azure/msal-browser/redirect-bridge";
+
+      broadcastResponseToMainFrame();
+    </script>
+  </body>
+</html>
