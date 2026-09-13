@@ -635,394 +635,114 @@
       "label": "PROPERTY DETAILS",
       "fields": [
         {
-          "type": "group",
-          "name": "pDetails",
+          "type": "staticTable",
+          "name": "contents",
           "label": "",
+          "columns": [
+            "Description of Property",
+            "Value",
+            "Additional Information"
+          ],
           "fields": [
+            { "key": "amount", "type": "number", "placeholder": "0.00" },
+            { "key": "desc", "type": "text", "placeholder": "Additional Info" }
+          ],
+          "rows": [
             {
-              "type": "info",
-              "content": "Building",
-              "variant": "descTb"
-            },
-            {
-              "type": "text",
-              "name": "buildingValue",
-              "label": "Value (GHS)",
-              "validation": {
-                "required": "Required",
-                "pattern": {
-                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
-                  "message": "Invalid value"
-                }
+              "label": "Building",
+              "value": "building",
+              "showWhen": {
+                "field": "$root.coverDetails.natureOfBuilding",
+                "value": ["COMMERCIAL", "RESIDENTIAL"]
               }
             },
             {
-              "type": "text",
-              "name": "buildingDesc",
-              "label": "Additional Information"
-            },
-            {
-              "type": "info",
-              "content": "Wall, fences & Gates",
-              "variant": "descTb",
+              "label": "Wall, Fences & Gates",
+              "value": "wall",
               "showWhen": {
                 "field": "$root.coverDetails.natureOfBuilding",
                 "value": "COMMERCIAL"
               }
             },
             {
-              "type": "text",
-              "name": "wallValue",
-              "label": "Value (GHS)",
-              "validation": {
-                "required": "Required",
-                "pattern": {
-                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
-                  "message": "Invalid value"
-                }
-              },
+              "label": "Office Equipment",
+              "value": "office",
               "showWhen": {
                 "field": "$root.coverDetails.natureOfBuilding",
                 "value": "COMMERCIAL"
               }
             },
             {
-              "type": "text",
-              "name": "wallDesc",
-              "label": "Additional Information",
+              "label": "Furniture, Fixtures & Fittings",
+              "value": "furniture",
               "showWhen": {
                 "field": "$root.coverDetails.natureOfBuilding",
                 "value": "COMMERCIAL"
               }
             },
             {
-              "type": "info",
-              "content": "Office Equipment",
-              "variant": "descTb",
+              "label": "Stock-in-Trade / Finished goods",
+              "value": "stockInTrade",
               "showWhen": {
                 "field": "$root.coverDetails.natureOfBuilding",
                 "value": "COMMERCIAL"
               }
             },
             {
-              "type": "text",
-              "name": "officeValue",
-              "label": "Value (GHS)",
-              "validation": {
-                "required": "Required",
-                "pattern": {
-                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
-                  "message": "Invalid value"
-                }
-              },
+              "label": "Stock of Raw Materials/Work-in-Progress",
+              "value": "stockOfRaw",
               "showWhen": {
                 "field": "$root.coverDetails.natureOfBuilding",
                 "value": "COMMERCIAL"
               }
             },
             {
-              "type": "text",
-              "name": "officeDesc",
-              "label": "Additional Information",
+              "label": "Plant & Machinery",
+              "value": "plant",
               "showWhen": {
                 "field": "$root.coverDetails.natureOfBuilding",
                 "value": "COMMERCIAL"
               }
             },
             {
-              "type": "info",
-              "content": "Furniture, Fixtures & Fittings",
-              "variant": "descTb",
+              "label": "Goods held in Trust or Commission",
+              "value": "goodsHeld",
               "showWhen": {
                 "field": "$root.coverDetails.natureOfBuilding",
                 "value": "COMMERCIAL"
               }
             },
             {
-              "type": "text",
-              "name": "furnitureValue",
-              "label": "Value (GHS)",
-              "validation": {
-                "required": "Required",
-                "pattern": {
-                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
-                  "message": "Invalid value"
-                }
-              },
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "furnitureDesc",
-              "label": "Additional Information",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-            {
-              "type": "info",
-              "content": "Stock-in-Trade / Finished goods",
-              "variant": "descTb",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "stockValue",
-              "label": "Value (GHS)",
-              "validation": {
-                "required": "Required",
-                "pattern": {
-                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
-                  "message": "Invalid value"
-                }
-              },
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "stockDesc",
-              "label": "Additional Information",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-            {
-              "type": "info",
-              "content": "Stock of Raw Materials/Work-in-Progress",
-              "variant": "descTb",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "stockRawValue",
-              "label": "Value (GHS)",
-              "validation": {
-                "required": "Required",
-                "pattern": {
-                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
-                  "message": "Invalid value"
-                }
-              },
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "stockRawDesc",
-              "label": "Additional Information",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-            {
-              "type": "info",
-              "content": "Plant & Machinery",
-              "variant": "descTb",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "plantValue",
-              "label": "Value (GHS)",
-              "validation": {
-                "required": "Required",
-                "pattern": {
-                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
-                  "message": "Invalid value"
-                }
-              },
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "plantDesc",
-              "label": "Additional Information",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-            {
-              "type": "info",
-              "content": "Goods held in Trust or Commission",
-              "variant": "descTb",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "goodsValue",
-              "label": "Value (GHS)",
-              "validation": {
-                "required": "Required",
-                "pattern": {
-                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
-                  "message": "Invalid value"
-                }
-              },
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "goodsDesc",
-              "label": "Additional Information",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "COMMERCIAL"
-              }
-            },
-
-            {
-              "type": "info",
-              "content": "Personal Effect & Content",
-              "variant": "descTb",
+              "label": "Personal Effect & Content",
+              "value": "personalEffect",
               "showWhen": {
                 "field": "$root.coverDetails.natureOfBuilding",
                 "value": "RESIDENTIAL"
               }
             },
             {
-              "type": "text",
-              "name": "personalValue",
-              "label": "Value (GHS)",
-              "validation": {
-                "required": "Required",
-                "pattern": {
-                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
-                  "message": "Invalid value"
-                }
-              },
+              "label": "Art Works",
+              "value": "artWorks",
               "showWhen": {
                 "field": "$root.coverDetails.natureOfBuilding",
                 "value": "RESIDENTIAL"
               }
             },
             {
-              "type": "text",
-              "name": "personalDesc",
-              "label": "Additional Information",
+              "label": "Jewelery",
+              "value": "jewelery",
               "showWhen": {
                 "field": "$root.coverDetails.natureOfBuilding",
                 "value": "RESIDENTIAL"
               }
             },
             {
-              "type": "info",
-              "content": "Art Works",
-              "variant": "descTb",
+              "label": "Any Other Propoerties to be Insured",
+              "value": "anyOther",
               "showWhen": {
                 "field": "$root.coverDetails.natureOfBuilding",
-                "value": "RESIDENTIAL"
+                "value": ["RESIDENTIAL", "COMMERCIAL"]
               }
-            },
-            {
-              "type": "text",
-              "name": "artValue",
-              "label": "Value (GHS)",
-              "validation": {
-                "required": "Required",
-                "pattern": {
-                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
-                  "message": "Invalid value"
-                }
-              },
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "RESIDENTIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "artDesc",
-              "label": "Additional Information",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "RESIDENTIAL"
-              }
-            },
-            {
-              "type": "info",
-              "content": "Jewelery",
-              "variant": "descTb",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "RESIDENTIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "jewelValue",
-              "label": "Value (GHS)",
-              "validation": {
-                "required": "Required",
-                "pattern": {
-                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
-                  "message": "Invalid value"
-                }
-              },
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "RESIDENTIAL"
-              }
-            },
-            {
-              "type": "text",
-              "name": "jewelDesc",
-              "label": "Additional Information",
-              "showWhen": {
-                "field": "$root.coverDetails.natureOfBuilding",
-                "value": "RESIDENTIAL"
-              }
-            },
-            {
-              "type": "info",
-              "content": "Any Other Propoerties to be Insured",
-              "variant": "descTb"
-            },
-            {
-              "type": "text",
-              "name": "anyOtherValue",
-              "label": "Value (GHS)",
-              "validation": {
-                "required": "Required",
-                "pattern": {
-                  "value": "^[0-9]+(\\.[0-9]{1,2})?$",
-                  "message": "Invalid value"
-                }
-              }
-            },
-            {
-              "type": "text",
-              "name": "anyOtherDesc",
-              "label": "Additional Information"
             }
           ]
         },
@@ -1042,17 +762,17 @@
           "name": "extend",
           "label": "Please indicate extension(s) / Add-on-cover required",
           "options": [
-            { "label": "TEMPORARY REMOVAL", "value": "TEMPORARY REMOVAL" },
-            { "label": "CAPITAL ADDITIONS", "value": "CAPITAL ADDITIONS" },
-            { "label": "DEBIS REMOVAL", "value": "DEBRIS REMOVAL" },
-            { "label": "PROFESSIONAL FEES", "value": "PROFESSIONAL FEES" },
+            { "label": "TEMPORARY REMOVAL", "value": "Temporary Removal" },
+            { "label": "CAPITAL ADDITIONS", "value": "Capital Additions" },
+            { "label": "DEBIS REMOVAL", "value": "Debris Removal" },
+            { "label": "PROFESSIONAL FEES", "value": "Professional Fees" },
             {
               "label": "CARE CUSTODY & CONTROL",
-              "value": "CARE CUSTODY & CONTROL"
+              "value": "CARE Custody & Control"
             },
             {
               "label": "REINSTATEMENT CONDITION",
-              "value": "REINSTATEMENT CONDITION"
+              "value": "Reinstatement Condition"
             }
           ]
         }

@@ -51,12 +51,29 @@ export default function ViewField({ field, data }) {
   // STATIC TABLE FIELDS
   if (field.type === "staticTable") {
     const tableData = data?.[field.name] || {};
-    const [col1, col2] = field.columns || ["Item", "Value"];
+    const hasMultipleFields =
+      Array.isArray(field.fields) && field.fields.length > 0;
 
-    const total = Object.values(tableData).reduce(
-      (sum, val) => sum + (parseFloat(val) || 0),
-      0,
-    );
+    // total — only sum number columns
+    const total = hasMultipleFields
+      ? field.fields
+          .filter((f) => f.type === "number")
+          .reduce((sum, col) => {
+            return (
+              sum +
+              Object.values(tableData).reduce((rowSum, rowVal) => {
+                return rowSum + (parseFloat(rowVal?.[col.key]) || 0);
+              }, 0)
+            );
+          }, 0)
+      : Object.values(tableData).reduce(
+          (sum, val) => sum + (parseFloat(val) || 0),
+          0,
+        );
+
+    const hasNumberColumn = hasMultipleFields
+      ? field.fields.some((f) => f.type === "number")
+      : true;
 
     return (
       <div className="space-y-2">
@@ -68,41 +85,68 @@ export default function ViewField({ field, data }) {
             <thead>
               <tr>
                 <th>#</th>
-                <th>{col1}</th>
-                <th>{col2}</th>
+                {(field.columns || ["Item", "Value"]).map((col, i) => (
+                  <th key={i}>{col}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
               {field.rows.map((row, index) => {
                 const rowKey = typeof row === "object" ? row.value : row;
                 const rowLabel = typeof row === "object" ? row.label : row;
-                const rowValue = tableData[rowKey];
+                const rowData = tableData[rowKey];
 
                 return (
                   <tr key={rowKey}>
                     <td>{index + 1}</td>
                     <td>{rowLabel}</td>
-                    <td>
-                      {rowValue
-                        ? parseFloat(rowValue).toLocaleString("en-GH", {
-                            minimumFractionDigits: 2,
-                          })
-                        : "-"}
-                    </td>
+
+                    {hasMultipleFields ? (
+                      field.fields.map((col) => (
+                        <td key={col.key}>
+                          {col.type === "number"
+                            ? rowData?.[col.key]
+                              ? parseFloat(rowData[col.key]).toLocaleString(
+                                  "en-GH",
+                                  {
+                                    minimumFractionDigits: 2,
+                                  },
+                                )
+                              : "-"
+                            : rowData?.[col.key] || "-"}
+                        </td>
+                      ))
+                    ) : (
+                      <td>
+                        {rowData
+                          ? parseFloat(rowData).toLocaleString("en-GH", {
+                              minimumFractionDigits: 2,
+                            })
+                          : "-"}
+                      </td>
+                    )}
                   </tr>
                 );
               })}
             </tbody>
-            <tfoot>
-              <tr>
-                <td colSpan={2} className="font-semibold">
-                  Total
-                </td>
-                <td className="font-semibold">
-                  {total.toLocaleString("en-GH", { minimumFractionDigits: 2 })}
-                </td>
-              </tr>
-            </tfoot>
+
+            {hasNumberColumn && (
+              <tfoot>
+                <tr>
+                  <td
+                    colSpan={field.columns ? field.columns.length : 2}
+                    className="font-semibold"
+                  >
+                    Total
+                  </td>
+                  <td className="font-semibold">
+                    {total.toLocaleString("en-GH", {
+                      minimumFractionDigits: 2,
+                    })}
+                  </td>
+                </tr>
+              </tfoot>
+            )}
           </table>
         </div>
       </div>
