@@ -40,17 +40,17 @@
               "validation": {
                 "required": "Select a period"
               },
-              "options":[
-                {"label": "1 Month", "value": "1 Month"},
-                 {"label": "2 Months", "value": "2 Months"},
-                  {"label": "3 Months", "value": "3 Months"},
-                   {"label": "4 Months", "value": "4 Months"},
-                    {"label": "5 Months", "value": "5 Months"},
-                     {"label": "6 Months", "value": "6 Months"},
-                      {"l abel": "7 Months", "value": "7 Months"},
-                       {"label": "8 Months", "value": "8 Months"},
-                        {"label": "9 Months", "value": "9 Months"},
-                         {"label": "1 Year", "value": "1 Year"}
+              "options": [
+                { "label": "1 Month", "value": "1 Month" },
+                { "label": "2 Months", "value": "2 Months" },
+                { "label": "3 Months", "value": "3 Months" },
+                { "label": "4 Months", "value": "4 Months" },
+                { "label": "5 Months", "value": "5 Months" },
+                { "label": "6 Months", "value": "6 Months" },
+                { "l abel": "7 Months", "value": "7 Months" },
+                { "label": "8 Months", "value": "8 Months" },
+                { "label": "9 Months", "value": "9 Months" },
+                { "label": "1 Year", "value": "1 Year" }
               ]
             }
           ]
@@ -74,8 +74,8 @@
                 "required": "Select a customer type"
               },
               "options": [
-                {"label": "INDIVIDUAL", "value": "INDIVIDUAL"},
-                {"label": "CORPORATE", "value": "CORPORATE"}
+                { "label": "INDIVIDUAL", "value": "INDIVIDUAL" },
+                { "label": "CORPORATE", "value": "CORPORATE" }
               ]
             },
             {
@@ -212,8 +212,29 @@
               "type": "date",
               "name": "dateOfBirth",
               "label": "Date of Birth",
+              "minAge": 18,
               "validation": {
                 "required": "Date of Birth is required"
+              },
+              "showWhen": {
+                "field": "$root.personalDetails.insuredName.typeOfCustomer",
+                "value": "INDIVIDUAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "dateOfBirth",
+              "label": "Year of Establishment",
+              "validation": {
+                "required": "Year of Establishment is required",
+                "pattern": {
+                  "value": "^\\d{4}$",
+                  "message": "Should be a year eg. 2005, 1992..."
+                }
+              },
+              "showWhen": {
+                "field": "$root.personalDetails.insuredName.typeOfCustomer",
+                "value": "CORPORATE"
               }
             },
             {
@@ -305,9 +326,9 @@
             { "label": "Bought", "value": false }
           ],
           "showWhen": {
-                      "field": "$root.preferredCover.typeOfCover",
-                      "value": "Comprehensive"
-                    }
+            "field": "$root.preferredCover.typeOfCover",
+            "value": "Comprehensive"
+          }
         }
       ]
     },
@@ -488,11 +509,13 @@
                     "validation": {
                       "required": "Fuel Type is required"
                     },
-                    "options":[
-                      {"label": "FUEL", "value": "FUEL"},
-                      {"label": "ELECTRIC", "value": "ELECTRIC"},
-                      {"label": "HYBRID", "value": "HYBRID"},
-                      {"label": "OTHER", "value": "OTHER"}
+                    "options": [
+                      { "label": "PETROL", "value": "PETROL" },
+                      { "label": "DIESEL", "value": "DIESEL" },
+                      { "label": "GAS", "value": "GAS" },
+                      { "label": "ELECTRIC", "value": "ELECTRIC" },
+                      { "label": "HYBRID", "value": "HYBRID" },
+                      { "label": "OTHER", "value": "OTHER" }
                     ]
                   },
                   {
@@ -899,7 +922,7 @@
         },
         {
           "type": "radio",
-          "label": "Have you ever made a motor calim against any Insurance company?",
+          "label": "Have you ever made a motor claim against any Insurance company?",
           "name": "motorClaim",
           "validation": {
             "required": "Required"
@@ -956,17 +979,16 @@
           "validation": {
             "required": "Required"
           },
-          "options":[
-            {"label": "YES", "value": "true"},
-            {"label": "NO", "value": "false"}
+          "options": [
+            { "label": "YES", "value": "true" },
+            { "label": "NO", "value": "false" }
           ]
         },
         {
-  "type": "signature",
-  "name": "signature",
-  "label": "Applicant's Signature"
-}
-
+          "type": "signature",
+          "name": "signature",
+          "label": "Applicant's Signature"
+        }
       ]
     }
   ]

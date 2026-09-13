@@ -40,17 +40,17 @@
               "validation": {
                 "required": "Select a period"
               },
-              "options":[
-                {"label": "1 Month", "value": "1 Month"},
-                 {"label": "2 Months", "value": "2 Months"},
-                  {"label": "3 Months", "value": "3 Months"},
-                   {"label": "4 Months", "value": "4 Months"},
-                    {"label": "5 Months", "value": "5 Months"},
-                     {"label": "6 Months", "value": "6 Months"},
-                      {"label": "7 Months", "value": "7 Months"},
-                       {"label": "8 Months", "value": "8 Months"},
-                        {"label": "9 Months", "value": "9 Months"},
-                         {"label": "1 Year", "value": "1 Year"}
+              "options": [
+                { "label": "1 Month", "value": "1 Month" },
+                { "label": "2 Months", "value": "2 Months" },
+                { "label": "3 Months", "value": "3 Months" },
+                { "label": "4 Months", "value": "4 Months" },
+                { "label": "5 Months", "value": "5 Months" },
+                { "label": "6 Months", "value": "6 Months" },
+                { "label": "7 Months", "value": "7 Months" },
+                { "label": "8 Months", "value": "8 Months" },
+                { "label": "9 Months", "value": "9 Months" },
+                { "label": "1 Year", "value": "1 Year" }
               ]
             }
           ]
@@ -70,12 +70,12 @@
               "type": "select",
               "name": "typeOfCustomer",
               "label": "Customer Type",
-              "validation":{
+              "validation": {
                 "required": "Customer Type is required"
               },
-              "options":[
-              {"label": "INDIVIDUAL", "value": "INDIVIDUAL"},
-              {"label": "CORPORATE", "value": "CORPORATE"}
+              "options": [
+                { "label": "INDIVIDUAL", "value": "INDIVIDUAL" },
+                { "label": "CORPORATE", "value": "CORPORATE" }
               ]
             },
             {
@@ -84,12 +84,12 @@
               "label": "First Name",
               "validation": {
                 "required": "First Name is required",
-                "maxLength":{
+                "maxLength": {
                   "value": 50,
                   "message": "Length cannot be more than 50 characters"
                 }
               },
-              "showWhen":{
+              "showWhen": {
                 "field": "typeOfCustomer",
                 "value": "INDIVIDUAL"
               }
@@ -100,12 +100,12 @@
               "label": "Company Name",
               "validation": {
                 "required": "Company Name is required",
-                "maxLength":{
+                "maxLength": {
                   "value": 100,
                   "message": "Length cannot be more than 100 characters"
                 }
               },
-              "showWhen":{
+              "showWhen": {
                 "field": "typeOfCustomer",
                 "value": "CORPORATE"
               }
@@ -116,12 +116,12 @@
               "label": "Surname",
               "validation": {
                 "required": "Surname is required",
-                "maxLength":{
+                "maxLength": {
                   "value": 50,
                   "message": "Length cannot be more than 50 characters"
                 }
               },
-              "showWhen":{
+              "showWhen": {
                 "field": "typeOfCustomer",
                 "value": "INDIVIDUAL"
               }
@@ -203,6 +203,22 @@
                   "value": "^[PCGQV]00[A-Z0-9]{8}$",
                   "message": "Tin Number should be in the format P00XXXXXXXX"
                 }
+              }
+            },
+            {
+              "type": "text",
+              "name": "yearOfEst",
+              "label": "Year of Establishment",
+              "validation": {
+                "required": "Year of Establishment is required",
+                "pattern": {
+                  "value": "^\\d{4}$",
+                  "message": "Should be a year eg. 2005, 1992..."
+                }
+              },
+              "showWhen": {
+                "field": "typeOfCustomer",
+                "value": "CORPORATE"
               }
             }
           ]
@@ -1060,7 +1076,7 @@
           },
           "options": [{ "label": "I Accept", "value": true }]
         },
-       {
+        {
           "type": "info",
           "content": "I consent to NSIA Insurance Company Limited contacting me via phone, email, or SMS to share information about other insurance products, tailored offers, and services that may benefit me. I understand I can opt out at any time.",
           "variant": "decText"
@@ -1072,18 +1088,16 @@
           "validation": {
             "required": "Required"
           },
-          "options":[
-            {"label": "YES", "value": "true"},
-            {"label": "NO", "value": "false"}
+          "options": [
+            { "label": "YES", "value": "true" },
+            { "label": "NO", "value": "false" }
           ]
         },
         {
-  "type": "signature",
-  "name": "signature",
-  "label": "Applicant's Signature"
-  
-}
-
+          "type": "signature",
+          "name": "signature",
+          "label": "Applicant's Signature"
+        }
       ]
     }
   ]

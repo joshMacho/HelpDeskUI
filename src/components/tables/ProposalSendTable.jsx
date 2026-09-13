@@ -36,6 +36,7 @@ import LoadingModal from "../LoadingModal";
 import ViewFormModal from "../modal/ViewFormModal";
 import ProposalDetailsModal from "../modal/ProposalDetailsModal";
 import { io } from "socket.io-client";
+import { useSelector } from "react-redux";
 
 const ProposalSendTable = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
@@ -66,6 +67,7 @@ const ProposalSendTable = forwardRef((props, ref) => {
   const [formData, setFormData] = useState([]);
   const [messageApi, context] = message.useMessage();
   const [tableLoading, setTableLoading] = useState(false);
+  const user = useSelector((state) => state.credentials?.user?.role);
 
   const rowSelection = {
     selectedRowKeys,
@@ -325,26 +327,77 @@ const ProposalSendTable = forwardRef((props, ref) => {
               setOpenDropdownId(open ? record.pt_ID : null);
             }}
             menu={{
+              // items: [
+              //   {
+              //     key: "view-form",
+              //     label: (
+              //       <div
+              //         className="flex items-center gap-2 drop-in-div"
+              //         onClick={() => {
+              //           viewForm(record.pt_ID);
+              //           setOpenDropdownId(null);
+              //         }}
+              //       >
+              //         <DocumentText1
+              //           className="icnax"
+              //           variant="Broken"
+              //           size={16}
+              //         />
+              //         <span>Preview Form</span>
+              //       </div>
+              //     ),
+              //   },
+              //   {
+              //     key: "view-details",
+              //     label: (
+              //       <div
+              //         className="flex items-center gap-2"
+              //         onClick={() =>
+              //           viewDetails(record.pt_ID, record.proposal_name)
+              //         }
+              //       >
+              //         <Book className="incax" variant="Broken" size={16} />
+              //         View Proposal
+              //       </div>
+              //     ),
+              //   },
+              //   {
+              //     key: "submitted-document",
+              //     label: (
+              //       <div
+              //         className="flex items-center gap-2"
+              //         onClick={() => viewSubmitted(record.pt_ID)}
+              //       >
+              //         <Link1 className="icnax" variant="Broken" size={16} />
+              //         Submitted Document
+              //       </div>
+              //     ),
+              //   },
+              // ],
               items: [
-                {
-                  key: "view-form",
-                  label: (
-                    <div
-                      className="flex items-center gap-2 drop-in-div"
-                      onClick={() => {
-                        viewForm(record.pt_ID);
-                        setOpenDropdownId(null);
-                      }}
-                    >
-                      <DocumentText1
-                        className="icnax"
-                        variant="Broken"
-                        size={16}
-                      />
-                      <span>Preview Form</span>
-                    </div>
-                  ),
-                },
+                ...(user === "admin"
+                  ? [
+                      {
+                        key: "view-form",
+                        label: (
+                          <div
+                            className="flex items-center gap-2 drop-in-div"
+                            onClick={() => {
+                              viewForm(record.pt_ID);
+                              setOpenDropdownId(null);
+                            }}
+                          >
+                            <DocumentText1
+                              className="icnax"
+                              variant="Broken"
+                              size={16}
+                            />
+                            <span>Preview Form</span>
+                          </div>
+                        ),
+                      },
+                    ]
+                  : []),
                 {
                   key: "view-details",
                   label: (

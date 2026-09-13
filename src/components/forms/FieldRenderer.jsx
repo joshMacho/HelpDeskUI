@@ -143,6 +143,18 @@ export default function FieldRenderer({ field, parentName }) {
                       return `Date cannot be later than ${maxDate}`;
                     }
                   }
+                  // age validation
+                  if (field.minAge) {
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+
+                    const minAgeDate = new Date(today);
+                    minAgeDate.setFullYear(today.getFullYear() - field.minAge);
+
+                    if (selected > minAgeDate) {
+                      return `Must be at least ${field.minAge} years old`;
+                    }
+                  }
 
                   return true;
                 },
