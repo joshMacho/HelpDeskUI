@@ -186,6 +186,7 @@ export default function AssignTable() {
         loading={tableLoading}
         rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
         dataSource={dataSource}
+        scroll={{ x: "max-content" }}
       />
     </div>
   );

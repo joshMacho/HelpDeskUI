@@ -47,10 +47,6 @@
   border-[#d7d7d7]! h-full relative;
 }
 
-.search-input-div input {
-  @apply text-[16px]!;
-}
-
 .select-div {
   @apply flex flex-col w-full bg-transparent!
   dark:border-transparent! border-1 border-[#d7d7d7]!
@@ -75,7 +71,7 @@
 }
 
 .search-input-div input {
-  @apply px-4 text-[14px]! w-full my-1! dark:caret-white! dark:text-[#d7d7d7]!;
+  @apply px-4 text-[16px]! w-full my-1! dark:caret-white! dark:text-[#d7d7d7]!;
 }
 
 .input-div input::placeholder,

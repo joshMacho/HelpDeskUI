@@ -9,6 +9,7 @@ import LoadingModal from "../components/LoadingModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setInfo, setTrail } from "../redux/trailSlice";
 import dayjs from "dayjs";
+import AssignDetailsModal from "../components/modal/AssignDetailsModal";
 
 export default function DeviceTrailPage() {
   const trail = useSelector((state) => state.trail);
@@ -32,6 +33,10 @@ export default function DeviceTrailPage() {
   const [selected, setSelected] = useState([]);
   const [search, setSearch] = useState("");
   const [debounced, setDebounced] = useState("");
+  const [trailDetails, setTrailDetails] = useState({
+    open: false,
+    id: "",
+  });
 
   // use effect for the debounce
   useEffect(() => {
@@ -143,6 +148,11 @@ export default function DeviceTrailPage() {
     }
   };
 
+  // handle trail click
+  const handleTrailClick = (item) => {
+    setTrailDetails({ open: true, id: item.id });
+  };
+
   // time line items
   const timelineItems = (
     Array.isArray(trail.data) && trail.data.length > 0 ? trail.data : []
@@ -150,7 +160,7 @@ export default function DeviceTrailPage() {
     key: item.id,
     label: dayjs(item.date_assigned).format("D MMMM, YYYY HH:mm"),
     children: (
-      <>
+      <div onClick={() => handleTrailClick(item)}>
         <div className="time-desc">
           <strong className="time-label">Device: </strong>{" "}
           {` ${item.assigned_device}`}
@@ -163,7 +173,7 @@ export default function DeviceTrailPage() {
           <strong className="time-label">Assigned By:</strong>
           {` ${item.created_by}`}
         </div>
-      </>
+      </div>
     ),
   }));
 
@@ -173,6 +183,13 @@ export default function DeviceTrailPage() {
   return (
     <div className="main-page">
       {content}
+      {trailDetails.open && (
+        <AssignDetailsModal
+          open={trailDetails.open}
+          close={() => setTrailDetails({ open: false, id: "" })}
+          info={trailDetails.id}
+        />
+      )}
       <div className="top-search-div xmargin">
         <div className="actions-div xmargin">
           <form method="POST" onSubmit={formik.handleSubmit} className="form2">

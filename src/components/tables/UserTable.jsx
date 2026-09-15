@@ -300,6 +300,7 @@ export default function UserTable() {
         rowSelection={Object.assign({ type: "checkbox" }, rowSelection)}
         dataSource={dataSource}
         sticky
+        scroll={{ x: "max-content" }}
         // scroll={{
         //   y: 150,
         // }}
