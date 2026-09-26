@@ -128,17 +128,17 @@
               "validation": {
                 "required": "Gender is required"
               },
-              "options":[
-                {"label": "MALE", "value": "Male"},
-                {"label": "FEMALE", "value": "Female"}
+              "options": [
+                { "label": "MALE", "value": "Male" },
+                { "label": "FEMALE", "value": "Female" }
               ]
             },
             {
               "type": "text",
               "name": "anyInjury",
               "label": "Any Injury / Chronic Illness",
-              "validation":{
-                "maxLength":{
+              "validation": {
+                "maxLength": {
                   "value": 100,
                   "message": "Length should not exceed 100 characters"
                 }
@@ -285,12 +285,12 @@
           "type": "radio",
           "name": "involvedInTrip",
           "label": "Are you involved in the Trip?",
-          "validation":{
+          "validation": {
             "required": "Required"
           },
-          "options":[
-            {"label": "YES", "value": "YES"},
-            {"label":  "NO", "value": "NO"}
+          "options": [
+            { "label": "YES", "value": "YES" },
+            { "label": "NO", "value": "NO" }
           ]
         },
         {
@@ -400,17 +400,47 @@
           "validation": {
             "required": "Required"
           },
-          "options":[
-            {"label": "YES", "value": "true"},
-            {"label": "NO", "value": "false"}
+          "options": [
+            { "label": "YES", "value": "true" },
+            { "label": "NO", "value": "false" }
           ]
         },
         {
-  "type": "signature",
-  "name": "signature",
-  "label": "Applicant's Signature"
-}
-
+          "type": "radio",
+          "name": "signOnBehalf",
+          "label": "Are you signing on behalf of applicant?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": "true" },
+            { "label": "NO", "value": "false" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "behalfName",
+          "label": "Name of person signing on behalf of the insurer",
+          "showWhen": {
+            "field": "signOnBehalf",
+            "value": "true"
+          },
+          "validation": {
+            "required": "Required if signing on behalf of",
+            "maxLength": {
+              "value": 50,
+              "message": "Length should not be more than 50 characters"
+            }
+          }
+        },
+        {
+          "type": "signature",
+          "name": "signature",
+          "label": "Applicant's Signature",
+          "validation": {
+            "required": "Signature is required"
+          }
+        }
       ]
     }
   ]

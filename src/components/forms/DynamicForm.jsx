@@ -18,6 +18,7 @@ export default function DynamicForm({ schema }) {
   const methods = useForm({
     defaultValues: {},
     mode: "onBlur",
+    shouldUnregister: true, // <- automatically unregisters field when they unmount
   });
 
   const { watch, getValues, reset } = methods;

@@ -212,8 +212,10 @@
 
 .signature-canvas-div {
   @apply w-full border rounded-md overflow-hidden
-  dark:border-[#3c3c3c] border-gray-300;
+   border-[var(--primary-blue-200)];
 }
+/* dark:border-[#3c3c3c] */
+/*  border-gray-300 */
 
 .signature-canvas {
   @apply bg-white dark:bg-[#1a1a1a];
