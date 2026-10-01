@@ -18,7 +18,7 @@ export default function DynamicForm({ schema }) {
   const methods = useForm({
     defaultValues: {},
     mode: "onBlur",
-    shouldUnregister: true, // <- automatically unregisters field when they unmount
+    // shouldUnregister: true, // <- automatically unregisters field when they unmount
   });
 
   const { watch, getValues, reset } = methods;
@@ -62,6 +62,11 @@ export default function DynamicForm({ schema }) {
         }
       } catch (error) {
         console.error("Failed to load draft:", error);
+      } finally {
+        // allow watch fires to settle after reset before enabling saves
+        setTimeout(() => {
+          isDirty.current = true;
+        }, 500);
       }
     };
 
@@ -73,6 +78,10 @@ export default function DynamicForm({ schema }) {
     if (!tokenData?.proposal_id) return;
 
     const subscription = watch((value) => {
+      if (!isDirty.current) {
+        return; // skip the first fire from reset/mount
+      }
+
       clearTimeout(debounceTimer.current);
       debounceTimer.current = setTimeout(() => {
         saveDraftToBackend(value);
@@ -345,7 +354,7 @@ export default function DynamicForm({ schema }) {
           length={6}
           onComplete={handleComplete}
           open={true}
-          duration={180}
+          duration={300}
           cancel={cancelWindow}
           resend={resend}
           data={tokenData}
