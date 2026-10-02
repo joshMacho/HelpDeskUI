@@ -433,7 +433,7 @@
                     "validation": {
                       "required": "Body type is required",
                       "maxLength": {
-                        "value": 15,
+                        "value": 20,
                         "message": "Characters should not exceed 20 characters"
                       }
                     }
