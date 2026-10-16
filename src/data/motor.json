@@ -546,6 +546,12 @@
                     "showWhen": {
                       "field": "$root.preferredCover.typeOfCover",
                       "value": ["Comprehensive", "Third Party, Fire & Theft"]
+                    },
+                    "validation": {
+                      "pattern": {
+                        "value": "^\\d{0,9}$",
+                        "message": "Should be a number not more than 9 digits"
+                      }
                     }
                   },
                   {
@@ -555,6 +561,13 @@
                     "showWhen": {
                       "field": "$root.preferredCover.typeOfCover",
                       "value": ["Comprehensive", "Third Party, Fire & Theft"]
+                    },
+                    "validation": {
+                      "required": "Vehicle value is required",
+                      "pattern": {
+                        "value": "^\\d{1,9}$",
+                        "message": "Should be a number not more than 9 digits"
+                      }
                     }
                   }
                 ]
