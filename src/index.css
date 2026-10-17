@@ -154,6 +154,10 @@ span {
    dark:text-[var(--nsia-gold)]!;
 }
 
+.red {
+  @apply text-red-500!;
+}
+
 .act-btn {
   @apply dark:text-[--dark-text-color]
   flex justify-center items-center dark:bg-[--dark-comp-color] dark:border-none

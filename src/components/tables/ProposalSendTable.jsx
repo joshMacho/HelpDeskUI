@@ -2,6 +2,7 @@ import {
   Dropdown,
   message,
   Modal,
+  Popconfirm,
   Spin,
   Table,
   Tag,
@@ -20,8 +21,10 @@ import api from "../../api";
 import { toast } from "react-toastify";
 import {
   Book,
+  CloseSquare,
   Copy,
   DocumentText1,
+  Edit2,
   Link1,
   More,
   Refresh,
@@ -37,6 +40,7 @@ import ViewFormModal from "../modal/ViewFormModal";
 import ProposalDetailsModal from "../modal/ProposalDetailsModal";
 import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
+import UpdateProposalModal from "../modal/UpdateProposalModal";
 
 const ProposalSendTable = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
@@ -68,6 +72,9 @@ const ProposalSendTable = forwardRef((props, ref) => {
   const [messageApi, context] = message.useMessage();
   const [tableLoading, setTableLoading] = useState(false);
   const user = useSelector((state) => state.credentials?.user?.role);
+  const [loader, setLoader] = useState(false);
+  const [updateModal, setUpdateModal] = useState(false);
+  const [recordToUpdate, setRecordToUpdate] = useState(null);
 
   const rowSelection = {
     selectedRowKeys,
@@ -138,9 +145,9 @@ const ProposalSendTable = forwardRef((props, ref) => {
       withCredentials: true,
     });
 
-    socket.on("proposal:submitted", ({ fullName, proposal }) => {
+    socket.on("proposal:submitted", async ({ fullName, proposal }) => {
       console.log("New submission received:", fullName);
-      fetchProposals(pagi.current, pagi.pageSize);
+      await fetchProposals(pagi.current, pagi.pageSize);
       messageApi.info(`${fullName} submitted ${proposal} proposal`);
     });
 
@@ -250,8 +257,39 @@ const ProposalSendTable = forwardRef((props, ref) => {
     }
   };
 
+  const deleteForm = async (proposal_id) => {
+    setLoader(true);
+    try {
+      const response = await api.post(`/auth/deleteform`, {
+        ids: [proposal_id],
+      });
+      if (!response?.data?.success) {
+        return messageApi.error(
+          response?.data?.error || `Unable to delete proposal form(s).`,
+        );
+      }
+      messageApi.success(
+        response?.data?.message || `Proposal form deleted successfully`,
+      );
+      await fetchProposals(pagi.current, pagi.pageSize);
+    } catch (error) {
+      console.log(error);
+      return messageApi.error(
+        error?.response?.data?.error || `Error deleting proposal form(s).`,
+      );
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  const updateDetails = async (record) => {
+    setRecordToUpdate(record.pt_ID);
+    setUpdateModal(true);
+  };
+
   const tableColumns = [
-    // { title: "ID", dataIndex: "pt_ID" },
+    { title: "ID", dataIndex: "pt_ID" },
+
     { title: "Customer Name", dataIndex: "receipient_name" },
     {
       title: "Link",
@@ -378,6 +416,32 @@ const ProposalSendTable = forwardRef((props, ref) => {
                 ...(user === "admin"
                   ? [
                       {
+                        key: "delete-form",
+                        label: (
+                          <Popconfirm
+                            title="Delete Form"
+                            description={`Are you sure you want to delete this form?`}
+                            onConfirm={() => deleteForm(record.pt_ID)}
+                            onCancel={() => setOpenDropdownId(null)}
+                            okButtonProps={{
+                              loading: loader,
+                              disabled: loader,
+                            }}
+                            okText="Delete Form"
+                            cancelText="Cancel"
+                          >
+                            <div className="flex items-center gap-2 drop-in-div">
+                              <CloseSquare
+                                className="icnax red"
+                                variant="Broken"
+                                size={16}
+                              />
+                              <span>Delete Form</span>
+                            </div>
+                          </Popconfirm>
+                        ),
+                      },
+                      {
                         key: "view-form",
                         label: (
                           <div
@@ -398,6 +462,18 @@ const ProposalSendTable = forwardRef((props, ref) => {
                       },
                     ]
                   : []),
+                {
+                  key: "update-details",
+                  label: (
+                    <div
+                      className="flex items-center gap-2"
+                      onClick={() => updateDetails(record)}
+                    >
+                      <Edit2 className="incax" variant="Broken" size={16} />
+                      Update Proposal
+                    </div>
+                  ),
+                },
                 {
                   key: "view-details",
                   label: (
@@ -509,6 +585,11 @@ const ProposalSendTable = forwardRef((props, ref) => {
     setPDetailsModal((prev) => ({ ...prev, open: false }));
   };
 
+  const closeUpdateModal = () => {
+    setUpdateModal(false);
+    setOpenDropdownId(null);
+  };
+
   return (
     <div className="">
       {context}
@@ -525,6 +606,14 @@ const ProposalSendTable = forwardRef((props, ref) => {
           open={pDetailsModal.open}
           close={() => closeDetailsModal()}
           info={pDetailsModal.proposal_id}
+        />
+      )}
+      {updateModal && (
+        <UpdateProposalModal
+          id={recordToUpdate}
+          open={updateModal}
+          onClose={closeUpdateModal}
+          onSuccess={() => setUpdateModal(false)}
         />
       )}
       <div className="comp-head-div">

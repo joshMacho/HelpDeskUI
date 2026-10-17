@@ -67,7 +67,8 @@
 }
 
 .input-div input {
-  @apply px-4 text-[16px]! w-full my-2! dark:caret-white! dark:text-[#d7d7d7]!;
+  @apply px-4 text-[16px]! w-full my-2! dark:caret-white! dark:text-[#d7d7d7]!
+  disabled:cursor-not-allowed disabled:opacity-50;
 }
 
 .search-input-div input {
