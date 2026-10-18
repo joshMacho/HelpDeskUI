@@ -764,7 +764,7 @@
           "options": [
             { "label": "TEMPORARY REMOVAL", "value": "Temporary Removal" },
             { "label": "CAPITAL ADDITIONS", "value": "Capital Additions" },
-            { "label": "DEBIS REMOVAL", "value": "Debris Removal" },
+            { "label": "DEBRIS REMOVAL", "value": "Debris Removal" },
             { "label": "PROFESSIONAL FEES", "value": "Professional Fees" },
             {
               "label": "CARE CUSTODY & CONTROL",
