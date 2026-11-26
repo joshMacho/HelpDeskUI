@@ -135,6 +135,20 @@
   @apply w-full;
 }
 
+.field-label-row {
+  @apply flex items-center gap-2 min-h-[24px];
+}
+
+.field-label-row .field-label {
+  @apply text-[14px] ml-2;
+}
+
+.inform-button {
+  @apply inline-flex items-center justify-center border-0 bg-transparent p-0 text-base
+  cursor-pointer text-[#5145bb] hover:text-[#30296f]
+  dark:text-[#a99fff] dark:hover:text-[#c1baff];
+}
+
 .heading {
   @apply text-[18px] font-bold;
 }

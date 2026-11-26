@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import { useFormContext, Controller } from "react-hook-form";
+import FieldLabel from "./FieldLabel";
 
 export default function SignatureField({ field, name }) {
   const {
@@ -49,7 +50,7 @@ export default function SignatureField({ field, name }) {
 
   return (
     <div className="form-input col-span-2">
-      <label className="field-label">{field.label}</label>
+      <FieldLabel field={field} />
 
       <Controller
         name={name}

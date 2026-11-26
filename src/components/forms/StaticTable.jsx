@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
+import FieldLabel from "./FieldLabel";
 
 export default function StaticTable({ field, name }) {
   const {
@@ -88,7 +89,7 @@ export default function StaticTable({ field, name }) {
 
   return (
     <div className="form-input col-span-2">
-      <label className="field-label">{field.label}</label>
+      <FieldLabel field={field} />
 
       <div className="multi-select-table-div">
         <table className="multi-select-table">

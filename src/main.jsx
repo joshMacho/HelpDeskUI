@@ -42,6 +42,9 @@ import TravelPage from "./pages/proposalPages/TravelPage.jsx";
 import { msalConfig } from "./api/authConfig.js";
 import { MsalProvider } from "@azure/msal-react";
 import { PublicClientApplication } from "@azure/msal-browser";
+import PublicLiabilityPage from "./pages/proposalPages/PublicLiabilityPage.jsx";
+import QuickQuotePage from "./pages/QuickQuotePage.jsx";
+import QuoteSetupPage from "./pages/QuoteSetupPage.jsx";
 
 const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -111,6 +114,10 @@ const router = createBrowserRouter(
                   path: "departments",
                   element: <DepartmentPage />,
                 },
+                {
+                  path: "quote-setup",
+                  element: <QuoteSetupPage />,
+                },
               ],
             },
 
@@ -145,6 +152,10 @@ const router = createBrowserRouter(
         {
           path: "proposal",
           element: <ProposalPage />,
+        },
+        {
+          path: "quotes",
+          element: <QuickQuotePage />,
         },
         {
           path: "licenses",
@@ -203,6 +214,14 @@ const router = createBrowserRouter(
       element: (
         <TokenProtectRoute>
           <TravelPage />
+        </TokenProtectRoute>
+      ),
+    },
+    {
+      path: "/public-liability",
+      element: (
+        <TokenProtectRoute>
+          <PublicLiabilityPage />
         </TokenProtectRoute>
       ),
     },

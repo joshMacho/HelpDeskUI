@@ -2,6 +2,7 @@ import {
   AimOutlined,
   BoxPlotFilled,
   BoxPlotOutlined,
+  CalculatorFilled,
   EnvironmentOutlined,
   SafetyOutlined,
   UserOutlined,
@@ -50,6 +51,11 @@ export default function SettingsPage() {
               key: "departments",
               icon: <BoxPlotOutlined />,
               label: <Link to="departments">Department</Link>,
+            },
+            {
+              key: "quote-setup",
+              icon: <CalculatorFilled />,
+              label: <Link to="quote-setup">Quote Setup</Link>,
             },
           ]}
         />

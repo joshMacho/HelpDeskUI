@@ -5,6 +5,7 @@ import { message } from "antd";
 import { CloseCircle } from "iconsax-reactjs";
 import { toast } from "react-toastify";
 import { useToken } from "../../TokenProtectRoute";
+import FieldLabel from "./FieldLabel";
 
 export default function FileField({ field, fieldName }) {
   const { setValue, watch } = useFormContext();
@@ -70,7 +71,7 @@ export default function FileField({ field, fieldName }) {
     <>
       {context}
       <div className="file-div">
-        <label>{field.label}</label>
+        <FieldLabel field={field} />
 
         <input
           ref={fileInputRef}

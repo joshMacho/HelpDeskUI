@@ -1,5 +1,6 @@
 import { Select } from "antd";
 import { Controller, useFormContext } from "react-hook-form";
+import FieldLabel from "./FieldLabel";
 
 export default function MultiSelectTable({ field, name }) {
   const {
@@ -29,7 +30,7 @@ export default function MultiSelectTable({ field, name }) {
 
   return (
     <div className="form-input col-span-2">
-      <label className="field-label">{field.label}</label>
+      <FieldLabel field={field} />
 
       {/* multiselect dropdown */}
       <div className="select-div">

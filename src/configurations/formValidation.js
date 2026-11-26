@@ -137,3 +137,9 @@ export const incidentReportValidation = Yup.object({
 export const incidentStatusValidation = Yup.object({
   state: Yup.number().required("State is required"),
 });
+
+export const productValidaiton = Yup.object({
+  product_name: Yup.string()
+    .required("Product name is required")
+    .min(3, "Product name must be at least 3 characters long"),
+});

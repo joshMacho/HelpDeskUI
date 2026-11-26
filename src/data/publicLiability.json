@@ -1,0 +1,636 @@
+{
+  "type": "object",
+  "sections": [
+    {
+      "name": "policyInfo",
+      "label": "POLICY DETAILS",
+      "fields": [
+        {
+          "type": "group",
+          "name": "policyInfo",
+          "label": "Policy Details",
+          "fields": [
+            {
+              "type": "select",
+              "name": "currency",
+              "label": "Currency",
+              "validation": {
+                "required": "Currency is required"
+              },
+              "options": [
+                { "label": "GHC", "value": "GHC" },
+                { "label": "EUR", "value": "EUR" },
+                { "label": "USD", "value": "USD" },
+                { "label": "GBP", "value": "GBP" }
+              ]
+            },
+            {
+              "type": "date",
+              "name": "startDate",
+              "label": "Start Date",
+              "minDate": "today",
+              "validation": {
+                "required": "Enter/Select a start date"
+              }
+            },
+            {
+              "type": "select",
+              "name": "period",
+              "label": "Period",
+              "validation": {
+                "required": "Select a period"
+              },
+              "options": [
+                { "label": "1 Month", "value": "1 Month" },
+                { "label": "2 Months", "value": "2 Months" },
+                { "label": "3 Months", "value": "3 Months" },
+                { "label": "4 Months", "value": "4 Months" },
+                { "label": "5 Months", "value": "5 Months" },
+                { "label": "6 Months", "value": "6 Months" },
+                { "label": "7 Months", "value": "7 Months" },
+                { "label": "8 Months", "value": "8 Months" },
+                { "label": "9 Months", "value": "9 Months" },
+                { "label": "1 Year", "value": "1 Year" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "personalDetails",
+      "label": "PERSONAL DETAILS",
+      "fields": [
+        {
+          "type": "group",
+          "name": "insuredDetails",
+          "label": "",
+          "fields": [
+            {
+              "type": "select",
+              "name": "typeOfCustomer",
+              "label": "Customer Type",
+              "inform": "Select a customer type, whether corporate or individual",
+              "validation": {
+                "required": "Field is required"
+              },
+              "options": [
+                { "label": "INDIVIDUAL", "value": "INDIVIDUAL" },
+                { "label": "CORPORATE", "value": "CORPORATE" }
+              ]
+            },
+            {
+              "type": "text",
+              "name": "firstName",
+              "label": "First Name",
+              "validation": {
+                "required": "First Name is required",
+                "maxLength": {
+                  "value": 50,
+                  "message": "length cannot be more than 50 characters"
+                }
+              },
+              "showWhen": {
+                "field": "typeOfCustomer",
+                "value": "INDIVIDUAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "firstName",
+              "label": "Company Name",
+              "validation": {
+                "required": "Company name is required",
+                "maxLength": {
+                  "value": 100,
+                  "message": "length cannot be more than 100 characters"
+                }
+              },
+              "showWhen": {
+                "field": "typeOfCustomer",
+                "value": "CORPORATE"
+              }
+            },
+            {
+              "type": "text",
+              "name": "surname",
+              "label": "Last Name",
+              "validation": {
+                "required": "Last Name is required",
+                "maxLength": {
+                  "value": 50,
+                  "message": "length cannot be more than 50 characters"
+                }
+              },
+              "showWhen": {
+                "field": "typeOfCustomer",
+                "value": "INDIVIDUAL"
+              }
+            },
+            {
+              "type": "text",
+              "name": "address",
+              "label": "Address",
+              "validation": {
+                "required": "Address is required"
+              }
+            },
+            {
+              "type": "text",
+              "name": "occupation",
+              "label": "Occupation / Business",
+              "validation": {
+                "required": "Occupation or Business required"
+              }
+            },
+            {
+              "type": "text",
+              "name": "contact",
+              "label": "Phone Number",
+              "validation": {
+                "required": "Phone number is required",
+                "pattern": {
+                  "value": "^(020|023|024|025|026|027|028|050|053|054|055|056|057|059)\\d{7}$",
+                  "message": "Only Valid Ghanaian Phone Number allowed."
+                },
+                "minLength": {
+                  "value": 10,
+                  "message": "Minimum 10 digits"
+                },
+                "maxLength": {
+                  "value": 10,
+                  "message": "Maximum 10 digits"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "email",
+              "label": "Email",
+              "validation": {
+                "pattern": {
+                  "value": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+                  "message": "Invalid email"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "idNumber",
+              "label": "Valid National ID No",
+              "showWhen": {
+                "field": "typeOfCustomer",
+                "value": "INDIVIDUAL"
+              },
+              "validation": {
+                "required": "ID Number is required",
+                "pattern": {
+                  "value": "^[A-Z]{3}-\\d{9}-\\d$",
+                  "message": "Ghana card shold be in the format GHA-XXXXXXXXX-X"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "idNumber",
+              "label": "Valid TIN No",
+              "showWhen": {
+                "field": "typeOfCustomer",
+                "value": "CORPORATE"
+              },
+              "validation": {
+                "required": "TIN Number is required",
+                "pattern": {
+                  "value": "^[PCGQV]00[A-Z0-9]{8}$",
+                  "message": "Tin Number should be in the format P00XXXXXXXX"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "policyDetails",
+      "label": "COVER DETAILS",
+      "fields": [
+        {
+          "type": "text",
+          "name": "operationOfWork",
+          "label": "Operations of work people in your business",
+          "inform": "Describe the work your business carries out and the people involved.",
+          "validation": {
+            "required": "This field is required",
+            "maxLength": {
+              "value": 150,
+              "message": "Charactes shouldn't be greater than 150"
+            }
+          }
+        },
+        {
+          "type": "text",
+          "name": "workPeople",
+          "label": "Number of work people",
+          "validation": {
+            "required": "This field is required",
+            "pattern": {
+              "value": "^[0-9]\\d*$",
+              "message": "Value has to be a whole number"
+            }
+          }
+        },
+        {
+          "type": "group",
+          "name": "anualWages",
+          "label": "",
+          "fields": [
+            {
+              "type": "info",
+              "content": "Anual Wages estimated to be paid to such workpeople (including working Director and Partner)",
+              "variant": "decText"
+            },
+            {
+              "type": "text",
+              "name": "forWorkPremises",
+              "label": "For work on your premises",
+              "validation": {
+                "pattern": {
+                  "value": "^[0-9]\\d*$",
+                  "message": "Value has to be a whole number"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "workAway",
+              "label": "For work away",
+              "validation": {
+                "pattern": {
+                  "value": "^[0-9]\\d*$",
+                  "message": "Value has to be a whole number"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "addressOfPremises",
+          "label": "Addresses of all Premises occupied or engaged used by you in connection with your business",
+          "inform": "List all addresses separated with a ,"
+        },
+        {
+          "type": "radio",
+          "name": "doYouSublet",
+          "label": "Do you let, sublet, any protion of any of the premises?",
+          "inform": "Do you rent out any portion of your premises?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": "YES" },
+            { "label": "NO", "value": "NO" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "doYouSubjectYes",
+          "label": "If so, please give details",
+          "validation": {
+            "required": "Required if above is Yes",
+            "maxLength": {
+              "value": 150,
+              "message": "Characters should not exceed 150"
+            }
+          },
+          "showWhen": {
+            "field": "doYouSublet",
+            "value": "YES"
+          }
+        },
+        {
+          "type": "radio",
+          "name": "doYouEngage",
+          "label": "Do you engage in work away from the premises?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": "YES" },
+            { "label": "NO", "value": "NO" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "doYouEngageYes",
+          "label": "If so, please give details",
+          "validation": {
+            "required": "Required if above is Yes",
+            "maxLength": {
+              "value": 60,
+              "message": "Characters should not exceed 150"
+            }
+          },
+          "showWhen": {
+            "field": "doYouEngage",
+            "value": "YES"
+          }
+        },
+        {
+          "type": "info",
+          "content": "Please give details of:",
+          "variant": "desT"
+        },
+        {
+          "type": "group",
+          "name": "detailsOf",
+          "label": "",
+          "fields": [
+            {
+              "type": "text",
+              "name": "allPower",
+              "label": "(a) All power operated lifts, hoists and cranes",
+              "inform": "N/A if not applicable",
+              "validation": {
+                "maxLength": {
+                  "value": 100,
+                  "message": "Characters should not exceed 100"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "mechPlant",
+              "label": "(b) Mechanical plant (other than fixed machinery",
+              "inform": "N/A if not applicable",
+              "validation": {
+                "maxLength": {
+                  "value": 100,
+                  "message": "Characters should not exceed 100"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "noOfCycles",
+              "label": "(c) Number of cycles",
+              "inform": "N/A if not applicable",
+              "validation": {
+                "pattern": {
+                  "value": "^[0-9]\\d*$",
+                  "message": "Should be a whole number"
+                },
+                "maxLength": {
+                  "value": 100,
+                  "message": "Characters should not exceed 100"
+                }
+              }
+            },
+            {
+              "type": "text",
+              "name": "explosives",
+              "label": "(d) Explosives, radio active materials and hazardous processes used in connection with your business",
+              "inform": "N/A if not applicable",
+              "validation": {
+                "maxLength": {
+                  "value": 100,
+                  "message": "Characters should not exceed 100"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "radio",
+          "name": "goodState",
+          "label": "Are your premises in a good state of repair and are all plain in servicable condition?",
+          "options": [
+            { "label": "YES", "value": "YES" },
+            { "label": "NO", "value": "NO" }
+          ],
+          "validation": {
+            "required": "Field is required"
+          }
+        },
+        {
+          "type": "radio",
+          "name": "subletWork",
+          "label": "Do you sublet work to other contractors",
+          "validation": {
+            "required": "Answer is required"
+          },
+          "options": [
+            { "label": "YES", "value": "YES" },
+            { "label": "NO", "value": "NO" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "subletNature",
+          "label": "Nature of work sublet",
+          "validation": {
+            "required": "Answer is required"
+          },
+          "showWhen": {
+            "field": "subletWork",
+            "value": "YES"
+          }
+        },
+        {
+          "type": "text",
+          "name": "estAmount",
+          "label": "Estimated amount of payments to sub-contractors",
+          "validation": {
+            "required": "Answer is required"
+          },
+          "showWhen": {
+            "field": "subletWork",
+            "value": "YES"
+          }
+        },
+        {
+          "type": "radio",
+          "name": "insureLiability",
+          "label": "Do you wish to insure your liability in respect of goods sold or supplied?",
+          "validation": {
+            "required": "Answer is required"
+          },
+          "options": [
+            { "label": "YES", "value": "YES" },
+            { "label": "NO", "value": "NO" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "insureLiabilityYes",
+          "label": "If so, please state nature of goods and estimated annual turnover?",
+          "validation": {
+            "required": "Answer is requred if above is Yes",
+            "maxLength": {
+              "value": 80,
+              "message": "Field should not exceed 80 characters"
+            }
+          },
+          "showWhen": {
+            "field": "insureLiability",
+            "value": "YES"
+          }
+        }
+      ]
+    },
+    {
+      "name": "insuranceHistory",
+      "label": "INSURANCE HISTORY",
+      "fields": [
+        {
+          "type": "radio",
+          "name": "previousInsured",
+          "label": "Have you previously been insured against Public liabilty?",
+          "options": [
+            { "label": "YES", "value": "YES" },
+            { "label": "NO", "value": "NO" }
+          ],
+          "validation": {
+            "required": "Answer is required"
+          }
+        },
+        {
+          "type": "text",
+          "name": "previousInsuredYes",
+          "label": "If so, name company",
+          "validation": {
+            "required": "Required if above is Yes",
+            "maxLength": {
+              "value": 80,
+              "message": "Should not be more than 80 characters"
+            }
+          },
+          "showWhen": {
+            "field": "previousInsured",
+            "value": "YES"
+          }
+        },
+        {
+          "type": "radio",
+          "name": "insuredNature",
+          "label": "Have you ever had insurance of this nature declined or cancelled or Subjected to  any special conditions by an Insurer?",
+          "validation": {
+            "required": "Answer is required"
+          },
+          "options": [
+            { "label": "YES", "value": "YES" },
+            { "label": "NO", "value": "NO" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "insuredNatureYes",
+          "label": "If so, please give details",
+          "validation": {
+            "maxLength": {
+              "value": 100,
+              "message": "Field should not exceed 100 characters"
+            }
+          },
+          "showWhen": {
+            "field": "insuredNature",
+            "value": "YES"
+          }
+        }
+      ]
+    },
+    {
+      "name": "coverLimits",
+      "label": "COVER LIMITS",
+      "fields": [
+        {
+          "type": "staticTable",
+          "name": "limits",
+          "label": "",
+          "columns": ["Indemnity Required", "Bodily Injury", "Property Damage"],
+          "fields": [
+            { "key": "bodilyAmount", "type": "number", "placeholder": "0.00" },
+            { "key": "propertyAmount", "type": "number", "placeholder": "0.00" }
+          ],
+          "rows": [
+            { "label": "Any One: Accident", "value": "bodilyInjury" },
+            { "label": "Any One: Year", "value": "propertyDamage" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "declaration",
+      "label": "DECLARATION",
+      "fields": [
+        {
+          "type": "info",
+          "content": "I/We declare that the above answers are true and agree that this proposal shall be the basis of the Contract between me/us and the NSIA INSURANCE CO. LTD. I/We agree to accept a policy in the usual form issued by the Company for this class of Insurance, and I/We agree to tender at the end of each period of insurance a statement of all wages actually paid, and to pay any additional premium on any wages paid in excess of the amount estimated above.",
+          "variant": "decText"
+        },
+        {
+          "type": "radio",
+          "name": "declaration",
+          "label": "",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [{ "label": "I Accept", "value": true }]
+        },
+        {
+          "type": "info",
+          "content": "I consent to NSIA Insurance Company Limited contacting me via phone, email, or SMS to share information about other insurance products, tailored offers, and services that may benefit me. I understand I can opt out at any time.",
+          "variant": "decText"
+        },
+        {
+          "type": "radio",
+          "name": "concent",
+          "label": "",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": "true" },
+            { "label": "NO", "value": "false" }
+          ]
+        },
+        {
+          "type": "radio",
+          "name": "signOnBehalf",
+          "label": "Are you signing on behalf of applicant?",
+          "validation": {
+            "required": "Required"
+          },
+          "options": [
+            { "label": "YES", "value": "true" },
+            { "label": "NO", "value": "false" }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "behalfName",
+          "label": "Name of person signing on behalf of the insurer",
+          "showWhen": {
+            "field": "signOnBehalf",
+            "value": "true"
+          },
+          "validation": {
+            "required": "Required if signing on behalf of",
+            "maxLength": {
+              "value": 50,
+              "message": "Length should not be more than 50 characters"
+            }
+          }
+        },
+        {
+          "type": "signature",
+          "name": "signature",
+          "label": "Applicant's Signature",
+          "validation": {
+            "required": "Signature is required"
+          }
+        }
+      ]
+    }
+  ]
+}

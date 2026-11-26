@@ -7,6 +7,7 @@ import FileField from "./FileField";
 import MultiSelectTable from "./MultiSelectTable";
 import StaticTable from "./StaticTable";
 import SignatureField from "./SignatureField";
+import FieldLabel from "./FieldLabel";
 import dayjs from "dayjs";
 
 export default function FieldRenderer({ field, parentName }) {
@@ -201,7 +202,7 @@ export default function FieldRenderer({ field, parentName }) {
 
       return (
         <div className="form-input">
-          <label className="field-label">{field.label}</label>
+          <FieldLabel field={field} />
           <div className="input-div">
             <Controller
               name={name}
@@ -273,7 +274,7 @@ export default function FieldRenderer({ field, parentName }) {
     case "number":
       return (
         <div className="form-input">
-          <label className="field-label">{field.label}</label>
+          <FieldLabel field={field} />
           <div className="input-div">
             <input type={field.type} {...register(name, validation)} />
             {fieldError && <span className="danger">{fieldError.message}</span>}
@@ -286,7 +287,7 @@ export default function FieldRenderer({ field, parentName }) {
     case "select":
       return (
         <div className="form-input col-span-1">
-          <label className="field-label">{field.label}</label>
+          <FieldLabel field={field} />
           <div className="select-div">
             <Controller
               key={field.name}
@@ -317,7 +318,7 @@ export default function FieldRenderer({ field, parentName }) {
       console.log("MULTI SELECT NAME:", name);
       return (
         <div className="form-input col-span-1">
-          <label>{field.label}</label>
+          <FieldLabel field={field} />
 
           <div className="select-div">
             <Controller
@@ -357,7 +358,7 @@ export default function FieldRenderer({ field, parentName }) {
       return (
         <div className="rad-div">
           {" "}
-          <label className="field-label">{field.label}</label>{" "}
+          <FieldLabel field={field} />{" "}
           {field.options.map((opt) => (
             <label key={opt.value} className="rad-lab">
               {" "}

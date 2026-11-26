@@ -1,6 +1,7 @@
 import { Menu } from "antd";
 import {
   BranchesOutlined,
+  CalculatorOutlined,
   FolderOpenOutlined,
   FormOutlined,
   LaptopOutlined,
@@ -64,6 +65,11 @@ function MenuList() {
       label: <Link to="/proposal">Proposal Form</Link>,
     },
     {
+      key: "quotes",
+      icon: <CalculatorOutlined />,
+      label: <Link to="/quotes">Quick Quotes</Link>,
+    },
+    {
       key: "settings",
       icon: <SettingOutlined />,
       disabled: !isStaff,
@@ -75,7 +81,10 @@ function MenuList() {
   const filteredMenuItems = isStaff
     ? menuItems
     : menuItems.filter(
-        (item) => item.key === "incidentReport" || item.key === "proposal",
+        (item) =>
+          item.key === "incidentReport" ||
+          item.key === "proposal" ||
+          item.key === "quotes",
       );
 
   return (
