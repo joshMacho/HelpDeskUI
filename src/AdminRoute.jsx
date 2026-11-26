@@ -1,6 +1,8 @@
+import { lazy } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
-import UnAuthorizedPage from "./pages/UnAuthorizedPage";
+
+const UnAuthorizedPage = lazy(() => import("./pages/UnAuthorizedPage.jsx"));
 
 export default function AdminRoute() {
   const credentials = useSelector((state) => state.credentials);

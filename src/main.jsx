@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { lazy, StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
@@ -7,44 +7,53 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import ErrorPage from "./pages/ErrorPage.jsx";
-import InventoryPage from "./pages/InventoryPage.jsx";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { ContextProvider } from "../AuthContext.jsx";
 import { ToastContainer } from "react-toastify";
 import { store } from "./redux/store.js";
-import Login from "./pages/Login.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
-import UsersPage from "./pages/UsersPage.jsx";
-import SettingsPage from "./pages/SettingsPage.jsx";
-import IncidentReportPage from "./pages/IncidentReportPage.jsx";
-import AssignPage from "./pages/AssignPage.jsx";
-import DeviceTrailPage from "./pages/DeviceTrailPage.jsx";
 import RoleRedirect from "./RoleRedirect.jsx";
-import PasswordResetPage from "./pages/PasswordResetPage.jsx";
-import License from "./pages/LicensePage.jsx";
-import LocationsPage from "./pages/LocationsPage.jsx";
-import IssuesPage from "./pages/IssuesPage.jsx";
-import DepartmentPage from "./pages/DepartmentPage.jsx";
-import ProposalPage from "./pages/ProposalPage.jsx";
-import LicenseAssignPage from "./pages/LicenseAssignPage.jsx";
-import MotorPage from "./pages/proposalPages/MotorPage.jsx";
 import TokenProtectRoute from "./TokenProtectRoute.jsx";
-import IncidentReportForm from "./components/forms/IncidentReportForm.jsx";
-import IssueDetailsPage from "./pages/IssueDetailsPage.jsx";
 import AdminRoute from "./AdminRoute.jsx";
-import UnAuthorizedPage from "./pages/UnAuthorizedPage.jsx";
-import LicenseView from "./pages/LicenseView.jsx";
-import LicenseAssignDetails from "./pages/LicenseAssignDetails.jsx";
-import FirePage from "./pages/proposalPages/FirePage.jsx";
-import HomeHousePage from "./pages/proposalPages/HomeHousePage.jsx";
-import TravelPage from "./pages/proposalPages/TravelPage.jsx";
 import { msalConfig } from "./api/authConfig.js";
 import { MsalProvider } from "@azure/msal-react";
 import { PublicClientApplication } from "@azure/msal-browser";
-import PublicLiabilityPage from "./pages/proposalPages/PublicLiabilityPage.jsx";
-import QuickQuotePage from "./pages/QuickQuotePage.jsx";
-import QuoteSetupPage from "./pages/QuoteSetupPage.jsx";
+import LoadingModal from "./components/LoadingModal.jsx";
+
+const ErrorPage = lazy(() => import("./pages/ErrorPage.jsx"));
+const InventoryPage = lazy(() => import("./pages/InventoryPage.jsx"));
+const Login = lazy(() => import("./pages/Login.jsx"));
+const UsersPage = lazy(() => import("./pages/UsersPage.jsx"));
+const SettingsPage = lazy(() => import("./pages/SettingsPage.jsx"));
+const IncidentReportPage = lazy(() => import("./pages/IncidentReportPage.jsx"));
+const AssignPage = lazy(() => import("./pages/AssignPage.jsx"));
+const DeviceTrailPage = lazy(() => import("./pages/DeviceTrailPage.jsx"));
+const PasswordResetPage = lazy(() => import("./pages/PasswordResetPage.jsx"));
+const License = lazy(() => import("./pages/LicensePage.jsx"));
+const LocationsPage = lazy(() => import("./pages/LocationsPage.jsx"));
+const IssuesPage = lazy(() => import("./pages/IssuesPage.jsx"));
+const DepartmentPage = lazy(() => import("./pages/DepartmentPage.jsx"));
+const ProposalPage = lazy(() => import("./pages/ProposalPage.jsx"));
+const LicenseAssignPage = lazy(() => import("./pages/LicenseAssignPage.jsx"));
+const MotorPage = lazy(() => import("./pages/proposalPages/MotorPage.jsx"));
+const IncidentReportForm = lazy(
+  () => import("./components/forms/IncidentReportForm.jsx"),
+);
+const IssueDetailsPage = lazy(() => import("./pages/IssueDetailsPage.jsx"));
+const LicenseView = lazy(() => import("./pages/LicenseView.jsx"));
+const LicenseAssignDetails = lazy(
+  () => import("./pages/LicenseAssignDetails.jsx"),
+);
+const FirePage = lazy(() => import("./pages/proposalPages/FirePage.jsx"));
+const HomeHousePage = lazy(
+  () => import("./pages/proposalPages/HomeHousePage.jsx"),
+);
+const TravelPage = lazy(() => import("./pages/proposalPages/TravelPage.jsx"));
+const PublicLiabilityPage = lazy(
+  () => import("./pages/proposalPages/PublicLiabilityPage.jsx"),
+);
+const QuickQuotePage = lazy(() => import("./pages/QuickQuotePage.jsx"));
+const QuoteSetupPage = lazy(() => import("./pages/QuoteSetupPage.jsx"));
 
 const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -254,7 +263,11 @@ async function startApp() {
           <Provider store={store}>
             <ContextProvider>
               <ToastContainer position="top-right" theme="dark" />
-              <RouterProvider router={router} />
+              <Suspense
+                fallback={<LoadingModal message="Loading page..." open />}
+              >
+                <RouterProvider router={router} />
+              </Suspense>
             </ContextProvider>
           </Provider>
         </MsalProvider>
